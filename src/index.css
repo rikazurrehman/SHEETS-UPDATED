@@ -94,3 +94,30 @@
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   }
 }
+
+/* Game animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-100px) rotate(10deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 5px currentColor);
+  }
+}
+
+/* Game controls feedback */
+.game-button:active {
+  transform: scale(0.95);
+}
+
