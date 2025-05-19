@@ -1,73 +1,103 @@
-# Welcome to your Lovable project
 
-## Project info
+# Gaming-Themed Portfolio Website
 
-**URL**: https://lovable.dev/projects/fec1cfd2-bdfe-4dcd-9346-dc780ef9e61a
+A modern, responsive portfolio website with a gaming-inspired aesthetic, built using React and Tailwind CSS.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Dark-themed UI with neon accents and gaming-inspired design elements
+- Responsive layout that works on mobile, tablet, and desktop
+- Interactive particle background animation
+- Portfolio project showcase with modal details
+- Skills visualization with progress bars
+- Functional contact form with validation
+- Smooth scrolling navigation
 
-**Use Lovable**
+## Technologies Used
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fec1cfd2-bdfe-4dcd-9346-dc780ef9e61a) and start prompting.
+- React
+- TypeScript
+- Tailwind CSS
+- React Router
+- Framer Motion (for animations)
+- Lucide React (for icons)
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v16 or newer)
+- npm or yarn
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd gaming-portfolio
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Start the development server
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-**Use GitHub Codespaces**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Customization
 
-## What technologies are used for this project?
+### Adding New Portfolio Projects
 
-This project is built with:
+To add new portfolio projects, edit the `src/data/portfolioData.ts` file. Each project follows this structure:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```typescript
+{
+  id: number,
+  title: string,
+  shortDescription: string,
+  fullDescription: string,
+  imageUrl: string,
+  tags: string[],
+  tools: string[],
+  highlights: string[],
+  link: string | null,
+  comingSoon: boolean
+}
+```
 
-## How can I deploy this project?
+### Customizing Colors
 
-Simply open [Lovable](https://lovable.dev/projects/fec1cfd2-bdfe-4dcd-9346-dc780ef9e61a) and click on Share -> Publish.
+The color scheme can be modified in the `tailwind.config.ts` file under the `theme.extend.colors.gaming` section.
 
-## Can I connect a custom domain to my Lovable project?
+### Updating Content
 
-Yes, you can!
+- Personal information can be updated in the respective component files
+- Social media links can be updated in the `Contact.tsx` and `Footer.tsx` components
+- Skills and their levels can be modified in the `Skills.tsx` component
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project can be deployed to any static site hosting service like Netlify, Vercel, or GitHub Pages.
+
+### Building for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## License
+
+This project is licensed under the MIT License
