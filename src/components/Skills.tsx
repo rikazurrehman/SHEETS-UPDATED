@@ -1,5 +1,6 @@
 
-import { Video, Boxes, Film, HeadphonesIcon, Monitor, ThreeDCubeSphere } from 'lucide-react';
+import { Video, Boxes, Film, HeadphonesIcon, Monitor } from 'lucide-react';
+import ThreeDCubeSphere from './ThreeDCubeSphere';
 
 const skills = [
   {
