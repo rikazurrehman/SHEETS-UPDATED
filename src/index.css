@@ -44,12 +44,24 @@
     @apply border-border;
   }
 
+  html {
+    @apply scroll-smooth;
+    cursor: none;
+  }
+
   body {
     @apply bg-gaming-dark text-foreground font-exo overflow-x-hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-orbitron tracking-wider;
+  }
+  
+  /* Hide default cursor for desktop */
+  @media (min-width: 768px) {
+    * {
+      cursor: none !important;
+    }
   }
 }
 
@@ -93,6 +105,76 @@
   .clip-path-slant {
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   }
+  
+  /* Custom cursor */
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+  }
+  
+  .cursor-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(56, 189, 248, 0.8);
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: top 0.3s ease-out, left 0.3s ease-out;
+  }
+  
+  .cursor-clicked {
+    width: 28px;
+    height: 28px;
+    background-color: rgba(16, 185, 129, 0.7);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
+  }
+  
+  .cursor-hover {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(139, 92, 246, 0.3);
+    backdrop-filter: blur(2px);
+  }
+  
+  /* Scroll animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .scroll-reveal-delay-1 {
+    transition-delay: 0.1s;
+  }
+  
+  .scroll-reveal-delay-2 {
+    transition-delay: 0.2s;
+  }
+  
+  .scroll-reveal-delay-3 {
+    transition-delay: 0.3s;
+  }
 }
 
 /* Game animations */
@@ -120,4 +202,3 @@
 .game-button:active {
   transform: scale(0.95);
 }
-

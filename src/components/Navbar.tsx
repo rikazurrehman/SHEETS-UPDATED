@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, FileText } from 'lucide-react';
 
 const navItems = [
@@ -15,6 +15,7 @@ const navItems = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -36,9 +37,24 @@ const Navbar = () => {
   }, []);
 
   // Close menu when clicking a link on mobile
-  const handleLinkClick = () => {
+  const handleLinkClick = (href: string) => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
+    }
+    
+    // Handle hash links within the same page
+    if (href.includes('#') && !href.startsWith('/')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (href.includes('#') && location.pathname === '/') {
+      // If we're already on the home page and clicking a hash link
+      const hashPart = href.split('#')[1];
+      const element = document.querySelector(`#${hashPart}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -65,7 +81,7 @@ const Navbar = () => {
               <Link
                 to={item.href}
                 className="text-white/80 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-0 after:bg-gaming-purple after:transition-all hover:after:w-full flex items-center gap-1"
-                onClick={handleLinkClick}
+                onClick={() => handleLinkClick(item.href)}
               >
                 {item.icon && <item.icon size={16} />}
                 {item.name}
@@ -94,7 +110,7 @@ const Navbar = () => {
                   <Link
                     to={item.href}
                     className="flex items-center gap-2 py-2 px-4 text-white/80 hover:text-white hover:bg-gaming-purple/20 rounded transition-colors"
-                    onClick={handleLinkClick}
+                    onClick={() => handleLinkClick(item.href)}
                   >
                     {item.icon && <item.icon size={16} />}
                     {item.name}

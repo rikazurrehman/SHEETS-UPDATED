@@ -45,13 +45,14 @@ const Skills = () => {
   return (
     <section id="skills" className="py-16 bg-gaming-dark relative">
       <div className="container mx-auto px-6">
-        <h2 className="text-2xl font-orbitron font-bold mb-12 text-center">Services & Skills</h2>
+        <h2 className="text-2xl font-orbitron font-bold mb-12 text-center gaming-gradient-text">Services & Skills</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill) => (
+          {skills.map((skill, index) => (
             <div 
               key={skill.name}
-              className="bg-gaming-darker/40 backdrop-blur-sm border-b border-white/10 p-4 transition-all hover:border-gaming-purple/20"
+              className={`bg-gaming-darker/40 backdrop-blur-sm border-b border-white/10 p-4 transition-all hover:border-gaming-purple/20 scroll-reveal scroll-reveal-delay-${index % 3 + 1}`}
+              data-scroll-reveal="true"
             >
               <div className="flex items-center mb-3">
                 <skill.icon className={`text-${skill.color} h-6 w-6 mr-3`} />

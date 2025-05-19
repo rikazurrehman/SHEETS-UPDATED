@@ -1,9 +1,10 @@
 
-import { useState } from 'react';
-import { Eye, X, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Eye, X, Play, Pause, Volume2, VolumeX, Boxes } from 'lucide-react';
 import portfolioData from '../data/portfolioData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import GamingAnimation from '../components/GamingAnimation';
 
 const Works = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -19,6 +20,7 @@ const Works = () => {
 
   const openProjectModal = (project: typeof portfolioData[0]) => {
     setSelectedProject(project);
+    setIsPlaying(false);
     document.body.style.overflow = 'hidden';
   };
 
@@ -35,24 +37,47 @@ const Works = () => {
   const toggleMute = () => {
     setIsMuted(!isMuted);
   };
+  
+  // Initialize scroll animations
+  useEffect(() => {
+    const scrollReveal = () => {
+      const revealElements = document.querySelectorAll('[data-scroll-reveal="true"]');
+      
+      revealElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        
+        if (rect.top <= windowHeight * 0.85) {
+          element.classList.add('active');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', scrollReveal);
+    // Initial check
+    setTimeout(scrollReveal, 100);
+    
+    return () => window.removeEventListener('scroll', scrollReveal);
+  }, [activeCategory]);
 
   return (
     <div className="min-h-screen bg-gaming-dark text-white">
+      <GamingAnimation />
       <Navbar />
       
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-3xl font-orbitron font-bold mb-8 text-center">My Works</h1>
+          <h1 className="text-3xl font-orbitron font-bold mb-8 text-center gaming-gradient-text">My Works</h1>
           
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {categories.map(category => (
+          <div className="flex flex-wrap justify-center gap-2 mb-8 scroll-reveal" data-scroll-reveal="true">
+            {categories.map((category, index) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-sm text-sm font-medium transition-all ${
+                className={`px-4 py-2 rounded-sm text-sm font-medium transition-all scroll-reveal-delay-${index % 3 + 1} ${
                   activeCategory === category 
-                    ? 'bg-gaming-purple text-white' 
+                    ? 'bg-gaming-purple text-white shadow-glow' 
                     : 'bg-gaming-darker hover:bg-gaming-purple/30 text-white/70'
                 }`}
               >
@@ -63,10 +88,12 @@ const Works = () => {
           
           {/* Projects Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => (
               <div 
                 key={project.id}
-                className="group relative overflow-hidden bg-gaming-darker border-b border-white/5"
+                className="group relative overflow-hidden bg-gaming-darker border-b border-white/5 card-hover scroll-reveal"
+                data-scroll-reveal="true"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Project Image */}
                 <div className="aspect-video overflow-hidden relative">
@@ -80,14 +107,8 @@ const Works = () => {
                   <div className="absolute bottom-2 left-2 bg-black/50 rounded-full p-1">
                     {project.mediaType === 'video' && <Play size={14} className="text-white" />}
                     {project.mediaType === 'audio' && <Volume2 size={14} className="text-white" />}
+                    {project.mediaType === '3d-model' && <Boxes size={14} className="text-white" />}
                   </div>
-                  
-                  {/* Coming Soon Badge */}
-                  {project.comingSoon && (
-                    <div className="absolute top-2 right-2 bg-gaming-purple/80 text-white text-xs px-2 py-0.5 rounded-sm">
-                      Soon
-                    </div>
-                  )}
                   
                   {/* Category Badge */}
                   <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-sm">
@@ -107,10 +128,9 @@ const Works = () => {
                   <button
                     onClick={() => openProjectModal(project)}
                     className="flex items-center text-xs text-white/80 hover:text-white"
-                    disabled={project.comingSoon}
                   >
                     <Eye size={14} className="mr-1" />
-                    {project.comingSoon ? 'Coming Soon' : 'View Project'}
+                    View Project
                   </button>
                 </div>
               </div>
@@ -121,12 +141,12 @@ const Works = () => {
       
       {/* Project Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
           <div 
-            className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh]"
+            className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh] neo-blur"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Media Content - Image, Video or Audio player */}
+            {/* Media Content - Image, Video, Audio, or 3D model */}
             <div className="relative bg-black">
               {selectedProject.mediaType === 'image' && (
                 <img 
@@ -178,6 +198,17 @@ const Works = () => {
                 </div>
               )}
               
+              {selectedProject.mediaType === '3d-model' && (
+                <div className="relative aspect-video bg-gaming-darker flex items-center justify-center">
+                  <iframe 
+                    src={selectedProject.mediaUrl} 
+                    title={selectedProject.title} 
+                    className="w-full h-[50vh]"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
+              
               {/* Close button */}
               <button 
                 onClick={closeProjectModal}
@@ -223,7 +254,7 @@ const Works = () => {
               </div>
               
               {/* Link button */}
-              {selectedProject.link && !selectedProject.comingSoon && (
+              {selectedProject.link && (
                 <div className="mt-4">
                   <a 
                     href={selectedProject.link} 

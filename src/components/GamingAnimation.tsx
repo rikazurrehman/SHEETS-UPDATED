@@ -48,8 +48,73 @@ const GamingAnimation: React.FC = () => {
     // Create elements periodically
     const interval = setInterval(createFloatingElement, 2000);
     
+    // Add custom cursor
+    const setupCustomCursor = () => {
+      // Don't add custom cursor on mobile devices
+      if (window.innerWidth < 768) return;
+      
+      const cursorElement = document.createElement('div');
+      cursorElement.className = 'custom-cursor hidden md:block';
+      document.body.appendChild(cursorElement);
+      
+      const cursorTrailElement = document.createElement('div');
+      cursorTrailElement.className = 'cursor-trail hidden md:block';
+      document.body.appendChild(cursorTrailElement);
+      
+      const updateCursor = (e: MouseEvent) => {
+        cursorElement.style.top = `${e.clientY}px`;
+        cursorElement.style.left = `${e.clientX}px`;
+        
+        setTimeout(() => {
+          cursorTrailElement.style.top = `${e.clientY}px`;
+          cursorTrailElement.style.left = `${e.clientX}px`;
+        }, 100);
+      };
+      
+      document.addEventListener('mousemove', updateCursor);
+      
+      document.addEventListener('mousedown', () => {
+        cursorElement.classList.add('cursor-clicked');
+      });
+      
+      document.addEventListener('mouseup', () => {
+        cursorElement.classList.remove('cursor-clicked');
+      });
+      
+      // Add hover effect to interactive elements
+      const addHoverEffect = () => {
+        const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
+        
+        interactiveElements.forEach(element => {
+          element.addEventListener('mouseenter', () => {
+            cursorElement.classList.add('cursor-hover');
+          });
+          
+          element.addEventListener('mouseleave', () => {
+            cursorElement.classList.remove('cursor-hover');
+          });
+        });
+      };
+      
+      // Wait for DOM to be fully loaded
+      setTimeout(addHoverEffect, 1000);
+      
+      return () => {
+        document.removeEventListener('mousemove', updateCursor);
+        if (cursorElement.parentNode) {
+          cursorElement.parentNode.removeChild(cursorElement);
+        }
+        if (cursorTrailElement.parentNode) {
+          cursorTrailElement.parentNode.removeChild(cursorTrailElement);
+        }
+      };
+    };
+    
+    const cleanupCursor = setupCustomCursor();
+    
     return () => {
       clearInterval(interval);
+      if (cleanupCursor) cleanupCursor();
     };
   }, []);
   
