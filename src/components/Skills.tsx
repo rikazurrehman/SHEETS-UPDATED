@@ -1,6 +1,5 @@
 
-import { Video, Boxes, Film, HeadphonesIcon, Monitor } from 'lucide-react';
-import ThreeDCubeSphere from './ThreeDCubeSphere';
+import { Video, Boxes, Film, HeadphonesIcon, Monitor, Cube3d } from 'lucide-react';
 
 const skills = [
   {
@@ -17,7 +16,7 @@ const skills = [
   },
   {
     name: '3D Modeling',
-    icon: ThreeDCubeSphere,
+    icon: Cube3d,
     level: 80,
     color: 'gaming-green'
   },

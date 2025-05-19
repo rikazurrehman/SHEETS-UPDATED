@@ -1,14 +1,15 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, FileText } from 'lucide-react';
 
 const navItems = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Portfolio', href: '#portfolio' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/#about' },
+  { name: 'Works', href: '/works' },
+  { name: 'Skills', href: '/#skills' },
+  { name: 'Contact', href: '/#contact' },
+  { name: 'Resume', href: '/resume', icon: FileText },
 ];
 
 const Navbar = () => {
@@ -61,12 +62,14 @@ const Navbar = () => {
         <ul className="hidden md:flex space-x-8 items-center">
           {navItems.map((item) => (
             <li key={item.name}>
-              <a
-                href={item.href}
-                className="text-white/80 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-0 after:bg-gaming-purple after:transition-all hover:after:w-full"
+              <Link
+                to={item.href}
+                className="text-white/80 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-0 after:bg-gaming-purple after:transition-all hover:after:w-full flex items-center gap-1"
+                onClick={handleLinkClick}
               >
+                {item.icon && <item.icon size={16} />}
                 {item.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -88,13 +91,14 @@ const Navbar = () => {
             <ul className="flex flex-col space-y-3">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className="block py-2 px-4 text-white/80 hover:text-white hover:bg-gaming-purple/20 rounded transition-colors"
+                  <Link
+                    to={item.href}
+                    className="flex items-center gap-2 py-2 px-4 text-white/80 hover:text-white hover:bg-gaming-purple/20 rounded transition-colors"
                     onClick={handleLinkClick}
                   >
+                    {item.icon && <item.icon size={16} />}
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
