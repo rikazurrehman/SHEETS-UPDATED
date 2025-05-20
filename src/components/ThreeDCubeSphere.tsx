@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { memo } from 'react';
 import { LucideProps } from 'lucide-react';
 
 const ThreeDCubeSphere: React.FC<LucideProps> = ({
@@ -30,4 +29,5 @@ const ThreeDCubeSphere: React.FC<LucideProps> = ({
   );
 };
 
-export default ThreeDCubeSphere;
+// Export as memoized component to prevent unnecessary re-renders
+export default memo(ThreeDCubeSphere);

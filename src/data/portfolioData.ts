@@ -1,4 +1,3 @@
-
 const portfolioData = [
   // Video Editing
   {
@@ -67,8 +66,8 @@ const portfolioData = [
     shortDescription: "Real estate development visualization",
     fullDescription: "Created comprehensive architectural visualization for a luxury real estate development, including exterior renders, interior walkthroughs, and an interactive virtual tour experience for potential buyers.",
     imageUrl: "https://images.unsplash.com/photo-1600607686527-6fb886090705",
-    mediaType: "3d-model",
-    mediaUrl: "https://sketchfab.com/models/e172df862b684f719781a4b6456e6aff/embed",
+    mediaType: "video",
+    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
     tags: ["Architecture", "Real Estate", "Virtual Tour"],
     tools: ["Blender", "Unreal Engine", "V-Ray"],
     highlights: [
@@ -76,7 +75,7 @@ const portfolioData = [
       "Interactive exploration",
       "High-detail modeling"
     ],
-    link: "https://sketchfab.com/3d-models/room-e172df862b684f719781a4b6456e6aff",
+    link: "#",
     comingSoon: false
   },
   
@@ -125,78 +124,78 @@ const portfolioData = [
     id: 7,
     title: "E-commerce Product Gallery",
     category: "Product Visualization",
-    shortDescription: "3D product visualization for online store",
-    fullDescription: "Developed a complete 3D product visualization system for an e-commerce platform, creating consistent, high-quality product renders across a diverse catalog of over 200 items, increasing conversion rate by 15%.",
+    shortDescription: "Product visualization for online store",
+    fullDescription: "Developed a complete product visualization system for an e-commerce platform, creating consistent, high-quality product videos across a diverse catalog of over 200 items, increasing conversion rate by 15%.",
     imageUrl: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
-    mediaType: "3d-model",
-    mediaUrl: "https://sketchfab.com/models/36cabdc6f8a84b2c9135215c92def130/embed",
+    mediaType: "video",
+    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
     tags: ["E-commerce", "Product Photography", "Catalog Development"],
-    tools: ["Blender", "Photoshop", "Lightroom"],
+    tools: ["Premiere Pro", "After Effects", "Photoshop"],
     highlights: [
       "Consistent lighting system",
       "Automated rendering pipeline",
       "360-degree product views"
     ],
-    link: "https://sketchfab.com/3d-models/free-low-poly-shoe-36cabdc6f8a84b2c9135215c92def130",
+    link: "#",
     comingSoon: false
   },
   {
     id: 8,
     title: "Packaging Design Visualization",
     category: "Product Visualization",
-    shortDescription: "Consumer product packaging concept renders",
-    fullDescription: "Created photorealistic visualizations for new packaging concepts across a consumer product line, allowing the marketing team to test customer reactions before committing to production costs.",
+    shortDescription: "Consumer product packaging concept videos",
+    fullDescription: "Created photorealistic video visualizations for new packaging concepts across a consumer product line, allowing the marketing team to test customer reactions before committing to production costs.",
     imageUrl: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
-    mediaType: "3d-model",
-    mediaUrl: "https://sketchfab.com/models/5c675d0681714f14bfa7bb3c70282112/embed",
+    mediaType: "video",
+    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
     tags: ["Packaging", "Product Design", "Concept Visualization"],
-    tools: ["Blender", "Substance Painter", "Photoshop"],
+    tools: ["Premiere Pro", "After Effects", "Photoshop"],
     highlights: [
       "Material accuracy simulation",
       "Multiple design variations",
       "Retail environment integration"
     ],
-    link: "https://sketchfab.com/3d-models/low-poly-shampoo-and-conditioner-bottle-5c675d0681714f14bfa7bb3c70282112",
+    link: "#",
     comingSoon: false
   },
   
-  // 3D Modeling
+  // 3D Modeling - Converted to Video Presentations
   {
     id: 9,
-    title: "Character Modeling Collection",
+    title: "Character Design Showcase",
     category: "3D Modeling",
-    shortDescription: "Stylized game character models",
-    fullDescription: "Designed and modeled a collection of 5 stylized characters for an indie game developer, including low-poly game-ready assets, high-resolution versions for marketing materials, and complete rigging for animation.",
+    shortDescription: "Video showcase of stylized game character models",
+    fullDescription: "Created a video showcase of 5 stylized characters for an indie game developer, including low-poly game-ready assets, high-resolution versions for marketing materials, and complete rigging for animation.",
     imageUrl: "https://images.unsplash.com/photo-1599824701954-6087a93a9bc1",
-    mediaType: "3d-model",
-    mediaUrl: "https://sketchfab.com/models/276016ab29d94cc8bbdae1c3fe9c6b01/embed",
+    mediaType: "video",
+    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
     tags: ["Character Design", "Game Assets", "Low-Poly"],
-    tools: ["Blender", "ZBrush", "Substance Painter"],
+    tools: ["Blender", "ZBrush", "Premiere Pro"],
     highlights: [
       "Efficient topology",
       "Game-optimized meshes",
       "Character design language"
     ],
-    link: "https://sketchfab.com/3d-models/polygon-knight-character-276016ab29d94cc8bbdae1c3fe9c6b01",
+    link: "#",
     comingSoon: false
   },
   {
     id: 10,
-    title: "Industrial Product Modeling",
+    title: "Industrial Product Animation",
     category: "3D Modeling",
-    shortDescription: "Precision industrial equipment modeling",
-    fullDescription: "Created highly detailed 3D models of industrial machinery components for a manufacturing client, used for technical documentation, assembly instructions, and marketing materials. Models included complex mechanical systems with animated components.",
+    shortDescription: "Video animation of industrial equipment",
+    fullDescription: "Created a detailed video animation of industrial machinery components for a manufacturing client, used for technical documentation, assembly instructions, and marketing materials. The video showcased complex mechanical systems with animated components.",
     imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12",
-    mediaType: "3d-model",
-    mediaUrl: "https://sketchfab.com/models/02334c45b86e403c8ac59fd1a7a96cbf/embed",
-    tags: ["Industrial", "Technical Modeling", "Engineering"],
-    tools: ["Blender", "AutoCAD", "KeyShot"],
+    mediaType: "video",
+    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    tags: ["Industrial", "Technical Animation", "Engineering"],
+    tools: ["Blender", "After Effects", "Premiere Pro"],
     highlights: [
       "Technical accuracy",
       "Mechanical animation",
       "Cross-section visualization"
     ],
-    link: "https://sketchfab.com/3d-models/low-poly-car-02334c45b86e403c8ac59fd1a7a96cbf",
+    link: "#",
     comingSoon: false
   }
 ];

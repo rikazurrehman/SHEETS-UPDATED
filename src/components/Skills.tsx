@@ -46,18 +46,18 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-10 bg-gaming-dark relative">
+    <section id="skills" className="py-8 bg-gaming-dark relative">
       {/* Background gradient elements */}
       <div className="absolute -top-10 left-0 w-full h-20 bg-gradient-to-r from-gaming-purple/20 via-gaming-blue/10 to-gaming-purple/20 blur-3xl opacity-30"></div>
       
       <div className="container mx-auto px-6">
         <h2 className="section-title text-center mb-4">Services & Skills</h2>
-        <p className="text-lg text-center text-white/70 max-w-3xl mx-auto mb-8">
+        <p className="text-lg text-center text-white/70 max-w-3xl mx-auto mb-6">
           I offer a range of creative services, combining technical expertise with artistic vision.
         </p>
         
         {/* Services Section - Using grid with icons as requested */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
           <div className="bg-gaming-darker/40 backdrop-blur-sm p-4 rounded-lg text-center hover:bg-gaming-purple/10 transition-colors">
             <div className="flex justify-center mb-2">
               <Video className="h-8 w-8 text-gaming-purple" />
@@ -104,7 +104,7 @@ const Skills = () => {
         </div>
         
         {/* Skills Progress Bars */}
-        <h3 className="text-xl font-orbitron text-center mb-6">My Expertise</h3>
+        <h3 className="text-xl font-orbitron text-center mb-4">My Expertise</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {skills.map((skill, index) => (
             <div 
@@ -137,8 +137,8 @@ const Skills = () => {
       </div>
       
       {/* Service highlights - more compact */}
-      <div className="container mx-auto px-6 mt-10">
-        <h3 className="text-xl font-orbitron text-center mb-6 gaming-gradient-text">What I Can Do For You</h3>
+      <div className="container mx-auto px-6 mt-8">
+        <h3 className="text-xl font-orbitron text-center mb-4 gaming-gradient-text">What I Can Do For You</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div className="bg-gaming-darker/50 border border-gaming-purple/20 rounded-lg p-5 flex flex-col items-center text-center transform transition-all hover:-translate-y-1 hover:shadow-glow">

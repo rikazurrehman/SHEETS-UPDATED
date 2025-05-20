@@ -7,21 +7,27 @@ const Particles: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
     // Set canvas to full window size
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Use devicePixelRatio for better performance on high-DPI screens
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
     };
     
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    // Particle properties - reduced count for performance
+    // Particle properties - further reduced count for better performance
     const particlesArray: any[] = [];
-    const numberOfParticles = Math.min(30, Math.floor(window.innerWidth / 40));
+    // Adjust particle count based on screen size and performance
+    const numberOfParticles = Math.min(20, Math.floor(window.innerWidth / 60));
     
     // Colors for particles
     const colors = ['#8B5CF6', '#38BDF8', '#10B981'];
@@ -33,7 +39,6 @@ const Particles: React.FC = () => {
       speedX: number;
       speedY: number;
       color: string;
-      blur: number;
       opacity: number;
       gridX: number;
       gridY: number;
@@ -41,12 +46,11 @@ const Particles: React.FC = () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.3 - 0.15;
-        this.speedY = Math.random() * 0.3 - 0.15;
+        this.size = Math.random() * 1.5 + 0.5; // Slightly smaller particles
+        this.speedX = Math.random() * 0.2 - 0.1; // Slower movement
+        this.speedY = Math.random() * 0.2 - 0.1;
         this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.blur = Math.random() * 1.5 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.opacity = Math.random() * 0.4 + 0.2; // Reduced opacity
         // Grid position for spatial partitioning
         this.gridX = 0;
         this.gridY = 0;
@@ -62,9 +66,9 @@ const Particles: React.FC = () => {
         if (this.y > canvas.height) this.y = 0;
         else if (this.y < 0) this.y = canvas.height;
         
-        // Update grid position
-        this.gridX = Math.floor(this.x / 150);
-        this.gridY = Math.floor(this.y / 150);
+        // Update grid position - using larger grid cells for fewer checks
+        this.gridX = Math.floor(this.x / 200);
+        this.gridY = Math.floor(this.y / 200);
       }
 
       draw() {
@@ -86,8 +90,11 @@ const Particles: React.FC = () => {
     
     // Use requestAnimationFrame with throttling for better performance
     let lastTime = 0;
-    const fps = 30; // Limit to 30 fps for better performance
+    const fps = 24; // Reduced to 24 fps for better performance
     const interval = 1000 / fps;
+    
+    // Animation flag to prevent memory leaks
+    let animationFrameId: number;
     
     function animate(timestamp: number) {
       const deltaTime = timestamp - lastTime;
@@ -98,6 +105,11 @@ const Particles: React.FC = () => {
         if (!ctx) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
+        // Draw background once to avoid transparent layers
+        ctx.fillStyle = 'rgb(10, 10, 18)'; // gaming-dark color
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Update and draw particles in a single loop
         for (let i = 0; i < particlesArray.length; i++) {
           particlesArray[i].update();
           particlesArray[i].draw();
@@ -107,13 +119,13 @@ const Particles: React.FC = () => {
         connectParticles();
       }
       
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     }
 
     // Optimized connection function using spatial grid
     function connectParticles() {
       if (!ctx) return;
-      const maxDistance = 120; // Reduced max distance
+      const maxDistance = 100; // Further reduced max distance
       const gridMap = new Map();
       
       // Place particles in grid
@@ -140,18 +152,22 @@ const Particles: React.FC = () => {
           }
         }
         
+        // Use distance squared to avoid expensive sqrt operations
+        const maxDistanceSquared = maxDistance * maxDistance;
+        
         for (let i = 0; i < neighbors.length; i++) {
           const b = neighbors[i];
           if (a >= b) continue; // Skip duplicates and already processed pairs
           
           const dx = particle.x - particlesArray[b].x;
           const dy = particle.y - particlesArray[b].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const distanceSquared = dx * dx + dy * dy;
           
-          if (distance < maxDistance) {
+          if (distanceSquared < maxDistanceSquared) {
+            const distance = Math.sqrt(distanceSquared);
             ctx.beginPath();
             ctx.strokeStyle = particle.color;
-            ctx.globalAlpha = 0.1 * (1 - distance / maxDistance);
+            ctx.globalAlpha = 0.05 * (1 - distance / maxDistance); // Reduced opacity
             ctx.lineWidth = 0.5;
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
@@ -163,10 +179,12 @@ const Particles: React.FC = () => {
     }
 
     init();
-    requestAnimationFrame(animate);
+    animationFrameId = requestAnimationFrame(animate);
 
+    // Clean up to prevent memory leaks
     return () => {
       window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
