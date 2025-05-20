@@ -1,5 +1,4 @@
-
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import { Github, Linkedin, Instagram, Phone, Mail } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,10 +9,16 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Logo & Copyright */}
           <div className="mb-6 md:mb-0 text-center md:text-left">
-            <h2 className="font-orbitron text-xl font-bold mb-2 neon-text">PORTFOLIO</h2>
+            <h2 className="font-orbitron text-xl font-bold mb-2 neon-text">RIKAZUR REHMAN M</h2>
             <p className="text-white/60 text-sm">
               © {currentYear} All Rights Reserved
             </p>
+            <div className="flex items-center mt-2 text-sm text-white/60">
+              <Phone size={14} className="mr-1" />
+              <span className="mr-4">+91 7010956992</span>
+              <Mail size={14} className="mr-1" />
+              <span>rikaz.154@gmail.com</span>
+            </div>
           </div>
           
           {/* Quick links */}

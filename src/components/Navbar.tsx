@@ -1,14 +1,13 @@
-
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, FileText } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, FileText, Home, Info, Briefcase, Code, Mail } from 'lucide-react';
 
 const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/#about' },
-  { name: 'Works', href: '/works' },
-  { name: 'Skills', href: '/#skills' },
-  { name: 'Contact', href: '/#contact' },
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'About', href: '/#about', icon: Info },
+  { name: 'Works', href: '/works', icon: Briefcase },
+  { name: 'Skills', href: '/#skills', icon: Code },
+  { name: 'Contact', href: '/#contact', icon: Mail },
   { name: 'Resume', href: '/resume', icon: FileText },
 ];
 
@@ -16,6 +15,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -36,25 +36,50 @@ const Navbar = () => {
     };
   }, []);
 
-  // Close menu when clicking a link on mobile
-  const handleLinkClick = (href: string) => {
+  // Handle navigation and scroll
+  const handleLinkClick = (href: string, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    
+    // Close menu on mobile
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
     
+    // Regular route navigation (no hash)
+    if (!href.includes('#')) {
+      navigate(href);
+      window.scrollTo(0, 0);
+      return;
+    }
+
     // Handle hash links within the same page
-    if (href.includes('#') && !href.startsWith('/')) {
+    if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-    } else if (href.includes('#') && location.pathname === '/') {
-      // If we're already on the home page and clicking a hash link
-      const hashPart = href.split('#')[1];
-      const element = document.querySelector(`#${hashPart}`);
+      return;
+    }
+    
+    // Handle route + hash (like "/#about")
+    const [route, hash] = href.split('#');
+    
+    // If we're already on the correct route, just scroll
+    if (location.pathname === route || (route === '/' && location.pathname === '')) {
+      const element = document.querySelector(`#${hash}`);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
+    } else {
+      // Need to navigate first then scroll
+      navigate(href);
+      // After navigation, scroll to the element
+      setTimeout(() => {
+        const element = document.querySelector(`#${hash}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
@@ -70,8 +95,9 @@ const Navbar = () => {
         <Link 
           to="/" 
           className="font-orbitron text-2xl font-bold neon-text"
+          onClick={(e) => handleLinkClick('/', e)}
         >
-          PORTFOLIO
+          RIKAZUR REHMAN M
         </Link>
         
         {/* Desktop menu */}
@@ -81,7 +107,7 @@ const Navbar = () => {
               <Link
                 to={item.href}
                 className="text-white/80 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-0 after:bg-gaming-purple after:transition-all hover:after:w-full flex items-center gap-1"
-                onClick={() => handleLinkClick(item.href)}
+                onClick={(e) => handleLinkClick(item.href, e)}
               >
                 {item.icon && <item.icon size={16} />}
                 {item.name}
@@ -110,7 +136,7 @@ const Navbar = () => {
                   <Link
                     to={item.href}
                     className="flex items-center gap-2 py-2 px-4 text-white/80 hover:text-white hover:bg-gaming-purple/20 rounded transition-colors"
-                    onClick={() => handleLinkClick(item.href)}
+                    onClick={(e) => handleLinkClick(item.href, e)}
                   >
                     {item.icon && <item.icon size={16} />}
                     {item.name}

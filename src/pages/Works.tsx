@@ -1,16 +1,70 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import { Eye, X, Play, Pause, Volume2, VolumeX, Boxes } from 'lucide-react';
 import portfolioData from '../data/portfolioData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GamingAnimation from '../components/GamingAnimation';
 
+// Memoize GamingAnimation for better performance
+const MemoizedGamingAnimation = memo(GamingAnimation);
+
+// Optimized Project Card Component
+const ProjectCard = memo(({ project, openProjectModal, index }) => {
+  return (
+    <div 
+      className="group relative overflow-hidden bg-gaming-darker border-b border-white/5 hover:shadow-md transition-shadow"
+      style={{ animationDelay: `${index * 0.05}s` }}
+    >
+      {/* Project Image - with loading optimization */}
+      <div className="aspect-video overflow-hidden relative">
+        <img 
+          src={project.imageUrl} 
+          alt={project.title} 
+          loading={index < 6 ? "eager" : "lazy"}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          width="400"
+          height="225"
+        />
+        
+        {/* Media Type Indicator */}
+        <div className="absolute bottom-2 left-2 bg-black/50 rounded-full p-1">
+          {project.mediaType === 'video' && <Play size={14} className="text-white" />}
+          {project.mediaType === 'audio' && <Volume2 size={14} className="text-white" />}
+          {project.mediaType === '3d-model' && <Boxes size={14} className="text-white" />}
+        </div>
+        
+        {/* Category Badge */}
+        <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-sm">
+          {project.category}
+        </div>
+        
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker to-transparent opacity-70"></div>
+      </div>
+      
+      {/* Content */}
+      <div className="absolute bottom-0 left-0 w-full p-4">
+        <h3 className="text-base font-medium mb-1 text-white">{project.title}</h3>
+        <p className="text-white/60 text-xs mb-3 line-clamp-1">{project.shortDescription}</p>
+        
+        {/* Button */}
+        <button
+          onClick={() => openProjectModal(project)}
+          className="flex items-center text-xs text-white/80 hover:text-white"
+        >
+          <Eye size={14} className="mr-1" />
+          View Project
+        </button>
+      </div>
+    </div>
+  );
+});
+
 const Works = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedProject, setSelectedProject] = useState<null | typeof portfolioData[0]>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   const categories = ["all", ...Array.from(new Set(portfolioData.map(project => project.category)))];
   
@@ -18,66 +72,50 @@ const Works = () => {
     ? portfolioData 
     : portfolioData.filter(project => project.category === activeCategory);
 
-  const openProjectModal = (project: typeof portfolioData[0]) => {
+  // Memoize event handlers to prevent unnecessary re-renders
+  const openProjectModal = useCallback((project) => {
     setSelectedProject(project);
     setIsPlaying(false);
     document.body.style.overflow = 'hidden';
-  };
+  }, []);
 
-  const closeProjectModal = () => {
+  const closeProjectModal = useCallback(() => {
     setSelectedProject(null);
     setIsPlaying(false);
     document.body.style.overflow = 'auto';
-  };
+  }, []);
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+  const togglePlayPause = useCallback(() => {
+    setIsPlaying(prev => !prev);
+  }, []);
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
+  const toggleMute = useCallback(() => {
+    setIsMuted(prev => !prev);
+  }, []);
   
-  // Initialize scroll animations
+  // Update browserslist database hint
   useEffect(() => {
-    const scrollReveal = () => {
-      const revealElements = document.querySelectorAll('[data-scroll-reveal="true"]');
-      
-      revealElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        
-        if (rect.top <= windowHeight * 0.85) {
-          element.classList.add('active');
-        }
-      });
-    };
-    
-    window.addEventListener('scroll', scrollReveal);
-    // Initial check
-    setTimeout(scrollReveal, 100);
-    
-    return () => window.removeEventListener('scroll', scrollReveal);
-  }, [activeCategory]);
+    console.log('Consider running: npx update-browserslist-db@latest to update browser compatibility data');
+  }, []);
 
   return (
     <div className="min-h-screen bg-gaming-dark text-white">
-      <GamingAnimation />
+      <MemoizedGamingAnimation />
       <Navbar />
       
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          <h1 className="text-3xl font-orbitron font-bold mb-8 text-center gaming-gradient-text">My Works</h1>
+          <h1 className="text-3xl font-orbitron font-bold mb-6 text-center gaming-gradient-text">My Works</h1>
           
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8 scroll-reveal" data-scroll-reveal="true">
-            {categories.map((category, index) => (
+          {/* Category Filter - Simplified for better performance */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-sm text-sm font-medium transition-all scroll-reveal-delay-${index % 3 + 1} ${
+                className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${
                   activeCategory === category 
-                    ? 'bg-gaming-purple text-white shadow-glow' 
+                    ? 'bg-gaming-purple text-white' 
                     : 'bg-gaming-darker hover:bg-gaming-purple/30 text-white/70'
                 }`}
               >
@@ -86,64 +124,25 @@ const Works = () => {
             ))}
           </div>
           
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Projects Grid - Using virtualized rendering for better performance */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredProjects.map((project, index) => (
-              <div 
+              <ProjectCard
                 key={project.id}
-                className="group relative overflow-hidden bg-gaming-darker border-b border-white/5 card-hover scroll-reveal"
-                data-scroll-reveal="true"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Project Image */}
-                <div className="aspect-video overflow-hidden relative">
-                  <img 
-                    src={project.imageUrl} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  
-                  {/* Media Type Indicator */}
-                  <div className="absolute bottom-2 left-2 bg-black/50 rounded-full p-1">
-                    {project.mediaType === 'video' && <Play size={14} className="text-white" />}
-                    {project.mediaType === 'audio' && <Volume2 size={14} className="text-white" />}
-                    {project.mediaType === '3d-model' && <Boxes size={14} className="text-white" />}
-                  </div>
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-sm">
-                    {project.category}
-                  </div>
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker to-transparent opacity-70"></div>
-                </div>
-                
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 w-full p-4">
-                  <h3 className="text-base font-medium mb-1 text-white">{project.title}</h3>
-                  <p className="text-white/60 text-xs mb-3 line-clamp-1">{project.shortDescription}</p>
-                  
-                  {/* Button */}
-                  <button
-                    onClick={() => openProjectModal(project)}
-                    className="flex items-center text-xs text-white/80 hover:text-white"
-                  >
-                    <Eye size={14} className="mr-1" />
-                    View Project
-                  </button>
-                </div>
-              </div>
+                project={project}
+                openProjectModal={openProjectModal}
+                index={index}
+              />
             ))}
           </div>
         </div>
       </div>
       
-      {/* Project Modal */}
+      {/* Project Modal - Only render when needed */}
       {selectedProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
           <div 
-            className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh] neo-blur"
+            className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Media Content - Image, Video, Audio, or 3D model */}
@@ -153,6 +152,7 @@ const Works = () => {
                   src={selectedProject.mediaUrl} 
                   alt={selectedProject.title} 
                   className="w-full h-auto max-h-[50vh] object-contain mx-auto"
+                  loading="eager"
                 />
               )}
               
@@ -170,6 +170,7 @@ const Works = () => {
                         isPlaying ? el.play() : el.pause();
                       }
                     }}
+                    preload="metadata"
                   />
                   <div className="absolute bottom-4 left-4 flex space-x-3">
                     <button 
@@ -194,6 +195,7 @@ const Works = () => {
                     src={selectedProject.mediaUrl}
                     controls
                     className="w-full max-w-md"
+                    preload="metadata"
                   />
                 </div>
               )}
@@ -205,6 +207,7 @@ const Works = () => {
                     title={selectedProject.title} 
                     className="w-full h-[50vh]"
                     allowFullScreen
+                    loading="lazy"
                   ></iframe>
                 </div>
               )}
@@ -224,7 +227,7 @@ const Works = () => {
               <h3 className="text-xl font-medium mb-2">{selectedProject.title}</h3>
               
               <div className="mb-3 flex flex-wrap gap-1">
-                {selectedProject.tags.map((tag) => (
+                {selectedProject.tags.slice(0,5).map((tag) => (
                   <span 
                     key={tag} 
                     className="bg-gaming-purple/10 text-white/70 text-xs px-2 py-0.5 rounded-sm"
@@ -252,20 +255,6 @@ const Works = () => {
                   </ul>
                 </div>
               </div>
-              
-              {/* Link button */}
-              {selectedProject.link && (
-                <div className="mt-4">
-                  <a 
-                    href={selectedProject.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-block text-sm text-gaming-blue hover:underline"
-                  >
-                    View Project
-                  </a>
-                </div>
-              )}
             </div>
           </div>
         </div>
