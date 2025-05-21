@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/geomanist');
 
 @tailwind base;
 @tailwind components;
@@ -7,41 +6,62 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 14%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 262 83% 58%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 215 20.2% 65.1%;
+    --radius: 0.5rem;
 
-    --secondary: 217 91% 60%;
+    /* Gaming theme colors */
+    --gaming-dark: 240 10% 6%;
+    --gaming-darker: 240 10% 4%;
+    --gaming-purple: 270 70% 60%;
+    --gaming-blue: 210 70% 60%;
+    --gaming-green: 140 60% 50%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+    --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
-
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 262 83% 58%;
+    --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 262 83% 58%;
-
-    --radius: 0.5rem;
+    --ring: 216 34% 17%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Geomanist', sans-serif;
   }
 
   html {
@@ -50,11 +70,14 @@
   }
 
   body {
-    @apply bg-gaming-dark text-foreground font-exo overflow-x-hidden;
+    @apply bg-background text-foreground;
+    font-family: 'Geomanist', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-orbitron tracking-wider;
+    font-family: 'Geomanist', sans-serif;
+    @apply tracking-wider;
   }
   
   /* Hide default cursor for desktop */
@@ -87,19 +110,32 @@
   }
   
   .btn-glow {
-    @apply px-6 py-3 bg-gaming-purple/20 text-white border border-gaming-purple rounded-md shadow-glow transition-all duration-300 hover:shadow-glow-strong hover:bg-gaming-purple/30;
+    @apply bg-gaming-purple text-white font-medium py-3 px-6 rounded relative overflow-hidden;
+    box-shadow: 0 0 15px rgba(147, 51, 234, 0.5);
+    transition: all 0.3s ease;
   }
   
-  .btn-glow-alt {
-    @apply px-6 py-3 bg-gaming-blue/20 text-white border border-gaming-blue rounded-md shadow-glow-blue transition-all duration-300 hover:shadow-glow-blue hover:bg-gaming-blue/30;
+  .btn-glow:hover {
+    box-shadow: 0 0 25px rgba(147, 51, 234, 0.8);
+    transform: translateY(-2px);
+  }
+  
+  .btn-glow:before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-gaming-blue to-gaming-purple opacity-0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .btn-glow:hover:before {
+    opacity: 1;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-orbitron font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-gaming-purple to-gaming-blue animate-text-shimmer bg-[length:200%_auto];
+    @apply text-3xl font-bold mb-8 gaming-gradient-text;
   }
   
   .gaming-gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-gaming-purple to-gaming-blue animate-text-shimmer bg-[length:200%_auto];
+    @apply bg-gradient-to-r from-gaming-purple to-gaming-blue bg-clip-text text-transparent;
   }
   
   .clip-path-slant {
@@ -152,7 +188,6 @@
     backdrop-filter: blur(2px);
   }
   
-  /* Scroll animations */
   .scroll-reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -174,6 +209,35 @@
   
   .scroll-reveal-delay-3 {
     transition-delay: 0.3s;
+  }
+  
+  /* Infinite scrolling animation for tools */
+  .animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+  }
+  
+  /* Truly seamless marquee for tools section */
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .marquee-track {
+    display: flex;
+    width: fit-content;
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+  
+  .marquee-item {
+    flex-shrink: 0;
+  }
+  
+  @media (prefers-reduced-motion) {
+    .marquee-track {
+      animation-play-state: paused;
+    }
   }
 }
 
@@ -201,4 +265,74 @@
 /* Game controls feedback */
 .game-button:active {
   transform: scale(0.95);
+}
+
+/* Gaming theme specific styles */
+.font-orbitron {
+  font-family: 'Geomanist', sans-serif;
+}
+
+/* Glow effects */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.3);
+}
+
+.shadow-glow-strong {
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.5);
+}
+
+.shadow-glow-blue {
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+}
+
+.shadow-glow-green {
+  box-shadow: 0 0 15px rgba(14, 159, 110, 0.3);
+}
+
+/* Floating animation */
+@keyframes floating {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: floating 6s ease-in-out infinite;
+}
+
+/* Fade in animation for smoother page transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Scroll left animation for tools section */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Truly seamless marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1rem)); /* Adjusted for perfect loop */
+  }
 }

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,8 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				exo: ["'Exo 2'", "sans-serif"],
-				orbitron: ["'Orbitron'", "sans-serif"],
+				sans: ["Geomanist", "sans-serif"],
+				exo: ["Geomanist", "sans-serif"],
+				orbitron: ["Geomanist", "sans-serif"],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -104,6 +104,32 @@ export default {
 						backgroundPosition: "100% 50%",
 					},
 				},
+				"fade-in": {
+					"0%": {
+						opacity: "0",
+						transform: "translateY(10px)",
+					},
+					"100%": {
+						opacity: "1",
+						transform: "translateY(0)",
+					},
+				},
+				"scroll-left": {
+					"0%": {
+						transform: "translateX(0)",
+					},
+					"100%": {
+						transform: "translateX(-50%)",
+					},
+				},
+				"marquee": {
+					"0%": {
+						transform: "translateX(0)",
+					},
+					"100%": {
+						transform: "translateX(calc(-50% - 1rem))",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
@@ -113,6 +139,9 @@ export default {
 				"glow-pulse": 'glow-pulse 2s ease-in-out infinite',
 				gradient: 'gradient 6s linear infinite alternate',
 				"text-shimmer": "text-shimmer 2.5s ease-out infinite alternate",
+				"fadeIn": "fade-in 0.6s ease-out forwards",
+				"scroll-left": "scroll-left 40s linear infinite",
+				"marquee": "marquee 40s linear infinite",
 			},
 			boxShadow: {
 				glow: '0 0 5px rgba(139, 92, 246, 0.5), 0 0 15px rgba(139, 92, 246, 0.3)',

@@ -1,12 +1,13 @@
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { FileText, Download, Briefcase, GraduationCap, Award } from 'lucide-react';
 import { Button } from '../components/ui/button';
+import GamingAnimation from '../components/GamingAnimation';
 
 const Resume = () => {
   return (
-    <div className="min-h-screen bg-gaming-dark text-white">
+    <div className="min-h-screen bg-gaming-dark text-white relative">
+      <GamingAnimation />
       <Navbar />
       
       <div className="pt-24 pb-16">

@@ -3,12 +3,24 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import Index from "./pages/Index";
-import Works from "./pages/Works";
-import Resume from "./pages/Resume";
 import NotFound from "./pages/NotFound";
 import { startPerformanceMonitoring, applyPerformanceOptimizations } from "@/utils/performanceMonitor";
+
+// Lazy load non-critical pages
+const Works = lazy(() => import("./pages/Works"));
+const Resume = lazy(() => import("./pages/Resume"));
+
+// Loading component
+const PageLoader = () => (
+  <div className="min-h-screen bg-gaming-dark text-white flex items-center justify-center">
+    <div className="text-center">
+      <div className="w-16 h-16 border-4 border-gaming-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <p className="text-white/70">Loading...</p>
+    </div>
+  </div>
+);
 
 // Create a new query client with optimized settings
 const queryClient = new QueryClient({
@@ -50,8 +62,16 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/index" element={<Navigate to="/" replace />} />
-            <Route path="/works" element={<Works />} />
-            <Route path="/resume" element={<Resume />} />
+            <Route path="/works" element={
+              <Suspense fallback={<PageLoader />}>
+                <Works />
+              </Suspense>
+            } />
+            <Route path="/resume" element={
+              <Suspense fallback={<PageLoader />}>
+                <Resume />
+              </Suspense>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

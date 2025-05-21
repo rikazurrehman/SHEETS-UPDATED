@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Particles from './Particles';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Trigger animation after mount
     setIsVisible(true);
   }, []);
 
-  const scrollToPortfolio = () => {
-    const portfolioSection = document.getElementById('portfolio');
-    if (portfolioSection) {
-      portfolioSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const goToWorks = () => {
+    navigate('/works');
   };
 
   return (
@@ -51,7 +50,7 @@ const Hero = () => {
             </p>
             
             <button 
-              onClick={scrollToPortfolio} 
+              onClick={goToWorks} 
               className="btn-glow group relative overflow-hidden"
             >
               <span className="relative z-10">View My Work</span>

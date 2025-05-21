@@ -1,30 +1,57 @@
-import { useState, useEffect, useCallback, memo } from 'react';
+import { useState, useEffect, useCallback, memo, useRef } from 'react';
 import { Eye, X, Play, Pause, Volume2, VolumeX, Boxes } from 'lucide-react';
 import portfolioData from '../data/portfolioData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GamingAnimation from '../components/GamingAnimation';
+import useMediaOptimization from '@/hooks/useMediaOptimization';
 
 // Memoize GamingAnimation for better performance
 const MemoizedGamingAnimation = memo(GamingAnimation);
 
 // Optimized Project Card Component
 const ProjectCard = memo(({ project, openProjectModal, index }) => {
+  // Track if element is visible for lazy loading
+  const imgRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!imgRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(imgRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div 
-      className="group relative overflow-hidden bg-gaming-darker border-b border-white/5 hover:shadow-md transition-shadow"
-      style={{ animationDelay: `${index * 0.05}s` }}
+      className="group relative overflow-hidden bg-gaming-darker border-b border-white/5 hover:shadow-md transition-shadow animate-fadeIn"
+      style={{ animationDelay: `${index * 0.05}s`, animationFillMode: 'both' }}
     >
       {/* Project Image - with loading optimization */}
       <div className="aspect-video overflow-hidden relative">
-        <img 
-          src={project.imageUrl} 
-          alt={project.title} 
-          loading={index < 6 ? "eager" : "lazy"}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          width="400"
-          height="225"
-        />
+        {(index < 6 || isVisible) ? (
+          <img 
+            ref={imgRef}
+            src={project.imageUrl} 
+            alt={project.title} 
+            loading={index < 6 ? "eager" : "lazy"}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            width="400"
+            height="225"
+          />
+        ) : (
+          <div ref={imgRef} className="w-full h-full bg-gaming-darker"></div>
+        )}
         
         {/* Media Type Indicator */}
         <div className="absolute bottom-2 left-2 bg-black/50 rounded-full p-1">
@@ -65,12 +92,49 @@ const Works = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [visibleProjects, setVisibleProjects] = useState(12);
+  const { optimizeVideo } = useMediaOptimization();
+  const videoRef = useRef(null);
 
   const categories = ["all", ...Array.from(new Set(portfolioData.map(project => project.category)))];
   
   const filteredProjects = activeCategory === "all" 
     ? portfolioData 
     : portfolioData.filter(project => project.category === activeCategory);
+
+  // Load more projects as user scrolls
+  const loadMoreProjects = () => {
+    if (visibleProjects < filteredProjects.length) {
+      setVisibleProjects(prev => Math.min(prev + 6, filteredProjects.length));
+    }
+  };
+
+  // Set up intersection observer to detect when user scrolls to the bottom
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '200px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        loadMoreProjects();
+      }
+    }, options);
+
+    const sentinelElement = document.getElementById('load-more-sentinel');
+    if (sentinelElement) {
+      observer.observe(sentinelElement);
+    }
+
+    return () => observer.disconnect();
+  }, [visibleProjects, filteredProjects.length]);
+
+  // Reset visible projects when category changes
+  useEffect(() => {
+    setVisibleProjects(12);
+  }, [activeCategory]);
 
   // Memoize event handlers to prevent unnecessary re-renders
   const openProjectModal = useCallback((project) => {
@@ -92,15 +156,30 @@ const Works = () => {
   const toggleMute = useCallback(() => {
     setIsMuted(prev => !prev);
   }, []);
-  
-  // Update browserslist database hint
+
+  // Apply video optimizations when selected project changes
   useEffect(() => {
-    console.log('Consider running: npx update-browserslist-db@latest to update browser compatibility data');
-  }, []);
+    if (selectedProject && selectedProject.mediaType === 'video' && videoRef.current) {
+      optimizeVideo(videoRef.current);
+    }
+  }, [selectedProject, optimizeVideo]);
+  
+  // Handle escape key for modal
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && selectedProject) {
+        closeProjectModal();
+      }
+    };
+    
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [selectedProject, closeProjectModal]);
 
   return (
     <div className="min-h-screen bg-gaming-dark text-white">
-      <MemoizedGamingAnimation />
+      {/* Only render animation when not on a low-end device */}
+      {!document.body.classList.contains('low-end-device') && <MemoizedGamingAnimation />}
       <Navbar />
       
       <div className="pt-24 pb-16">
@@ -124,9 +203,9 @@ const Works = () => {
             ))}
           </div>
           
-          {/* Projects Grid - Using virtualized rendering for better performance */}
+          {/* Projects Grid - Using progressive loading */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredProjects.map((project, index) => (
+            {filteredProjects.slice(0, visibleProjects).map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}
@@ -135,12 +214,22 @@ const Works = () => {
               />
             ))}
           </div>
+          
+          {/* Load more sentinel element */}
+          {visibleProjects < filteredProjects.length && (
+            <div id="load-more-sentinel" className="w-full h-20 flex items-center justify-center mt-8">
+              <div className="animate-spin w-6 h-6 border-2 border-gaming-purple border-t-transparent rounded-full"></div>
+            </div>
+          )}
         </div>
       </div>
       
-      {/* Project Modal - Only render when needed */}
+      {/* Project Modal - Only render when needed with optimized video loading */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+          onClick={closeProjectModal}
+        >
           <div 
             className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
@@ -159,18 +248,16 @@ const Works = () => {
               {selectedProject.mediaType === 'video' && (
                 <div className="relative aspect-video">
                   <video
+                    ref={videoRef}
                     src={selectedProject.mediaUrl}
                     className="w-full h-full object-contain"
                     controls={false}
                     autoPlay={false}
                     loop
                     muted={isMuted}
-                    ref={(el) => {
-                      if (el) {
-                        isPlaying ? el.play() : el.pause();
-                      }
-                    }}
+                    playsInline
                     preload="metadata"
+                    poster={selectedProject.imageUrl}
                   />
                   <div className="absolute bottom-4 left-4 flex space-x-3">
                     <button 
@@ -248,9 +335,9 @@ const Works = () => {
                 
                 <div>
                   <h4 className="text-sm font-medium mb-1 text-white/90">Highlights</h4>
-                  <ul className="list-disc list-inside text-white/60 text-sm">
-                    {selectedProject.highlights.map((highlight, index) => (
-                      <li key={index} className="text-xs">{highlight}</li>
+                  <ul className="list-disc list-inside text-white/60">
+                    {selectedProject.highlights.map(highlight => (
+                      <li key={highlight}>{highlight}</li>
                     ))}
                   </ul>
                 </div>

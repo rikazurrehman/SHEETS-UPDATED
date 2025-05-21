@@ -1,5 +1,5 @@
-
 import { Monitor, Video, HeadphonesIcon, Boxes } from 'lucide-react';
+import { useEffect } from 'react';
 
 const tools = [
   { name: 'Blender', logo: '/assets/logos/blender.svg' },
@@ -11,6 +11,9 @@ const tools = [
   { name: 'FSpy', logo: '/assets/logos/fspy.png' },
   { name: 'WATI', logo: '/assets/logos/wati.png' },
 ];
+
+// Duplicate tools multiple times for smoother infinite scroll effect
+const scrollingTools = [...tools, ...tools, ...tools];
 
 const About = () => {
   return (
@@ -55,29 +58,39 @@ const About = () => {
           </div>
         </div>
         
-        {/* Tools */}
-        <div>
+        {/* Tools - Infinite Scrolling Section */}
+        <div className="mb-16">
           <h3 className="text-2xl font-orbitron text-center mb-8 text-white/90">Tools I Use</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-6">
-            {tools.map((tool, index) => (
-              <div 
-                key={tool.name}
-                className="flex flex-col items-center justify-center p-4 bg-gaming-darker/50 rounded-lg border border-white/5 hover:border-gaming-purple/30 transition-all"
-              >
-                <div className="w-16 h-16 mb-2 flex items-center justify-center">
-                  <img 
-                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tool.name.toLowerCase()}/${tool.name.toLowerCase()}-original.svg`}
-                    alt={tool.name}
-                    className="max-w-full max-h-full object-contain"
-                    onError={(e) => {
-                      // Fallback for tools without standard icons
-                      e.currentTarget.src = "https://via.placeholder.com/64?text=" + tool.name.charAt(0);
-                    }}
-                  />
-                </div>
-                <span className="text-sm text-white/80">{tool.name}</span>
+          
+          {/* Scrolling container */}
+          <div className="relative w-full overflow-hidden py-6 bg-gaming-darker/20 rounded-lg">
+            {/* Smooth infinite scroll track */}
+            <div className="marquee-container">
+              <div className="marquee-track">
+                {scrollingTools.map((tool, index) => (
+                  <div 
+                    key={`${tool.name}-${index}`}
+                    className="marquee-item mx-4 flex flex-col items-center justify-center px-8 py-4 min-w-[120px] bg-gaming-darker/50 rounded-lg border border-white/5 hover:border-gaming-purple/30 transition-all"
+                  >
+                    <div className="w-16 h-16 mb-2 flex items-center justify-center">
+                      <img 
+                        src={tool.logo}
+                        alt={tool.name}
+                        className="max-w-full max-h-full object-contain"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://via.placeholder.com/64?text=" + tool.name.charAt(0);
+                        }}
+                      />
+                    </div>
+                    <span className="text-sm text-white/80">{tool.name}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Add gradient overlays for smooth fade effect */}
+            <div className="absolute top-0 left-0 h-full w-16 bg-gradient-to-r from-gaming-darker to-transparent z-10"></div>
+            <div className="absolute top-0 right-0 h-full w-16 bg-gradient-to-l from-gaming-darker to-transparent z-10"></div>
           </div>
         </div>
       </div>
