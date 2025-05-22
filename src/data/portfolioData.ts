@@ -1,199 +1,159 @@
 const portfolioData = [
-  // Video Editing
+  // CGI & VFX
   {
     id: 1,
-    title: "Documentary Film Editing",
-    category: "Video Editing",
-    shortDescription: "Feature-length documentary film post-production",
-    fullDescription: "Completed full post-production editing for a 90-minute documentary film about wildlife conservation. Work included color grading, audio mixing, and extensive footage compilation from over 200 hours of raw content.",
-    imageUrl: "https://images.unsplash.com/photo-1536240478700-b869070f9279",
+    title: "Dynamic CGI Product Campaign",
+    category: "CGI & VFX",
+    shortDescription: "High-end product visualization with dynamic camera work",
+    fullDescription: "Created photorealistic CGI product visualizations with dynamic 3D camera movements. The campaign featured innovative transitions, detailed material work, and cinematic lighting to showcase product features in an engaging way.",
+    imageUrl: "/assets/works/cgi-product.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Documentary", "Color Grading", "Audio Mixing"],
-    tools: ["Premiere Pro", "DaVinci Resolve", "Audition"],
+    mediaUrl: "/assets/works/cgi-product.mp4",
+    tags: ["CGI", "Product Visualization", "3D Camera Work"],
+    tools: ["Blender", "FSpy", "After Effects"],
     highlights: [
-      "Complex timeline management",
-      "Professional color grading",
-      "Custom audio treatment"
+      "Dynamic camera movements",
+      "Photorealistic materials",
+      "Cinematic lighting setup"
     ],
     link: "#",
     comingSoon: false
   },
   {
     id: 2,
-    title: "Commercial Advertisement",
-    category: "Video Editing",
-    shortDescription: "30-second product commercial for social media",
-    fullDescription: "Created a high-energy 30-second commercial for a tech product launch, optimized for social media platforms. The advertisement featured dynamic transitions, custom text animations, and strategic pacing to maximize viewer retention.",
-    imageUrl: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4",
+    title: "VFX Integration Series",
+    category: "CGI & VFX",
+    shortDescription: "Seamless VFX integration for brand campaign",
+    fullDescription: "Developed a series of VFX shots combining live footage with CGI elements. The project showcased advanced compositing techniques, realistic lighting integration, and dynamic visual effects that enhanced the storytelling.",
+    imageUrl: "/assets/works/vfx-integration.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Commercial", "Fast Cuts", "Social Media"],
-    tools: ["Premiere Pro", "After Effects", "Photoshop"],
+    mediaUrl: "/assets/works/vfx-integration.mp4",
+    tags: ["VFX", "Compositing", "CGI Integration"],
+    tools: ["After Effects", "Blender", "DaVinci Resolve"],
     highlights: [
-      "Platform-optimized formats",
-      "Dynamic text animations",
-      "Engagement-focused editing"
+      "Seamless CGI integration",
+      "Advanced compositing",
+      "Color grading"
     ],
     link: "#",
     comingSoon: false
   },
-  
-  // 3D Campaigns/CGI
+
+  // Video Production
   {
     id: 3,
-    title: "Product Launch Campaign",
-    category: "3D Campaigns/CGI",
-    shortDescription: "Full CGI campaign for smartphone launch",
-    fullDescription: "Developed a comprehensive CGI campaign for a flagship smartphone launch, including 15 photorealistic renders, 3 animated sequences, and various marketing assets. The campaign helped achieve a 40% increase in pre-order sales.",
-    imageUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d",
+    title: "Speed Ramp Showcase",
+    category: "Video Production",
+    shortDescription: "Dynamic speed manipulation edit",
+    fullDescription: "Created a high-energy video showcase utilizing advanced speed ramping techniques. The edit features smooth transitions, precise timing control, and creative speed manipulations to create an engaging viewing experience.",
+    imageUrl: "/assets/works/speed-ramp.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Product Launch", "Photorealistic CGI", "Marketing Campaign"],
-    tools: ["Blender", "Cinema 4D", "After Effects"],
+    mediaUrl: "/assets/works/speed-ramp.mp4",
+    tags: ["Speed Ramping", "Transitions", "Dynamic Editing"],
+    tools: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
     highlights: [
-      "Photorealistic material creation",
-      "Technical product accuracy",
-      "Multi-platform asset delivery"
+      "Complex speed manipulations",
+      "Smooth transitions",
+      "Sound design integration"
     ],
     link: "#",
     comingSoon: false
   },
   {
     id: 4,
-    title: "Architectural Visualization",
-    category: "3D Campaigns/CGI",
-    shortDescription: "Real estate development visualization",
-    fullDescription: "Created comprehensive architectural visualization for a luxury real estate development, including exterior renders, interior walkthroughs, and an interactive virtual tour experience for potential buyers.",
-    imageUrl: "https://images.unsplash.com/photo-1600607686527-6fb886090705",
+    title: "Documentary-Style Campaign",
+    category: "Video Production",
+    shortDescription: "Authentic storytelling through documentary approach",
+    fullDescription: "Produced a documentary-style campaign that combines authentic storytelling with cinematic visuals. The project features natural lighting, dynamic camera movement, and carefully paced editing to maintain viewer engagement.",
+    imageUrl: "/assets/works/documentary.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Architecture", "Real Estate", "Virtual Tour"],
-    tools: ["Blender", "Unreal Engine", "V-Ray"],
+    mediaUrl: "/assets/works/documentary.mp4",
+    tags: ["Documentary", "Storytelling", "Cinematography"],
+    tools: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
     highlights: [
-      "Physically accurate lighting",
-      "Interactive exploration",
-      "High-detail modeling"
+      "Natural storytelling",
+      "Cinematic visuals",
+      "Authentic pacing"
     ],
     link: "#",
     comingSoon: false
   },
-  
+
   // Motion Graphics
   {
     id: 5,
-    title: "Event Opening Sequence",
+    title: "Kinetic Typography Series",
     category: "Motion Graphics",
-    shortDescription: "Dynamic opener for tech conference",
-    fullDescription: "Designed and animated the opening sequence for a major tech conference, establishing the visual style for the entire event. The sequence was projected on multiple large screens and helped create a memorable attendee experience.",
-    imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
+    shortDescription: "Dynamic text animations with fluid motion",
+    fullDescription: "Created a series of kinetic typography animations that bring text to life through dynamic movement and creative transitions. The project demonstrates mastery of motion principles and typography in motion design.",
+    imageUrl: "/assets/works/kinetic-type.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Event Graphics", "Opening Sequence", "Corporate"],
+    mediaUrl: "/assets/works/kinetic-type.mp4",
+    tags: ["Typography", "Animation", "Motion Design"],
     tools: ["After Effects", "Illustrator", "Cinema 4D"],
     highlights: [
-      "Custom typography animation",
-      "3D element integration",
-      "Sound design synchronization"
+      "Fluid text animations",
+      "Creative transitions",
+      "Sound synchronization"
     ],
     link: "#",
     comingSoon: false
   },
   {
     id: 6,
-    title: "Explainer Animation Series",
+    title: "Brand Motion Package",
     category: "Motion Graphics",
-    shortDescription: "Educational explainer videos for finance app",
-    fullDescription: "Created a series of 5 explainer animations for a financial technology app, breaking down complex financial concepts into engaging, easy-to-understand 60-second videos with custom illustrations and character animations.",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    shortDescription: "Comprehensive motion graphics system for brand",
+    fullDescription: "Developed a complete motion graphics package including animated logos, lower thirds, transitions, and UI animations. The system maintains brand consistency while adding dynamic movement and visual interest.",
+    imageUrl: "/assets/works/brand-motion.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Explainer", "Educational", "Character Animation"],
-    tools: ["After Effects", "Illustrator", "Audition"],
+    mediaUrl: "/assets/works/brand-motion.mp4",
+    tags: ["Branding", "Animation", "UI Motion"],
+    tools: ["After Effects", "Illustrator", "Premiere Pro"],
     highlights: [
-      "Character rigging",
-      "Concept visualization",
-      "Educational storytelling"
+      "Consistent brand animation",
+      "Modular design system",
+      "Seamless transitions"
     ],
     link: "#",
     comingSoon: false
   },
-  
-  // Product Visualization
+
+  // 3D Modelling
   {
     id: 7,
-    title: "E-commerce Product Gallery",
-    category: "Product Visualization",
-    shortDescription: "Product visualization for online store",
-    fullDescription: "Developed a complete product visualization system for an e-commerce platform, creating consistent, high-quality product videos across a diverse catalog of over 200 items, increasing conversion rate by 15%.",
-    imageUrl: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+    title: "Character Model Collection",
+    category: "3D Modelling",
+    shortDescription: "Detailed character models with advanced rigging",
+    fullDescription: "Created a series of highly detailed character models with advanced rigging systems for animation. The project showcases organic modeling, texture work, and character preparation for animation pipelines.",
+    imageUrl: "/assets/works/character-models.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["E-commerce", "Product Photography", "Catalog Development"],
-    tools: ["Premiere Pro", "After Effects", "Photoshop"],
+    mediaUrl: "/assets/works/character-models.mp4",
+    tags: ["Character", "Rigging", "Texturing"],
+    tools: ["Blender", "Substance Painter", "ZBrush"],
     highlights: [
-      "Consistent lighting system",
-      "Automated rendering pipeline",
-      "360-degree product views"
+      "High-poly modeling",
+      "Advanced rigging systems",
+      "PBR texturing"
     ],
     link: "#",
     comingSoon: false
   },
   {
     id: 8,
-    title: "Packaging Design Visualization",
-    category: "Product Visualization",
-    shortDescription: "Consumer product packaging concept videos",
-    fullDescription: "Created photorealistic video visualizations for new packaging concepts across a consumer product line, allowing the marketing team to test customer reactions before committing to production costs.",
-    imageUrl: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
+    title: "Architectural Visualization",
+    category: "3D Modelling",
+    shortDescription: "Photorealistic architectural environments",
+    fullDescription: "Developed photorealistic 3D environments for architectural visualization, featuring detailed modeling, realistic materials, and atmospheric lighting. The project demonstrates mastery of environmental modeling and rendering.",
+    imageUrl: "/assets/works/arch-viz.jpg",
     mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Packaging", "Product Design", "Concept Visualization"],
-    tools: ["Premiere Pro", "After Effects", "Photoshop"],
+    mediaUrl: "/assets/works/arch-viz.mp4",
+    tags: ["Architecture", "Visualization", "Lighting"],
+    tools: ["Blender", "Corona Renderer", "Substance Designer"],
     highlights: [
-      "Material accuracy simulation",
-      "Multiple design variations",
-      "Retail environment integration"
-    ],
-    link: "#",
-    comingSoon: false
-  },
-  
-  // 3D Modeling - Converted to Video Presentations
-  {
-    id: 9,
-    title: "Character Design Showcase",
-    category: "3D Modeling",
-    shortDescription: "Video showcase of stylized game character models",
-    fullDescription: "Created a video showcase of 5 stylized characters for an indie game developer, including low-poly game-ready assets, high-resolution versions for marketing materials, and complete rigging for animation.",
-    imageUrl: "https://images.unsplash.com/photo-1599824701954-6087a93a9bc1",
-    mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Character Design", "Game Assets", "Low-Poly"],
-    tools: ["Blender", "ZBrush", "Premiere Pro"],
-    highlights: [
-      "Efficient topology",
-      "Game-optimized meshes",
-      "Character design language"
-    ],
-    link: "#",
-    comingSoon: false
-  },
-  {
-    id: 10,
-    title: "Industrial Product Animation",
-    category: "3D Modeling",
-    shortDescription: "Video animation of industrial equipment",
-    fullDescription: "Created a detailed video animation of industrial machinery components for a manufacturing client, used for technical documentation, assembly instructions, and marketing materials. The video showcased complex mechanical systems with animated components.",
-    imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12",
-    mediaType: "video",
-    mediaUrl: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-    tags: ["Industrial", "Technical Animation", "Engineering"],
-    tools: ["Blender", "After Effects", "Premiere Pro"],
-    highlights: [
-      "Technical accuracy",
-      "Mechanical animation",
-      "Cross-section visualization"
+      "Detailed modeling",
+      "Realistic materials",
+      "Environmental lighting"
     ],
     link: "#",
     comingSoon: false

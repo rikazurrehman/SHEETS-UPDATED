@@ -4,7 +4,7 @@ import { Menu, X, FileText, Home, Info, Briefcase, Code, Mail } from 'lucide-rea
 
 const navItems = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'About', href: '/#about-me', icon: Info },
+  { name: 'About', href: '/#about', icon: Info },
   { name: 'Works', href: '/works', icon: Briefcase },
   { name: 'Skills', href: '/#skills', icon: Code },
   { name: 'Contact', href: '/#contact', icon: Mail },
@@ -13,10 +13,10 @@ const navItems = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true); // State to control navbar visibility
-  const [showScrollTop, setShowScrollTop] = useState(false); // State to control scroll to top button visibility
-  const lastScrollY = useRef(0); // Ref to store last scroll position
-  const navbarRef = useRef<HTMLElement>(null); // Ref for the navbar element
+  const [isVisible, setIsVisible] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const lastScrollY = useRef(0);
+  const navbarRef = useRef<HTMLElement>(null);
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,63 +29,51 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Logic to hide/show navbar
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) { // Scrolling down
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsVisible(false);
-      } else { // Scrolling up or at the top
+      } else {
         setIsVisible(true);
       }
       lastScrollY.current = currentScrollY;
 
-      // Logic to show/hide scroll to top button
       if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
         setShowScrollTop(true);
       } else {
         setShowScrollTop(false);
       }
       
-      // Add shadow when scrolled
       if (navbarRef.current) {
         if (currentScrollY > 50) {
-          navbarRef.current.classList.add('bg-gaming-darker/90', 'backdrop-blur-md', 'py-3', 'shadow-lg');
-          navbarRef.current.classList.remove('bg-transparent', 'py-5');
+          navbarRef.current.classList.add('bg-gaming-darker/80', 'backdrop-blur-sm', 'py-3');
+          navbarRef.current.classList.remove('bg-transparent', 'py-4');
         } else {
-          navbarRef.current.classList.remove('bg-gaming-darker/90', 'backdrop-blur-md', 'py-3', 'shadow-lg');
-          navbarRef.current.classList.add('bg-transparent', 'py-5');
+          navbarRef.current.classList.remove('bg-gaming-darker/80', 'backdrop-blur-sm', 'py-3');
+          navbarRef.current.classList.add('bg-transparent', 'py-4');
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle navigation and scroll
   const handleLinkClick = (href: string, e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     
-    // Close menu on mobile
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
     
-    // Regular route navigation (no hash)
     if (!href.includes('#')) {
-      // If the current path is the target path, just scroll to top
       if (location.pathname === href) {
         window.scrollTo(0, 0);
       } else {
-        // Otherwise, navigate to the new route
         navigate(href);
       }
-      // Always scroll to top on full route navigation
       window.scrollTo(0, 0);
       return;
     }
 
-    // Handle hash links within the same page
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
@@ -94,19 +82,15 @@ const Navbar = () => {
       return;
     }
 
-    // Handle route + hash (like "/#about")
     const [route, hash] = href.split('#');
     
-    // If we're already on the correct route, just scroll
     if (location.pathname === route || (route === '/' && location.pathname === '')) {
       const element = document.querySelector(`#${hash}`);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // Need to navigate first, then scroll after the new page loads
       navigate(href);
-      // After navigation, scroll to the element
       setTimeout(() => {
         const element = document.querySelector(`#${hash}`);
         if (element) {
@@ -116,43 +100,32 @@ const Navbar = () => {
     }
   };
 
-  // Function to handle direct scroll to section by ID
-  const scrollToSection = (id: string, e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
-    
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-     if (isMenuOpen) { setIsMenuOpen(false); }
-  };
-
   return (
     <nav 
       ref={navbarRef}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isVisible ? 'translate-y-0' : '-translate-y-full' // Use transform for hiding/showing
+        isVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
-          className="font-orbitron text-2xl font-bold neon-text"
+          className="font-medium text-lg tracking-wide hover:text-gaming-purple transition-colors"
           onClick={(e) => handleLinkClick('/', e)}
         >
-          RIKAZUR REHMAN M
+          Rikazur Rehman M
         </Link>
         
         {/* Desktop menu */}
-        <ul className="hidden md:flex space-x-8 items-center">
+        <ul className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (
             <li key={item.name}>
               <Link
                 to={item.href}
-                className="text-white/80 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-0 after:bg-gaming-purple after:transition-all hover:after:w-full flex items-center gap-1"
+                className="text-sm text-white/70 hover:text-white transition-colors flex items-center gap-1.5 py-1"
                 onClick={(e) => handleLinkClick(item.href, e)}
               > 
-                {item.icon && <item.icon size={16} />}
+                <item.icon size={14} className="opacity-70 group-hover:opacity-100" />
                 {item.name}
               </Link>
             </li>
@@ -161,32 +134,27 @@ const Navbar = () => {
         
         {/* Mobile menu button */}
         <button
-          className="md:hidden text-white p-2 focus:outline-none"
+          className="md:hidden text-white/80 hover:text-white p-1.5 focus:outline-none"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
       
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gaming-darker/95 backdrop-blur-md border-t border-gaming-purple/30">
-          <div className="container mx-auto px-4 py-3">
-            <ul className="flex flex-col space-y-3">
+        <div className="md:hidden bg-gaming-darker/95 backdrop-blur-md border-t border-white/5">
+          <div className="container mx-auto px-4 py-4">
+            <ul className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="flex items-center gap-2 py-2 px-4 text-white/80 hover:text-white hover:bg-gaming-purple/20 rounded transition-colors"
-                    onClick={(e) => {
-                      // Check if it's the Skills link and handle separately
-                      if (item.name === 'Skills') {
-                        scrollToSection('tools-i-use', e);
-                      } else { handleLinkClick(item.href, e); }
-                    }}
+                    className="flex items-center gap-2 py-2 px-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                    onClick={(e) => handleLinkClick(item.href, e)}
                   >
-                    {item.icon && <item.icon size={16} />}
+                    <item.icon size={16} />
                     {item.name}
                   </Link>
                 </li>

@@ -262,6 +262,15 @@
   }
 }
 
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(147, 51, 234, 0.3), 0 0 15px rgba(147, 51, 234, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.5), 0 0 25px rgba(147, 51, 234, 0.4);
+  }
+}
+
 /* Game controls feedback */
 .game-button:active {
   transform: scale(0.95);
@@ -317,6 +326,10 @@
   opacity: 0;
 }
 
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
 /* Scroll left animation for tools section */
 @keyframes scroll-left {
   0% {
@@ -334,5 +347,148 @@
   }
   100% {
     transform: translateX(calc(-50% - 1rem)); /* Adjusted for perfect loop */
+  }
+}
+
+@layer utilities {
+  .animate-gradient-x {
+    background-size: 200% 100%;
+    animation: gradient-x 8s linear infinite;
+  }
+
+  @keyframes gradient-x {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 200% 0%;
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.75;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-rgb-x {
+    background-size: 300% 100%;
+    animation: rgb-x 8s ease-in-out infinite;
+  }
+
+  .animate-rgb-flow {
+    animation: rgb-flow 8s ease-in-out infinite;
+  }
+
+  @keyframes rgb-x {
+    0%, 100% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 150% 0%;
+    }
+  }
+
+  @keyframes rgb-flow {
+    0%, 100% {
+      transform: translateX(-100%) rotate(-2deg);
+      opacity: 0;
+    }
+    20%, 80% {
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateX(100%) rotate(2deg);
+      opacity: 0.8;
+    }
+  }
+
+  .animate-rgb-text-fill {
+    background-size: 300% 100%;
+    animation: rgb-text-fill 12s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  .animate-rgb-flow-contained {
+    animation: rgb-flow-contained 12s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  @keyframes rgb-text-fill {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes rgb-flow-contained {
+    0%, 100% {
+      transform: translateX(-50%) scale(0.95);
+      opacity: 0;
+    }
+    25% {
+      transform: translateX(-25%) scale(0.98);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateX(0%) scale(1);
+      opacity: 0.5;
+    }
+    75% {
+      transform: translateX(25%) scale(0.98);
+      opacity: 0.4;
+    }
+  }
+
+  /* Marquee animations */
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: fit-content;
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-item {
+    flex-shrink: 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .marquee-item:hover {
+    transform: translateY(-5px);
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% - 1rem));
+    }
   }
 }

@@ -35,25 +35,41 @@ const Hero = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
-              <span className="text-white whitespace-nowrap">I'm Rikazur Rehman M</span>            </h1>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              I craft <span className="gaming-gradient-text">3D campaigns</span>{' '}
-              <br />& epic <span className="gaming-gradient-text">video edits</span>
-            </h2>
-            
-            <p className="text-lg md:text-xl text-white/80 mb-8">
-              Bringing gaming-inspired aesthetics to digital content creation with 
-              cutting-edge techniques and creative vision.
-            </p>
-            
-            <button 
-              onClick={goToWorks} 
-              className="btn-glow group relative overflow-hidden"
-            >
-              <span className="relative z-10">View My Work</span>
-              <span className="inline-block ml-2 transition-transform group-hover:translate-x-1 relative z-10">→</span>
-            </button>
+            <div className="max-w-xl">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 relative">
+                <span className="relative inline-block p-3 rounded-3xl">
+                  {/* Soft-edged container for RGB effect */}
+                  <div className="absolute inset-0 rounded-3xl bg-gaming-darker/10 backdrop-blur-sm"></div>
+                  {/* Contained RGB animated gradient layers with feathered edges */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-red-500 via-transparent to-transparent opacity-40 blur-lg rounded-3xl animate-rgb-flow-contained"></span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-40 blur-lg rounded-3xl animate-rgb-flow-contained" style={{ animationDelay: '1.2s' }}></span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-blue-500 opacity-40 blur-lg rounded-3xl animate-rgb-flow-contained" style={{ animationDelay: '2.4s' }}></span>
+                  <span className="relative inline-block bg-gradient-to-r from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent animate-rgb-text-fill font-orbitron">
+                    Hey! I'm Rikaz!
+                  </span>
+                </span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-white/95 mb-6 leading-relaxed font-medium">
+                Blending <span className="gaming-gradient-text font-bold">social media strategy</span>, 
+                <span className="gaming-gradient-text font-bold"> CGI</span>, and 
+                <span className="gaming-gradient-text font-bold"> video production</span> to create crazy content.
+              </p>
+              
+              <p className="text-lg text-white/80 mb-8 leading-relaxed">
+                Most days I'm fully packed and always learning, but when I get a breather, 
+                you'll find me riding my bike, chasing a shawarma, or dropping 30 kills in 
+                Valorant <span className="inline-block animate-bounce">😜</span>
+              </p>
+              
+              <button 
+                onClick={goToWorks} 
+                className="btn-glow group relative overflow-hidden"
+              >
+                <span className="relative z-10 font-medium">View My Work</span>
+                <span className="inline-block ml-2 transition-transform group-hover:translate-x-1 relative z-10">→</span>
+              </button>
+            </div>
           </div>
           
           {/* Profile image - optimized for performance */}
@@ -68,7 +84,7 @@ const Hero = () => {
               
               {/* Profile image - using width and height attributes for CLS optimization */}
               <img 
-                src="https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+                src="/assets/DSC09562 (3).png"
                 alt="Profile" 
                 width="384"
                 height="384"
