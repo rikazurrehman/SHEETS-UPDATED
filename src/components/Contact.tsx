@@ -32,38 +32,38 @@ const Contact = () => {
   };
 
   const validateForm = () => {
-    let isValid = true;
-    const newErrors = { name: '', email: '', message: '' };
+    const newErrors: typeof errors = { name: '', email: '', message: '' };
+    let formIsValid = true;
     
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
-      isValid = false;
+      formIsValid = false;
     }
-    
-    if (!formData.email.trim()) {
+
+ if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-      isValid = false;
+      formIsValid = false;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
-      isValid = false;
+      formIsValid = false;
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
-      isValid = false;
+      formIsValid = false;
     } else if (formData.message.length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
-      isValid = false;
+      formIsValid = false;
     }
     
     setErrors(newErrors);
-    return isValid;
+ return formIsValid;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (validateForm()) {
+    if (validateForm()) { // validateForm now sets errors and returns validity
       // In a real app, you would send the data to your backend
       console.log('Form submitted:', formData);
       
@@ -136,7 +136,7 @@ const Contact = () => {
           </div>
           
           {/* Contact Form */}
-          <div>
+          <div className="shadow-glow">
             <form onSubmit={handleSubmit} className="bg-gaming-darker/40 backdrop-blur-sm p-8 rounded-lg border border-white/10">
               <div className="mb-6">
                 <label htmlFor="name" className="block text-white/80 mb-2 text-sm">
@@ -188,7 +188,7 @@ const Contact = () => {
               
               <button 
                 type="submit" 
-                className="w-full btn-glow text-center py-4"
+                className="w-full bg-white text-black text-center py-4 hover:bg-gray-200 transition-colors hover:shadow-glow font-medium"
               >
                 Send Message
               </button>

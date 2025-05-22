@@ -36,11 +36,9 @@ const Hero = () => {
             }`}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
-              <span className="text-white">I</span> <span className="gaming-gradient-text">Rikazur Rehman M</span>
-            </h1>
-            
+              <span className="text-white whitespace-nowrap">I'm Rikazur Rehman M</span>            </h1>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              I craft <span className="gaming-gradient-text">3D campaigns</span>
+              I craft <span className="gaming-gradient-text">3D campaigns</span>{' '}
               <br />& epic <span className="gaming-gradient-text">video edits</span>
             </h2>
             

@@ -2,14 +2,14 @@ import { Monitor, Video, HeadphonesIcon, Boxes } from 'lucide-react';
 import { useEffect } from 'react';
 
 const tools = [
-  { name: 'Blender', logo: '/assets/logos/blender.svg' },
-  { name: 'After Effects', logo: '/assets/logos/after-effects.svg' },
-  { name: 'Premiere Pro', logo: '/assets/logos/premiere-pro.svg' },
-  { name: 'DaVinci Resolve', logo: '/assets/logos/davinci-resolve.svg' },
-  { name: 'Photoshop', logo: '/assets/logos/photoshop.svg' },
-  { name: 'GitHub', logo: '/assets/logos/github.svg' },
-  { name: 'FSpy', logo: '/assets/logos/fspy.png' },
-  { name: 'WATI', logo: '/assets/logos/wati.png' },
+  { name: 'Blender', logo: '/assets/logos/Images/Blender.png' },
+  { name: 'After Effects', logo: '/assets/logos/Images/After Effects.png' },
+  { name: 'Premiere Pro', logo: '/assets/logos/Images/Premiere pro.png' },
+  { name: 'DaVinci Resolve', logo: '/assets/logos/Images/DaVinci Resolve.png' },
+  { name: 'Photoshop', logo: '/assets/logos/Images/Photoshop.png' },
+  { name: 'GitHub', logo: '/assets/logos/Images/Github.png' },
+  { name: 'FSpy', logo: '/assets/logos/Images/Fspy.png' },
+  { name: 'WATI', logo: '/assets/logos/Images/Wati.png' },
 ];
 
 // Duplicate tools multiple times for smoother infinite scroll effect

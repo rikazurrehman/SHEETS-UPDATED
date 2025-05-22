@@ -35,9 +35,9 @@ const ProjectCard = memo(({ project, openProjectModal, index }) => {
   return (
     <div 
       className="group relative overflow-hidden bg-gaming-darker border-b border-white/5 hover:shadow-md transition-shadow animate-fadeIn"
-      style={{ animationDelay: `${index * 0.05}s`, animationFillMode: 'both' }}
+ style={{ animationDelay: `${index * 0.05}s`, animationFillMode: 'both', display: 'flex', flexDirection: 'column' }}
     >
-      {/* Project Image - with loading optimization */}
+      {/* Project Media Thumbnail - with loading optimization */}
       <div className="aspect-video overflow-hidden relative">
         {(index < 6 || isVisible) ? (
           <img 
@@ -69,10 +69,11 @@ const ProjectCard = memo(({ project, openProjectModal, index }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker to-transparent opacity-70"></div>
       </div>
       
-      {/* Content */}
-      <div className="absolute bottom-0 left-0 w-full p-4">
-        <h3 className="text-base font-medium mb-1 text-white">{project.title}</h3>
-        <p className="text-white/60 text-xs mb-3 line-clamp-1">{project.shortDescription}</p>
+      {/* Content Overlay */}
+      <div className="absolute inset-x-0 bottom-0 w-full p-4 bg-gaming-darker/80 backdrop-blur-sm flex-grow">
+ <h3 className="text-base font-semibold text-white mb-1">{project.title}</h3>
+        {/* Short description is now optional or could be shown on hover/focus */}
+        {/* <p className="text-white/60 text-xs mb-3 line-clamp-1">{project.shortDescription}</p> */}
         
         {/* Button */}
         <button
@@ -177,25 +178,25 @@ const Works = () => {
   }, [selectedProject, closeProjectModal]);
 
   return (
-    <div className="min-h-screen bg-gaming-dark text-white">
+    <div className="bg-gaming-dark text-white min-h-screen flex flex-col">
       {/* Only render animation when not on a low-end device */}
       {!document.body.classList.contains('low-end-device') && <MemoizedGamingAnimation />}
       <Navbar />
       
-      <div className="pt-24 pb-16">
-        <div className="container mx-auto px-6">
-          <h1 className="text-3xl font-orbitron font-bold mb-6 text-center gaming-gradient-text">My Works</h1>
-          
+      {/* Content area that grows */}
+      <div className="pt-24 pb-16 flex-grow">
+ <div className="container mx-auto px-6 flex flex-col items-center min-h-[calc(100vh - 10rem)]"> {/* Adjusted min-h for better footer spacing */}
+ <h1 className="text-4xl font-bold mb-8 text-center gaming-gradient-text">My Works</h1> {/* Changed text color to white */}
           {/* Category Filter - Simplified for better performance */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+ <div className="flex flex-wrap justify-center gap-4 mb-16">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${
-                  activeCategory === category 
-                    ? 'bg-gaming-purple text-white' 
-                    : 'bg-gaming-darker hover:bg-gaming-purple/30 text-white/70'
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-colors border border-transparent ${
+ activeCategory === category
+                    ? 'bg-white text-gaming-darker'
+                    : 'text-white/70 hover:text-white hover:bg-white/10 text-lg' // Increased font size
                 }`}
               >
                 {category === "all" ? "All Works" : category}
@@ -204,9 +205,9 @@ const Works = () => {
           </div>
           
           {/* Projects Grid - Using progressive loading */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow">
             {filteredProjects.slice(0, visibleProjects).map((project, index) => (
-              <ProjectCard
+ <ProjectCard
                 key={project.id}
                 project={project}
                 openProjectModal={openProjectModal}
