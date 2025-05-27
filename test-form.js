@@ -4,20 +4,21 @@
 function testFormSubmission() {
   const scriptUrl = "YOUR_WEB_APP_URL"; // Replace with your actual web app URL
   
-  const formData = new URLSearchParams();
-  formData.append("name", "Test User");
-  formData.append("email", "test@example.com");
-  formData.append("description", "This is a test submission from the browser console");
+  const testData = {
+    name: "Test User",
+    email: "test@example.com",
+    description: "This is a test submission from the browser console"
+  };
   
   console.log("Sending test submission to:", scriptUrl);
-  console.log("With data:", Object.fromEntries(formData.entries()));
+  console.log("With data:", testData);
   
   fetch(scriptUrl, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     },
-    body: formData
+    body: JSON.stringify(testData)
   })
   .then(response => response.text())
   .then(data => {

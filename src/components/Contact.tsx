@@ -72,19 +72,15 @@ const Contact = () => {
           throw new Error('Google Script URL not configured');
         }
 
-        const params = new URLSearchParams({
-          name: formData.name,
-          email: formData.email,
-          description: formData.description
-        });
-        
-        console.log("Form data being sent:", Object.fromEntries(params.entries()));
+        // Create URL-encoded form data
+        const params = new URLSearchParams();
+        params.append("name", formData.name);
+        params.append("email", formData.email);
+        params.append("description", formData.description);
 
+        // Simple fetch with URL-encoded form data
         const response = await fetch(scriptUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
           body: params
         });
 
