@@ -1,6 +1,21 @@
 import { Camera, Video, Share2, Wand2, MessageSquare } from 'lucide-react';
 import { useEffect } from 'react';
 
+// Helper function to generate a colored data URL based on text
+const generateColoredDataUrl = (text: string) => {
+  // Generate a color based on the text (simple hash function)
+  const hash = text.split('').reduce((acc, char) => {
+    return char.charCodeAt(0) + ((acc << 5) - acc);
+  }, 0);
+  
+  const hue = Math.abs(hash % 360);
+  const color = `hsl(${hue}, 70%, 30%)`;
+  const textColor = '#ffffff';
+  
+  // Create a data URL with the first character
+  return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="${encodeURIComponent(color)}"/><text x="50%" y="50%" font-family="Arial" font-size="24" font-weight="bold" fill="${encodeURIComponent(textColor)}" text-anchor="middle" dominant-baseline="middle">${text.charAt(0)}</text></svg>`;
+};
+
 const tools = [
   { name: 'Blender', logo: '/assets/logos/Images/Blender.png' },
   { name: 'After Effects', logo: '/assets/logos/Images/After Effects.png' },
@@ -116,7 +131,7 @@ const About = () => {
                         alt={tool.name}
                         className="max-w-full max-h-full object-contain"
                         onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/64?text=" + tool.name.charAt(0);
+                          e.currentTarget.src = generateColoredDataUrl(tool.name);
                         }}
                       />
                     </div>
@@ -152,7 +167,7 @@ const About = () => {
                         alt={brand.name}
                         className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                         onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/64?text=" + brand.name.charAt(0);
+                          e.currentTarget.src = generateColoredDataUrl(brand.name);
                         }}
                       />
                     </div>
