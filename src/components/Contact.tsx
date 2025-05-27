@@ -7,13 +7,14 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    description: ''
   });
   const [errors, setErrors] = useState({
     name: '',
     email: '',
-    message: ''
+    description: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,7 +33,7 @@ const Contact = () => {
   };
 
   const validateForm = () => {
-    const newErrors: typeof errors = { name: '', email: '', message: '' };
+    const newErrors: typeof errors = { name: '', email: '', description: '' };
     let formIsValid = true;
     
     if (!formData.name.trim()) {
@@ -48,11 +49,8 @@ const Contact = () => {
       formIsValid = false;
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-      formIsValid = false;
-    } else if (formData.message.length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+    if (!formData.description.trim()) {
+      newErrors.description = 'Description is required';
       formIsValid = false;
     }
     
@@ -60,22 +58,59 @@ const Contact = () => {
     return formIsValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validateForm()) {
-      console.log('Form submitted:', formData);
+      setIsSubmitting(true);
       
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-      });
-      
-      setFormData({
-        name: '',
-        email: '',
-        message: ''
-      });
+      try {
+        const scriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+        console.log("Submitting form to:", scriptUrl);
+        
+        if (!scriptUrl) {
+          throw new Error('Google Script URL not configured');
+        }
+
+        const params = new URLSearchParams({
+          name: formData.name,
+          email: formData.email,
+          description: formData.description
+        });
+        
+        console.log("Form data being sent:", Object.fromEntries(params.entries()));
+
+        const response = await fetch(scriptUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: params
+        });
+
+        const responseText = await response.text();
+        console.log("Form submission response:", responseText);
+
+        toast({
+          title: "Thanks for connecting!",
+          description: "I'll get back to you soon.",
+        });
+        
+        setFormData({
+          name: '',
+          email: '',
+          description: ''
+        });
+      } catch (error) {
+        console.error('Form submission error:', error);
+        toast({
+          title: "Oops! Something went wrong",
+          description: "Please try again later or contact me directly.",
+          variant: "destructive"
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -86,7 +121,7 @@ const Contact = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Info Cards */}
-          <div className="space-y-8">
+          <div>
             {/* Quick Contact */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <a 
@@ -121,7 +156,7 @@ const Contact = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-gaming-darker/50 backdrop-blur-sm border border-gaming-purple/20 p-8 rounded-lg">
+            <div className="mt-8">
               <h3 className="text-2xl font-orbitron font-semibold mb-6 gaming-gradient-text">Find Me On</h3>
               <div className="grid grid-cols-3 gap-4">
                 <a 
@@ -161,20 +196,11 @@ const Contact = () => {
                 </a>
               </div>
             </div>
-
-            {/* Quote Section */}
-            <div className="text-center mt-12 mb-8">
-              <p className="text-2xl font-orbitron text-white/90">
-                Let's Connect Soon!
-              </p>
-              <div className="w-24 h-1 mx-auto mt-4 bg-gradient-to-r from-transparent via-gaming-purple to-transparent"></div>
-            </div>
-
           </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="bg-gaming-darker/50 backdrop-blur-sm p-8 rounded-lg border border-gaming-purple/20 shadow-glow hover:shadow-glow-strong transition-all">
-            <div className="mb-6">
+          <form onSubmit={handleSubmit} className="space-y-6 bg-gaming-darker/50 backdrop-blur-sm p-8 rounded-lg border border-gaming-purple/20 shadow-glow hover:shadow-glow-strong transition-all">
+            <div>
               <label htmlFor="name" className="block text-white/80 mb-2 text-sm">
                 Your Name
               </label>
@@ -186,11 +212,12 @@ const Contact = () => {
                 onChange={handleChange}
                 className={`w-full bg-gaming-darker px-4 py-3 rounded-md border ${errors.name ? 'border-red-500' : 'border-white/10'} focus:border-gaming-purple outline-none transition-colors text-white`}
                 placeholder="Enter your name"
+                disabled={isSubmitting}
               />
               {errors.name && <p className="mt-1 text-red-500 text-xs">{errors.name}</p>}
             </div>
             
-            <div className="mb-6">
+            <div>
               <label htmlFor="email" className="block text-white/80 mb-2 text-sm">
                 Email Address
               </label>
@@ -202,31 +229,34 @@ const Contact = () => {
                 onChange={handleChange}
                 className={`w-full bg-gaming-darker px-4 py-3 rounded-md border ${errors.email ? 'border-red-500' : 'border-white/10'} focus:border-gaming-purple outline-none transition-colors text-white`}
                 placeholder="Enter your email"
+                disabled={isSubmitting}
               />
               {errors.email && <p className="mt-1 text-red-500 text-xs">{errors.email}</p>}
             </div>
-            
-            <div className="mb-6">
-              <label htmlFor="message" className="block text-white/80 mb-2 text-sm">
-                Your Message
+
+            <div>
+              <label htmlFor="description" className="block text-white/80 mb-2 text-sm">
+                Description
               </label>
               <textarea
-                id="message"
-                name="message"
-                value={formData.message}
+                id="description"
+                name="description"
+                value={formData.description}
                 onChange={handleChange}
-                rows={5}
-                className={`w-full bg-gaming-darker px-4 py-3 rounded-md border ${errors.message ? 'border-red-500' : 'border-white/10'} focus:border-gaming-purple outline-none transition-colors text-white resize-none`}
-                placeholder="What would you like to discuss?"
-              ></textarea>
-              {errors.message && <p className="mt-1 text-red-500 text-xs">{errors.message}</p>}
+                rows={4}
+                className={`w-full bg-gaming-darker px-4 py-3 rounded-md border ${errors.description ? 'border-red-500' : 'border-white/10'} focus:border-gaming-purple outline-none transition-colors text-white resize-none`}
+                placeholder="Tell me about your project or inquiry"
+                disabled={isSubmitting}
+              />
+              {errors.description && <p className="mt-1 text-red-500 text-xs">{errors.description}</p>}
             </div>
             
             <button 
               type="submit" 
-              className="w-full bg-gaming-purple text-black text-center py-4 rounded-md hover:bg-gaming-purple/90 transition-all shadow-glow-strong hover:shadow-glow-purple border border-gaming-purple/50 hover:border-gaming-purple font-medium"
+              className="w-full bg-gaming-purple text-black text-center py-4 rounded-md hover:bg-gaming-purple/90 transition-all shadow-glow-strong hover:shadow-glow-purple border border-gaming-purple/50 hover:border-gaming-purple font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>
