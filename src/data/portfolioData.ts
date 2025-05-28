@@ -9,6 +9,7 @@ const portfolioData = [
     imageUrl: "/assets/works/cgi-product.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/cgi-product.mp4",
+    youtubeId: "dQw4w9WgXcQ",
     tags: ["CGI", "Product Visualization", "3D Camera Work"],
     tools: ["Blender", "FSpy", "After Effects"],
     highlights: [
@@ -28,6 +29,7 @@ const portfolioData = [
     imageUrl: "/assets/works/vfx-integration.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/vfx-integration.mp4",
+    youtubeId: "9bZkp7q19f0",
     tags: ["VFX", "Compositing", "CGI Integration"],
     tools: ["After Effects", "Blender", "DaVinci Resolve"],
     highlights: [
@@ -49,6 +51,7 @@ const portfolioData = [
     imageUrl: "/assets/works/speed-ramp.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/speed-ramp.mp4",
+    youtubeId: "iik25wqIuFo",
     tags: ["Speed Ramping", "Transitions", "Dynamic Editing"],
     tools: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
     highlights: [
@@ -68,6 +71,7 @@ const portfolioData = [
     imageUrl: "/assets/works/documentary.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/documentary.mp4",
+    youtubeId: "jNQXAC9IVRw",
     tags: ["Documentary", "Storytelling", "Cinematography"],
     tools: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
     highlights: [
@@ -89,6 +93,7 @@ const portfolioData = [
     imageUrl: "/assets/works/kinetic-type.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/kinetic-type.mp4",
+    youtubeId: "LXb3EKWsInQ",
     tags: ["Typography", "Animation", "Motion Design"],
     tools: ["After Effects", "Illustrator", "Cinema 4D"],
     highlights: [
@@ -108,6 +113,7 @@ const portfolioData = [
     imageUrl: "/assets/works/brand-motion.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/brand-motion.mp4",
+    youtubeId: "fJ9rUzIMcZQ",
     tags: ["Branding", "Animation", "UI Motion"],
     tools: ["After Effects", "Illustrator", "Premiere Pro"],
     highlights: [
@@ -129,6 +135,7 @@ const portfolioData = [
     imageUrl: "/assets/works/character-models.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/character-models.mp4",
+    youtubeId: "o-YBDTqX_ZU",
     tags: ["Character", "Rigging", "Texturing"],
     tools: ["Blender", "Substance Painter", "ZBrush"],
     highlights: [
@@ -148,6 +155,7 @@ const portfolioData = [
     imageUrl: "/assets/works/arch-viz.jpg",
     mediaType: "video",
     mediaUrl: "/assets/works/arch-viz.mp4",
+    youtubeId: "lYBUbBu4W08",
     tags: ["Architecture", "Visualization", "Lighting"],
     tools: ["Blender", "Corona Renderer", "Substance Designer"],
     highlights: [

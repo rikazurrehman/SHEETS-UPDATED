@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback, memo, useRef } from 'react';
-import { Eye, X, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Eye, X, Play, Pause, Volume2, VolumeX, Youtube } from 'lucide-react';
 import portfolioData from '../data/portfolioData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GamingAnimation from '../components/GamingAnimation';
 import useMediaOptimization from '../hooks/useMediaOptimization';
+import YouTubeEmbed from '../components/YouTubeEmbed';
 
 // Define interfaces for our types
 interface Project {
@@ -16,6 +17,7 @@ interface Project {
   imageUrl: string;
   mediaType: string;
   mediaUrl: string;
+  youtubeId?: string;
   tags: string[];
   tools: string[];
   highlights: string[];
@@ -37,9 +39,12 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
   const [isHovered, setIsHovered] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
+  // Determine if the thumbnail aspect ratio is portrait (vertical)
+  const isPortrait = project.imageUrl.includes('portrait') || project.imageUrl.includes('vertical');
+
   return (
     <div 
-      className="group relative overflow-hidden rounded-lg bg-gaming-darker/40 backdrop-blur-sm border border-gaming-purple/10 transition-all duration-300 hover:border-gaming-purple/30 hover:shadow-glow-strong cursor-pointer hover:cursor-pointer"
+      className={`group relative overflow-hidden rounded-lg bg-gaming-darker/40 backdrop-blur-sm border border-gaming-purple/10 transition-all duration-300 hover:border-gaming-purple/30 hover:shadow-glow-strong cursor-pointer hover:cursor-pointer h-full flex flex-col`}
       style={{ 
         animationDelay: `${index * 0.1}s`, 
         animationFillMode: 'both' 
@@ -49,34 +54,41 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
       onClick={() => openProjectModal(project)}
     >
       {/* Project Media Thumbnail */}
-      <div className="aspect-[9/16] overflow-hidden">
+      <div className={`${isPortrait ? 'aspect-[9/16]' : 'aspect-[16/9]'} overflow-hidden relative flex-grow`}>
         <img 
           ref={imgRef}
           src={project.imageUrl} 
           alt={project.title} 
           loading={index < 6 ? "eager" : "lazy"}
-          className={`w-full h-full object-cover transition-all duration-500 ${isHovered ? 'scale-105 blur-sm' : ''}`}
+          className={`w-full h-full object-cover transition-all duration-500 ${isHovered ? 'scale-105' : ''}`}
         />
         
+        {/* YouTube Indicator */}
+        {project.youtubeId && (
+          <div className="absolute top-3 right-3 bg-red-600 text-white rounded-full p-1.5 z-10">
+            <Youtube size={16} />
+          </div>
+        )}
+        
         {/* Overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-t from-gaming-darker via-gaming-darker/80 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-90' : 'opacity-50'}`}></div>
-      </div>
-      
-      {/* Content */}
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
-        <div className={`transform transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-          <span className="text-gaming-purple text-sm font-medium mb-2 block">{project.category}</span>
-          <h3 className="text-xl font-orbitron font-bold text-white mb-2">{project.title}</h3>
-          <p className="text-white/70 text-sm mb-4">{project.shortDescription}</p>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.slice(0, 3).map((tag) => (
-              <span 
-                key={tag} 
-                className="text-xs px-2 py-1 rounded-full bg-gaming-purple/10 text-gaming-purple/90"
-              >
-                {tag}
-              </span>
-            ))}
+        <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker via-gaming-darker/80 to-transparent opacity-70"></div>
+        
+        {/* Content - Always visible */}
+        <div className="absolute inset-0 p-4 sm:p-6 flex flex-col justify-end">
+          <div className="transform transition-all duration-300">
+            <span className="text-gaming-purple text-xs sm:text-sm font-medium mb-1 sm:mb-2 block">{project.category}</span>
+            <h3 className="text-lg sm:text-xl font-orbitron font-bold text-white mb-1 sm:mb-2">{project.title}</h3>
+            <p className="text-white/70 text-xs sm:text-sm mb-2 sm:mb-4 line-clamp-2">{project.shortDescription}</p>
+            <div className="flex flex-wrap gap-1 sm:gap-2">
+              {project.tags.slice(0, 2).map((tag) => (
+                <span 
+                  key={tag} 
+                  className="text-xs px-2 py-0.5 rounded-full bg-gaming-purple/10 text-gaming-purple/90"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -179,8 +191,8 @@ const Works = () => {
             ))}
           </div>
           
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+          {/* Projects Grid - Updated to handle various aspect ratios */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 auto-rows-fr">
             {filteredProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
@@ -200,95 +212,104 @@ const Works = () => {
           onClick={closeProjectModal}
         >
           <div 
-            className="bg-gaming-darker/90 backdrop-blur-sm border border-gaming-purple/20 rounded-lg overflow-hidden w-full max-w-4xl cursor-default"
+            className="bg-gaming-darker/90 backdrop-blur-sm border border-gaming-purple/20 rounded-lg overflow-hidden w-full max-w-5xl cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Media Content */}
-            <div className="relative bg-black/50">
-              {selectedProject.mediaType === 'video' && (
-                <div className="relative aspect-[9/16] max-h-[85vh] mx-auto">
-                  <video
-                    ref={videoRef}
-                    src={selectedProject.mediaUrl}
-                    className="w-full h-full object-contain"
-                    controls={false}
-                    autoPlay={false}
-                    loop
-                    muted={isMuted}
-                    playsInline
-                    poster={selectedProject.imageUrl}
-                  />
-                  <div className="absolute bottom-4 left-4 flex space-x-3">
-                    <button 
-                      onClick={togglePlayPause}
-                      className="bg-gaming-purple/20 hover:bg-gaming-purple/40 p-2 rounded-full backdrop-blur-sm transition-all cursor-pointer hover:cursor-pointer"
-                    >
-                      {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-                    </button>
-                    <button 
-                      onClick={toggleMute}
-                      className="bg-gaming-purple/20 hover:bg-gaming-purple/40 p-2 rounded-full backdrop-blur-sm transition-all cursor-pointer hover:cursor-pointer"
-                    >
-                      {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                    </button>
+            <div className="flex flex-col md:flex-row">
+              {/* Media Content */}
+              <div className="relative bg-black/50 md:w-3/5">
+                {selectedProject.youtubeId ? (
+                  // YouTube Video Embed
+                  <div className="w-full">
+                    <YouTubeEmbed 
+                      videoId={selectedProject.youtubeId} 
+                      title={selectedProject.title}
+                    />
                   </div>
-                </div>
-              )}
-              
-              {selectedProject.mediaType === 'image' && (
-                <div className="aspect-[9/16] max-h-[85vh] mx-auto">
-                  <img 
-                    src={selectedProject.mediaUrl} 
-                    alt={selectedProject.title} 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              )}
-              
-              {/* Close button */}
-              <button 
-                onClick={closeProjectModal}
-                className="absolute top-4 right-4 bg-gaming-purple/20 hover:bg-gaming-purple/40 p-2 rounded-full backdrop-blur-sm transition-all cursor-pointer hover:cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X size={20} />
-              </button>
-            </div>
-            
-            {/* Content */}
-            <div className="p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <h3 className="text-2xl font-orbitron font-bold">{selectedProject.title}</h3>
-                <span className="text-gaming-purple text-sm font-medium">{selectedProject.category}</span>
+                ) : selectedProject.mediaType === 'video' ? (
+                  // Regular Video
+                  <div className="relative aspect-video w-full">
+                    <video
+                      ref={videoRef}
+                      src={selectedProject.mediaUrl}
+                      className="w-full h-full object-contain"
+                      controls={false}
+                      autoPlay={false}
+                      loop
+                      muted={isMuted}
+                      playsInline
+                      poster={selectedProject.imageUrl}
+                    />
+                    <div className="absolute bottom-4 left-4 flex space-x-3">
+                      <button 
+                        onClick={togglePlayPause}
+                        className="bg-gaming-purple/20 hover:bg-gaming-purple/40 p-2 rounded-full backdrop-blur-sm transition-all cursor-pointer hover:cursor-pointer"
+                      >
+                        {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                      </button>
+                      <button 
+                        onClick={toggleMute}
+                        className="bg-gaming-purple/20 hover:bg-gaming-purple/40 p-2 rounded-full backdrop-blur-sm transition-all cursor-pointer hover:cursor-pointer"
+                      >
+                        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  // Image
+                  <div className="w-full">
+                    <img 
+                      src={selectedProject.mediaUrl} 
+                      alt={selectedProject.title} 
+                      className="w-full h-auto max-h-[70vh] object-contain mx-auto"
+                    />
+                  </div>
+                )}
+                
+                {/* Close button */}
+                <button 
+                  onClick={closeProjectModal}
+                  className="absolute top-4 right-4 bg-gaming-purple/20 hover:bg-gaming-purple/40 p-2 rounded-full backdrop-blur-sm transition-all cursor-pointer hover:cursor-pointer z-10"
+                  aria-label="Close modal"
+                >
+                  <X size={20} />
+                </button>
               </div>
               
-              <p className="text-white/80 mb-6">{selectedProject.fullDescription}</p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="text-lg font-orbitron font-semibold mb-3 text-white/90">Technologies</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.tools.map((tool) => (
-                      <span 
-                        key={tool}
-                        className="px-3 py-1 rounded-full bg-gaming-purple/10 text-gaming-purple/90 text-sm"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
+              {/* Content */}
+              <div className="p-6 md:p-8 md:w-2/5 max-h-[70vh] md:overflow-y-auto">
+                <div className="flex flex-col mb-6">
+                  <h3 className="text-2xl font-orbitron font-bold mb-2">{selectedProject.title}</h3>
+                  <span className="text-gaming-purple text-sm font-medium mb-4">{selectedProject.category}</span>
+                  <p className="text-white/80 mb-6">{selectedProject.fullDescription}</p>
                 </div>
                 
-                <div>
-                  <h4 className="text-lg font-orbitron font-semibold mb-3 text-white/90">Key Features</h4>
-                  <ul className="space-y-2 text-white/70">
-                    {selectedProject.highlights.map((highlight) => (
-                      <li key={highlight} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gaming-purple"></span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-orbitron font-semibold mb-3 text-white/90">Technologies</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.tools.map((tool) => (
+                        <span 
+                          key={tool}
+                          className="px-3 py-1 rounded-full bg-gaming-purple/10 text-gaming-purple/90 text-sm"
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-lg font-orbitron font-semibold mb-3 text-white/90">Key Features</h4>
+                    <ul className="space-y-2 text-white/70">
+                      {selectedProject.highlights.map((highlight) => (
+                        <li key={highlight} className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-gaming-purple"></span>
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
