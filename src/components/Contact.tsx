@@ -183,7 +183,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
           {/* Contact Form - LEFT SIDE (larger) */}
           <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="space-y-6 bg-gaming-darker/40 backdrop-blur-md p-8 rounded-2xl border border-white/5 hover:border-gaming-purple/30 shadow-lg hover:shadow-[0_0_25px_rgba(147,51,234,0.2)] transition-all duration-300">
+            <form onSubmit={handleSubmit} className="space-y-6 bg-gaming-darker/40 backdrop-blur-md p-8 rounded-2xl border border-white/5 hover:border-gaming-purple/30 shadow-lg transition-all duration-300">
               <h3 className="text-2xl font-orbitron text-white/90 mb-6 pb-2 border-b border-white/10">Drop a Message</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -197,7 +197,7 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.name ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white placeholder:text-white/30 shadow-[0_0_10px_rgba(147,51,234,0.05)]`}
+                    className={`w-full bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.name ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white placeholder:text-white/30`}
                     placeholder="John Doe"
                     disabled={isSubmitting}
                   />
@@ -214,7 +214,7 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white placeholder:text-white/30 shadow-[0_0_10px_rgba(147,51,234,0.05)]`}
+                    className={`w-full bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white placeholder:text-white/30`}
                     placeholder="john@example.com"
                     disabled={isSubmitting}
                   />
@@ -232,7 +232,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className={`w-full bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.message ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white resize-none placeholder:text-white/30 shadow-[0_0_10px_rgba(147,51,234,0.05)]`}
+                  className={`w-full bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.message ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white resize-none placeholder:text-white/30`}
                   placeholder="How can I help you?"
                   disabled={isSubmitting}
                 />
@@ -240,7 +240,7 @@ const Contact = () => {
               </div>
               
               {/* Math CAPTCHA */}
-              <div className="bg-gaming-darker/60 rounded-xl border border-white/5 p-5 shadow-[0_0_15px_rgba(147,51,234,0.1)]">
+              <div className="bg-gaming-darker/60 rounded-xl border border-white/5 p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Shield className="text-gaming-purple h-4 w-4" />
                   <span className="text-white/70 text-sm font-medium">Quick Verification</span>
@@ -258,7 +258,7 @@ const Contact = () => {
                     type="number"
                     value={userAnswer}
                     onChange={handleMathCaptchaChange}
-                    className={`w-20 bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.mathCaptcha ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white text-center shadow-[0_0_10px_rgba(147,51,234,0.05)]`}
+                    className={`w-20 bg-gaming-darker/80 px-4 py-3 rounded-xl border ${errors.mathCaptcha ? 'border-red-500' : 'border-white/5'} focus:border-gaming-purple outline-none transition-all duration-300 text-white text-center`}
                     placeholder="?"
                     disabled={isSubmitting}
                   />
@@ -278,7 +278,7 @@ const Contact = () => {
               
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-gaming-purple to-gaming-blue text-black font-semibold text-center py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] hover:translate-y-[-2px] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4"
+                className="w-full bg-gradient-to-r from-gaming-purple to-gaming-blue text-white text-center py-4 rounded-xl transition-all shadow-lg hover:shadow-gaming-purple/20 hover:translate-y-[-2px] font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : (
@@ -294,7 +294,7 @@ const Contact = () => {
           {/* Contact Info Cards - RIGHT SIDE (smaller) */}
           <div className="lg:col-span-5 space-y-6">
             {/* Direct contact card */}
-            <div className="bg-gaming-darker/40 backdrop-blur-md rounded-2xl border border-white/5 p-6 hover:border-gaming-blue/30 transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.1)] hover:shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+            <div className="bg-gaming-darker/40 backdrop-blur-md rounded-2xl border border-white/5 p-6 hover:border-gaming-blue/30 transition-all duration-300">
               <h3 className="text-xl font-orbitron text-white/90 mb-4 pb-2 border-b border-white/10">Direct Contact</h3>
               
               <div className="space-y-4">
@@ -302,7 +302,7 @@ const Contact = () => {
                   href="tel:7010956992"
                   className="flex items-center gap-4 p-3 rounded-xl hover:bg-gaming-darker/60 transition-all group"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-gaming-purple/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(147,51,234,0.2)]">
+                  <div className="w-10 h-10 rounded-xl bg-gaming-purple/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Phone className="text-gaming-purple h-5 w-5" />
                   </div>
                   <div>
@@ -315,7 +315,7 @@ const Contact = () => {
                   href="mailto:rikaz.154@gmail.com"
                   className="flex items-center gap-4 p-3 rounded-xl hover:bg-gaming-darker/60 transition-all group"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-gaming-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(56,189,248,0.2)]">
+                  <div className="w-10 h-10 rounded-xl bg-gaming-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Mail className="text-gaming-blue h-5 w-5" />
                   </div>
                   <div>
@@ -327,7 +327,7 @@ const Contact = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-gaming-darker/40 backdrop-blur-md rounded-2xl border border-white/5 p-6 hover:border-gaming-purple/20 transition-all duration-300 shadow-[0_0_15px_rgba(147,51,234,0.1)] hover:shadow-[0_0_20px_rgba(147,51,234,0.2)]">
+            <div className="bg-gaming-darker/40 backdrop-blur-md rounded-2xl border border-white/5 p-6 hover:border-gaming-purple/20 transition-all duration-300">
               <h3 className="text-xl font-orbitron text-white/90 mb-4 pb-2 border-b border-white/10">Find Me On</h3>
               
               <div className="grid grid-cols-3 gap-2">
@@ -337,7 +337,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="group flex flex-col items-center p-3 rounded-xl bg-gaming-darker/20 hover:bg-gaming-darker/60 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gaming-purple/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(147,51,234,0.2)]">
+                  <div className="w-10 h-10 rounded-full bg-gaming-purple/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                     <Linkedin className="h-5 w-5 text-gaming-purple" />
                   </div>
                   <span className="text-white/60 text-xs group-hover:text-white transition-colors">LinkedIn</span>
@@ -349,7 +349,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="group flex flex-col items-center p-3 rounded-xl bg-gaming-darker/20 hover:bg-gaming-darker/60 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gaming-blue/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(56,189,248,0.2)]">
+                  <div className="w-10 h-10 rounded-full bg-gaming-blue/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                     <Instagram className="h-5 w-5 text-gaming-blue" />
                   </div>
                   <span className="text-white/60 text-xs group-hover:text-white transition-colors">Instagram</span>
@@ -361,7 +361,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="group flex flex-col items-center p-3 rounded-xl bg-gaming-darker/20 hover:bg-gaming-darker/60 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gaming-green/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                  <div className="w-10 h-10 rounded-full bg-gaming-green/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                     <Github className="h-5 w-5 text-gaming-green" />
                   </div>
                   <span className="text-white/60 text-xs group-hover:text-white transition-colors">GitHub</span>
@@ -369,32 +369,23 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Let's Connect Soon - Replacing Project Availability */}
-            <div className="bg-gaming-darker/40 backdrop-blur-md rounded-2xl border border-white/5 p-5 relative overflow-hidden group hover:border-gaming-purple/20 transition-all duration-300 shadow-[0_0_15px_rgba(147,51,234,0.1)] hover:shadow-[0_0_20px_rgba(147,51,234,0.2)]">
-              {/* Background effects */}
-              <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gaming-purple/5 blur-[60px]"></div>
-              <div className="absolute -bottom-12 -left-12 w-24 h-24 rounded-full bg-gaming-blue/5 blur-[40px]"></div>
-              
-              <div className="relative z-10 flex flex-col items-center justify-center text-center py-2">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gaming-purple to-gaming-blue p-[2px] mb-3 shadow-[0_0_15px_rgba(147,51,234,0.3)]">
-                  <div className="w-full h-full rounded-full bg-gaming-darker/80 flex items-center justify-center">
-                    <Sparkles className="h-6 w-6 text-gaming-purple" />
-                  </div>
+            {/* Let's Connect Soon Box */}
+            <div className="bg-gaming-darker/40 backdrop-blur-md rounded-2xl border border-white/5 p-6 relative overflow-hidden group hover:border-gaming-purple/20 transition-all duration-300">
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="mb-3 flex items-center gap-2">
+                  <Sparkles className="text-gaming-purple h-5 w-5" />
+                  <h3 className="text-xl font-orbitron gaming-gradient-text">Let's Connect Soon</h3>
                 </div>
                 
-                <h3 className="text-xl font-orbitron text-white mb-2 gaming-gradient-text">Let's Connect Soon</h3>
-                
-                <p className="text-white/70 text-xs max-w-xs mb-3">
-                  Have an exciting project or idea? I'm always open to new collaborations.
+                <p className="text-white/70 text-sm">
+                  Have a project in mind? I'm available for freelance work.
                 </p>
                 
-                <div>
-                  <a 
-                    href="mailto:rikaz.154@gmail.com"
-                    className="px-5 py-1.5 bg-gradient-to-r from-gaming-purple to-gaming-blue text-white rounded-full text-xs font-medium shadow-[0_0_15px_rgba(147,51,234,0.2)] hover:shadow-[0_0_25px_rgba(147,51,234,0.4)] transition-all hover:translate-y-[-2px]"
-                  >
-                    Start a Conversation
-                  </a>
+                <div className="w-full h-[1px] bg-white/10 my-3"></div>
+                
+                <div className="flex items-center text-white/80 text-sm">
+                  <Mail className="h-4 w-4 text-gaming-purple mr-2" />
+                  <span>rikaz.154@gmail.com</span>
                 </div>
               </div>
             </div>
