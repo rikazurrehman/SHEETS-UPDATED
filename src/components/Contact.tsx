@@ -113,7 +113,7 @@ const Contact = () => {
         // Using no-cors mode to avoid CORS issues with Google Apps Script
         await fetch(scriptUrl, {
           method: "POST",
-          mode: "no-cors", // Add this to fix CORS issues
+          mode: "cors", // Add this to fix CORS issues
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
