@@ -278,13 +278,13 @@ const Contact = () => {
               
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-gaming-purple to-gaming-blue text-white text-center py-4 rounded-xl transition-all shadow-lg hover:shadow-gaming-purple/20 hover:translate-y-[-2px] font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4"
+                className="w-full bg-gradient-to-r from-gaming-purple to-gaming-blue text-white text-center py-4 rounded-xl transition-all shadow-lg hover:shadow-gaming-purple/50 hover:translate-y-[-2px] font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4 border border-white/20 focus:outline-none focus:ring-2 focus:ring-gaming-purple/50"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : (
                   <>
-                    <Send className="h-4 w-4" />
-                    <span>Send Message</span>
+                    <Send className="h-5 w-5" />
+                    <span className="text-base">Send Message</span>
                   </>
                 )}
               </button>

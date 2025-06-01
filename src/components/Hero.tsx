@@ -13,6 +13,7 @@ const Hero = () => {
 
   const goToWorks = () => {
     navigate('/works');
+    window.scrollTo(0, 0); // Ensure we start at the top of the page
   };
 
   return (
@@ -66,7 +67,7 @@ const Hero = () => {
                 onClick={goToWorks} 
                 className="btn-glow group relative overflow-hidden"
               >
-                <span className="relative z-10 font-medium">View My Work</span>
+                <span className="relative z-10 font-medium">Explore Portfolio</span>
                 <span className="inline-block ml-2 transition-transform group-hover:translate-x-1 relative z-10">→</span>
               </button>
             </div>

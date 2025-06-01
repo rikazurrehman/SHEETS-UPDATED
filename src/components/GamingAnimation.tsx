@@ -99,6 +99,7 @@ const GamingAnimation: React.FC = () => {
       orb.style.boxShadow = `0 0 15px ${getRandomColor()}50`;
       orb.style.filter = 'blur(8px)';
       orb.style.opacity = '0.6';
+      orb.style.pointerEvents = 'none';
       
       // Create a unique animation for each orb
       const keyframes = `
@@ -132,10 +133,12 @@ const GamingAnimation: React.FC = () => {
       
       const cursorElement = document.createElement('div');
       cursorElement.className = 'custom-cursor hidden md:block';
+      cursorElement.style.pointerEvents = 'none';
       document.body.appendChild(cursorElement);
       
       const cursorTrailElement = document.createElement('div');
       cursorTrailElement.className = 'cursor-trail hidden md:block';
+      cursorTrailElement.style.pointerEvents = 'none';
       document.body.appendChild(cursorTrailElement);
       
       // Add a second trail for more effect
@@ -143,6 +146,7 @@ const GamingAnimation: React.FC = () => {
       cursorTrailElement2.className = 'cursor-trail hidden md:block';
       cursorTrailElement2.style.backgroundColor = 'rgba(16, 185, 129, 0.8)';
       cursorTrailElement2.style.boxShadow = '0 0 6px rgba(16, 185, 129, 0.6)';
+      cursorTrailElement2.style.pointerEvents = 'none';
       document.body.appendChild(cursorTrailElement2);
       
       const updateCursor = (e: MouseEvent) => {
@@ -213,7 +217,7 @@ const GamingAnimation: React.FC = () => {
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-10">
       {/* Animation container */}
-      <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-gaming-purple via-gaming-blue to-gaming-green animate-gradient"></div>
+      <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-gaming-purple via-gaming-blue to-gaming-green animate-gradient pointer-events-none"></div>
     </div>
   );
 };

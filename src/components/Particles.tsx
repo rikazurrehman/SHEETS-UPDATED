@@ -191,7 +191,7 @@ const Particles: React.FC = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 bg-gradient-to-b from-gaming-darker to-gaming-dark"
+      className="absolute inset-0 bg-gradient-to-b from-gaming-darker to-gaming-dark pointer-events-none z-0"
     />
   );
 };

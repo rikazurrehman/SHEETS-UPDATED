@@ -9,9 +9,23 @@ const ProjectCard = memo(({ project, openProjectModal }: {
   openProjectModal: (project: typeof portfolioData[0]) => void 
 }) => {
   const { registerMediaElement } = useMediaOptimization();
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  const handleProjectClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent any default behavior
+    e.stopPropagation(); // Stop propagation to prevent interference from other handlers
+    console.log("Project clicked:", project.title); // Add logging to debug
+    if (!project.comingSoon) {
+      openProjectModal(project);
+    }
+  };
   
   return (
-    <div className="group relative overflow-hidden bg-gaming-dark/30 border-b border-white/5">
+    <div 
+      ref={cardRef}
+      className="group relative overflow-hidden bg-gaming-dark/30 border-b border-white/5 z-10 cursor-pointer"
+      onClick={handleProjectClick}
+    >
       {/* Project Image */}
       <div className="aspect-video overflow-hidden relative">
         <img 
@@ -25,31 +39,38 @@ const ProjectCard = memo(({ project, openProjectModal }: {
         />
         
         {/* Media Type Indicator */}
-        <div className="absolute bottom-2 left-2 bg-black/50 rounded-full p-1">
+        <div className="absolute bottom-2 left-2 bg-black/50 rounded-full p-1 z-10">
           {project.mediaType === 'video' && <Play size={14} className="text-white" />}
           {project.mediaType === 'audio' && <Volume2 size={14} className="text-white" />}
         </div>
         
         {/* Coming Soon Badge */}
         {project.comingSoon && (
-          <div className="absolute top-2 right-2 bg-gaming-purple/80 text-white text-xs px-2 py-0.5 rounded-sm">
+          <div className="absolute top-2 right-2 bg-gaming-purple/80 text-white text-xs px-2 py-0.5 rounded-sm z-10">
             Soon
           </div>
         )}
         
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker to-transparent opacity-70"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker to-transparent opacity-70 pointer-events-none"></div>
       </div>
       
       {/* Content */}
-      <div className="absolute bottom-0 left-0 w-full p-4">
+      <div className="absolute bottom-0 left-0 w-full p-4 z-10">
         <h3 className="text-base font-medium mb-1 text-white">{project.title}</h3>
         <p className="text-white/60 text-xs mb-3 line-clamp-1">{project.shortDescription}</p>
         
         {/* Button */}
         <button
-          onClick={() => openProjectModal(project)}
-          className="flex items-center text-xs text-white/80 hover:text-white"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default behavior
+            e.stopPropagation(); // Stop propagation
+            console.log("View button clicked:", project.title); // Add logging to debug
+            if (!project.comingSoon) {
+              openProjectModal(project);
+            }
+          }}
+          className="flex items-center text-xs text-white/80 hover:text-white bg-gaming-purple/20 px-2 py-1 rounded-sm"
           disabled={project.comingSoon}
         >
           <Eye size={14} className="mr-1" />
@@ -78,16 +99,26 @@ const ProjectModal = memo(({
 }) => {
   const { optimizeVideo } = useMediaOptimization();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   
   if (!project) return null;
   
-  const togglePlayPause = useCallback(() => {
-    setIsPlaying(!isPlaying);
-  }, [isPlaying, setIsPlaying]);
+  console.log("Rendering modal for project:", project.title);
+  console.log("Project video URL:", project.video);
+  
+  const togglePlayPause = useCallback((e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setIsPlaying(prev => !prev);
+  }, [setIsPlaying]);
 
-  const toggleMute = useCallback(() => {
-    setIsMuted(!isMuted);
-  }, [isMuted, setIsMuted]);
+  const toggleMute = useCallback((e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setIsMuted(prev => !prev);
+  }, [setIsMuted]);
   
   // Handle escape key to close modal
   useEffect(() => {
@@ -103,39 +134,102 @@ const ProjectModal = memo(({
   useEffect(() => {
     if (videoRef.current) {
       optimizeVideo(videoRef.current);
+      
+      // Auto-play the video when the modal opens if it's a video
+      if (project.mediaType === 'video') {
+        videoRef.current.load();
+        const playPromise = videoRef.current.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setIsPlaying(true);
+          }).catch(err => {
+            console.log('Video play prevented:', err);
+            setIsPlaying(false);
+          });
+        }
+      }
     }
-  }, [optimizeVideo]);
+  }, [project, optimizeVideo, setIsPlaying]);
+  
+  // Update video play state when isPlaying changes
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.log('Video play prevented:', err);
+            setIsPlaying(false);
+          });
+        }
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying, setIsPlaying]);
+  
+  // Update video mute state when isMuted changes
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+  
+  // Handle clicks on the modal background
+  const handleModalBackgroundClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeProjectModal();
+    }
+  };
   
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90"
-      onClick={closeProjectModal}
+      onClick={handleModalBackgroundClick}
     >
       <div 
-        className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh]"
+        ref={modalRef}
+        className="bg-gaming-darker border-t border-white/10 rounded-sm overflow-hidden w-full max-w-4xl max-h-[90vh] z-50"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Media Content - Image, Video or Audio player */}
         <div className="relative bg-black">
-          {project.mediaType === 'image' && (
-            <img 
-              src={project.mediaUrl} 
-              alt={project.title} 
-              className="w-full h-auto max-h-[50vh] object-contain mx-auto"
-            />
-          )}
-          
-          {project.mediaType === 'video' && (
-            <div className="relative aspect-video">
+          {/* Video embed from project.video field */}
+          {project.video ? (
+            <div className="w-full aspect-video rounded-xl overflow-hidden">
+              <iframe
+                src={project.video}
+                title={project.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          ) : project.mediaType === 'image' ? (
+            <div onClick={(e) => e.stopPropagation()}>
+              <img 
+                src={project.mediaUrl} 
+                alt={project.title} 
+                className="w-full h-auto max-h-[50vh] object-contain mx-auto"
+              />
+            </div>
+          ) : project.mediaType === 'video' && (
+            <div className="relative aspect-video" onClick={(e) => e.stopPropagation()}>
               <video
                 ref={videoRef}
                 src={project.mediaUrl}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain z-10"
                 controls={false}
                 autoPlay={false}
                 loop
                 muted={isMuted}
                 playsInline
+                preload="auto"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  togglePlayPause();
+                }}
                 onLoadedData={() => {
                   if (videoRef.current) {
                     optimizeVideo(videoRef.current);
@@ -143,22 +237,31 @@ const ProjectModal = memo(({
                 }}
                 onCanPlay={() => {
                   if (isPlaying && videoRef.current) {
-                    videoRef.current.play().catch(err => {
-                      console.log('Video play prevented:', err);
-                    });
+                    const playPromise = videoRef.current.play();
+                    if (playPromise !== undefined) {
+                      playPromise.catch(err => {
+                        console.log('Video play prevented:', err);
+                      });
+                    }
                   }
                 }}
               />
-              <div className="absolute bottom-4 left-4 flex space-x-3">
+              <div className="absolute bottom-4 left-4 flex space-x-3 z-20">
                 <button 
-                  onClick={togglePlayPause}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    togglePlayPause();
+                  }}
                   className="bg-black/50 hover:bg-black/70 p-2 rounded-full"
                   aria-label={isPlaying ? "Pause" : "Play"}
                 >
                   {isPlaying ? <Pause size={16} /> : <Play size={16} />}
                 </button>
                 <button 
-                  onClick={toggleMute}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleMute();
+                  }}
                   className="bg-black/50 hover:bg-black/70 p-2 rounded-full"
                   aria-label={isMuted ? "Unmute" : "Mute"}
                 >
@@ -169,7 +272,7 @@ const ProjectModal = memo(({
           )}
           
           {project.mediaType === 'audio' && (
-            <div className="bg-gaming-darker py-8 px-4 flex items-center justify-center">
+            <div className="bg-gaming-darker py-8 px-4 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
               <audio
                 src={project.mediaUrl}
                 controls
@@ -180,8 +283,11 @@ const ProjectModal = memo(({
           
           {/* Close button */}
           <button 
-            onClick={closeProjectModal}
-            className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 p-1 rounded-full text-white/80 hover:text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              closeProjectModal();
+            }}
+            className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 p-1 rounded-full text-white/80 hover:text-white z-30"
             aria-label="Close modal"
           >
             <X size={18} />
@@ -189,7 +295,7 @@ const ProjectModal = memo(({
         </div>
         
         {/* Content */}
-        <div className="p-4 overflow-y-auto max-h-[40vh]">
+        <div className="p-4 overflow-y-auto max-h-[40vh]" onClick={(e) => e.stopPropagation()}>
           <h3 className="text-xl font-medium mb-2">{project.title}</h3>
           
           <div className="mb-3 flex flex-wrap gap-1">
@@ -230,6 +336,7 @@ const ProjectModal = memo(({
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-block text-sm text-gaming-blue hover:underline"
+                onClick={(e) => e.stopPropagation()}
               >
                 View Project
               </a>
@@ -245,6 +352,7 @@ const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState<null | typeof portfolioData[0]>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
+  const portfolioRef = useRef<HTMLDivElement>(null);
   
   // Extract video and image URLs for optimization
   const videoUrls = portfolioData
@@ -254,32 +362,88 @@ const Portfolio = () => {
   const imageUrls = portfolioData.map(project => project.imageUrl);
   
   // Use the media optimization hook
-  const { videosPreloaded } = useMediaOptimization({
+  const { videosPreloaded, optimizeVideo } = useMediaOptimization({
     videoUrls,
     imageUrls,
-    videoQuality: 'low', // Use low quality for initial preload
+    videoQuality: 'medium', // Increased quality for better initial load
     priorityImages: [0, 1, 2], // Prioritize the first three images
     enableVideoPreload: true
   });
 
   const openProjectModal = useCallback((project: typeof portfolioData[0]) => {
+    console.log("Opening modal for project:", project.title);
+    
+    // Directly set the selected project to show the modal
     setSelectedProject(project);
+    
+    // Reset playback state when opening a new project
+    setIsPlaying(false);
+    
+    // Set a small delay before attempting to autoplay
+    setTimeout(() => {
+      if (project.mediaType === 'video') {
+        setIsPlaying(true);
+      }
+    }, 100);
+    
     document.body.style.overflow = 'hidden';
   }, []);
 
   const closeProjectModal = useCallback(() => {
+    console.log("Closing modal");
     setSelectedProject(null);
     setIsPlaying(false);
     document.body.style.overflow = 'auto';
   }, []);
+  
+  // Prevent global click handlers from affecting the portfolio
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (portfolioRef.current?.contains(e.target as Node)) {
+        // Don't stop propagation for these interactive elements
+        const target = e.target as HTMLElement;
+        const isInteractiveElement = 
+          target.tagName === 'BUTTON' || 
+          target.closest('button') || 
+          target.closest('a') ||
+          target.closest('video') ||
+          target.closest('audio');
+          
+        if (!isInteractiveElement) {
+          e.stopPropagation();
+        }
+      }
+    };
+    
+    document.addEventListener('click', handleClick, true);
+    return () => document.removeEventListener('click', handleClick, true);
+  }, []);
+  
+  // Specifically handle video interactions
+  useEffect(() => {
+    if (selectedProject?.mediaType === 'video') {
+      // Force video to update its play state when selected project changes
+      const timer = setTimeout(() => {
+        setIsPlaying(true);
+      }, 200);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [selectedProject]);
+
+  // Log when the selected project changes
+  useEffect(() => {
+    if (selectedProject) {
+      console.log("Selected project changed:", selectedProject.title);
+    }
+  }, [selectedProject]);
 
   return (
-    <section id="portfolio" className="py-16 bg-gaming-darker relative">
-      <div className="container mx-auto px-6">
-        <h2 className="text-2xl font-orbitron font-bold mb-8 text-center">My Works</h2>
+    <section className="py-16 relative z-20" ref={portfolioRef}>
+      <div className="container mx-auto px-4 relative z-10">
+        <h2 className="text-3xl font-medium mb-10 text-center">Portfolio</h2>
         
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {portfolioData.map((project) => (
             <ProjectCard 
               key={project.id} 
@@ -291,14 +455,16 @@ const Portfolio = () => {
       </div>
       
       {/* Project Modal */}
-      <ProjectModal 
-        project={selectedProject}
-        closeProjectModal={closeProjectModal}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        isMuted={isMuted}
-        setIsMuted={setIsMuted}
-      />
+      {selectedProject && (
+        <ProjectModal 
+          project={selectedProject}
+          closeProjectModal={closeProjectModal}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          isMuted={isMuted}
+          setIsMuted={setIsMuted}
+        />
+      )}
     </section>
   );
 };
