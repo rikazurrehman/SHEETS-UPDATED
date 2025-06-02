@@ -131,8 +131,7 @@ const CategoryButton = memo(({
     e.preventDefault();
     
     // Only process the click for this specific button
-    const currentCategory = category;
-    onClick(currentCategory);
+    onClick(category);
     
     // Force any active element to blur to prevent focus issues
     if (document.activeElement instanceof HTMLElement) {
@@ -255,63 +254,6 @@ const Works = () => {
     };
   }, [showFilters]);
 
-  // Fix for preventing unintended category button clicks
-  useEffect(() => {
-    // We need to isolate the categories area to prevent bubbling from elsewhere
-    const categoriesElement = categoriesRef.current;
-    
-    // Handle clicks outside of the categories container
-    function handleOutsideClick(e: MouseEvent) {
-      // If the click is outside the categories container, ensure it doesn't trigger button clicks
-      if (categoriesElement && !categoriesElement.contains(e.target as Node)) {
-        e.stopPropagation();
-        // Force blur of any active element to ensure no button remains focused
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-        }
-      }
-    }
-    
-    // Use capturing phase to handle events before they reach buttons
-    document.addEventListener('click', handleOutsideClick, true);
-    
-    // Also prevent mousedown events which might affect button behavior
-    document.addEventListener('mousedown', handleOutsideClick, true);
-    
-    return () => {
-      document.removeEventListener('click', handleOutsideClick, true);
-      document.removeEventListener('mousedown', handleOutsideClick, true);
-    };
-  }, []);
-
-  // Prevent any global click handlers from affecting the page
-  useEffect(() => {
-    function preventGlobalHandlers(e: MouseEvent) {
-      // If the click is inside our content area but not on an interactive element,
-      // prevent it from triggering other handlers
-      if (contentRef.current?.contains(e.target as Node)) {
-        const target = e.target as HTMLElement;
-        const isInteractiveElement = 
-          target.tagName === 'BUTTON' || 
-          target.closest('button') || 
-          target.closest('.project-card') ||
-          target.closest('iframe') ||
-          target.closest('video') ||
-          target.closest('a');
-        
-        if (!isInteractiveElement) {
-          e.stopPropagation();
-        }
-      }
-    }
-    
-    // Use capture phase to intercept events before they reach other handlers
-    document.addEventListener('click', preventGlobalHandlers, true);
-    return () => {
-      document.removeEventListener('click', preventGlobalHandlers, true);
-    };
-  }, []);
-
   // Video optimization effect
   useEffect(() => {
     if (selectedProject?.mediaType === 'video' && videoRef.current) {
@@ -331,9 +273,8 @@ const Works = () => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [selectedProject, closeProjectModal]);
 
-  // Replace the old handleContainerClick with a simpler version
+  // Simplify container click handler
   const handleContainerClick = useCallback((e: React.MouseEvent) => {
-    // Just stop propagation for any clicks on the container itself
     if (e.target === e.currentTarget) {
       e.stopPropagation();
     }
@@ -402,7 +343,7 @@ const Works = () => {
             )}
           </div>
           
-          {/* Category Filter - Desktop - Add the ref for isolation */}
+          {/* Category Filter - Desktop */}
           <div 
             ref={categoriesRef}
             className="hidden md:flex flex-wrap justify-center gap-3 mb-12 relative z-30 pointer-events-auto" 
@@ -418,7 +359,7 @@ const Works = () => {
             ))}
           </div>
           
-          {/* Projects Grid - Remove any click handlers */}
+          {/* Projects Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr pointer-events-auto">
             {filteredProjects.map((project, index) => (
               <ProjectCard
@@ -452,12 +393,12 @@ const Works = () => {
             className="bg-gaming-darker/90 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden w-full max-w-5xl cursor-default shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row md:items-start">
               {/* Media Content */}
-              <div className="relative bg-black/70 md:w-3/5">
+              <div className="relative bg-black/70 md:w-2/5">
                 {selectedProject.youtubeId ? (
-                  // YouTube Video Embed
-                  <div className="w-full aspect-video" onClick={(e) => e.stopPropagation()}>
+                  // YouTube Video Embed - Ensure this works correctly
+                  <div className="w-full aspect-[9/16]" onClick={(e) => e.stopPropagation()}>
                     <YouTubeEmbed 
                       videoId={selectedProject.youtubeId} 
                       title={selectedProject.title}
@@ -530,7 +471,7 @@ const Works = () => {
               </div>
               
               {/* Content */}
-              <div className="p-6 md:p-8 md:w-2/5 max-h-[70vh] md:overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+              <div className="p-6 md:p-8 md:w-3/5 max-h-[70vh] md:overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="flex flex-col mb-8">
                   <span className="inline-block text-gaming-purple text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-gaming-purple/10 backdrop-blur-sm">{selectedProject.category}</span>
                   <h3 className="text-2xl font-orbitron font-bold mb-4">{selectedProject.title}</h3>
@@ -569,6 +510,22 @@ const Works = () => {
                       ))}
                     </ul>
                   </div>
+                  
+                  {/* YouTube Link */}
+                  {selectedProject.youtubeId && (
+                    <div className="mt-6">
+                      <a 
+                        href={`https://www.youtube.com/watch?v=${selectedProject.youtubeId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Youtube size={16} />
+                        Watch on YouTube
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

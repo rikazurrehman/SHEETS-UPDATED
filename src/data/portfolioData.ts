@@ -9,7 +9,7 @@ const portfolioData = [
     imageUrl: "/assets/works thamnail/916Aspect.webp",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/916Aspect.webp",
-    youtubeId: "dQw4w9WgXcQ",
+    youtubeId: "fJ9rUzIMcZQ",
     tags: ["CGI", "Product Visualization", "3D Camera Work"],
     tools: ["Blender", "FSpy", "After Effects"],
     highlights: [
@@ -51,7 +51,7 @@ const portfolioData = [
     imageUrl: "/assets/works thamnail/916Aspect.webp",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/916Aspect.webp",
-    youtubeId: "iik25wqIuFo",
+    youtubeId: "dQw4w9WgXcQ",
     tags: ["Speed Ramping", "Transitions", "Dynamic Editing"],
     tools: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
     highlights: [

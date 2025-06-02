@@ -12,29 +12,40 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   
-  // Force iframe to load immediately
+  // Reset states and handle loading when videoId changes
   useEffect(() => {
     // Reset states when videoId changes
     setIsLoaded(false);
     setError(false);
     
     // Immediate loading for better responsiveness
-    setIsLoaded(true);
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
     
     // Safety timeout - if video doesn't load within 5 seconds, show error
-    const timer = setTimeout(() => {
+    const errorTimer = setTimeout(() => {
       if (iframeRef.current && !iframeRef.current.contentWindow) {
         console.error("YouTube iframe failed to initialize properly");
         setError(true);
       }
     }, 5000);
     
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(errorTimer);
+    };
   }, [videoId]);
   
   // Prevent event propagation from YouTube iframe
   const handleContainerClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+  };
+  
+  // Handle iframe load success
+  const handleIframeLoad = () => {
+    setIsLoaded(true);
+    setError(false);
   };
   
   // Handle iframe load errors
@@ -44,12 +55,13 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
   };
 
   // Create YouTube embed URL with proper parameters
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&rel=0&showinfo=0&modestbranding=1`;
+  // Add parameters to force 9:16 aspect ratio
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&rel=0&showinfo=0&modestbranding=1&enablejsapi=1`;
   
   return (
     <div 
       ref={containerRef}
-      className="relative w-full aspect-video bg-black/40 rounded-md overflow-hidden z-20" 
+      className="relative w-full aspect-[9/16] bg-black/40 rounded-md overflow-hidden z-20 flex items-center justify-center" 
       onClick={handleContainerClick}
     >
       {!isLoaded && (
@@ -75,19 +87,19 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
         </div>
       )}
       
-      {isLoaded && !error && (
-        <div className="relative w-full h-full">
-          <iframe
-            ref={iframeRef}
-            src={embedUrl}
-            title={title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full z-10"
-            onError={handleIframeError}
-          />
-        </div>
-      )}
+      <div className={`relative w-full h-full transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        <iframe
+          ref={iframeRef}
+          src={embedUrl}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full z-10"
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+          style={{ aspectRatio: '9/16' }}
+        />
+      </div>
     </div>
   );
 };
