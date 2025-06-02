@@ -177,14 +177,14 @@ const Contact = () => {
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <h2 className="text-5xl font-orbitron font-bold text-center mb-4 gaming-gradient-text">Connect With Me</h2>
+        <h2 className="text-4xl font-orbitron font-bold text-center mb-4 gaming-gradient-text">Connect With Me</h2>
         <p className="text-white/60 text-center max-w-xl mx-auto mb-16 text-sm tracking-wider">Let's collaborate on something amazing. Reach out through the form or direct channels below.</p>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
           {/* Contact Form - LEFT SIDE (larger) */}
           <div className="lg:col-span-7">
             <form onSubmit={handleSubmit} className="space-y-6 bg-gaming-darker/40 backdrop-blur-md p-8 rounded-2xl border border-white/5 hover:border-gaming-purple/30 shadow-lg transition-all duration-300">
-              <h3 className="text-2xl font-orbitron text-white/90 mb-6 pb-2 border-b border-white/10">Drop a Message</h3>
+              <h3 className="text-2xl font-orbitron text-gaming-purple mb-6 pb-2 border-b border-white/10">Drop a Message</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -278,12 +278,13 @@ const Contact = () => {
               
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-gaming-purple to-gaming-blue text-white text-center py-4 rounded-xl transition-all shadow-lg hover:shadow-gaming-purple/50 hover:translate-y-[-2px] font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4 border border-white/20 focus:outline-none focus:ring-2 focus:ring-gaming-purple/50"
+                className="w-full bg-gradient-to-r from-gaming-purple to-gaming-blue text-black font-extrabold text-center py-4 rounded-xl transition-all shadow-lg hover:shadow-gaming-purple/50 hover:translate-y-[-2px] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4 border border-gaming-purple focus:outline-none focus:ring-2 focus:ring-gaming-purple/50 active:bg-gaming-purple active:text-white text-shadow-sm"
                 disabled={isSubmitting}
+                style={{ textShadow: "0px 0px 1px rgba(0,0,0,0.5)" }}
               >
                 {isSubmitting ? 'Sending...' : (
                   <>
-                    <Send className="h-5 w-5" />
+                    <Send className="h-5 w-5 text-black active:text-white" />
                     <span className="text-base">Send Message</span>
                   </>
                 )}

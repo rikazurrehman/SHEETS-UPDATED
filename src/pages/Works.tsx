@@ -44,8 +44,9 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
   const isPortrait = project.imageUrl.includes('portrait') || project.imageUrl.includes('vertical');
 
   const handleProjectClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent event from bubbling up
     e.preventDefault(); // Prevent any default behavior
+    e.stopPropagation(); // Prevent event from bubbling up
+    console.log(`Clicked on project: ${project.title}, YouTube ID: ${project.youtubeId}`);
     openProjectModal(project);
   };
 
@@ -206,6 +207,11 @@ const Works = () => {
 
   // Memoize event handlers
   const openProjectModal = useCallback((project: Project) => {
+    console.log("Opening project modal for:", project.title);
+    console.log("YouTube ID:", project.youtubeId);
+    console.log("Media type:", project.mediaType);
+    
+    // Set the selected project which triggers modal to open
     setSelectedProject(project);
     setIsPlaying(false);
     document.body.style.overflow = 'hidden';
@@ -437,7 +443,10 @@ const Works = () => {
       {selectedProject && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl cursor-pointer"
-          onClick={closeProjectModal}
+          onClick={(e) => {
+            e.preventDefault();
+            closeProjectModal();
+          }}
         >
           <div 
             className="bg-gaming-darker/90 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden w-full max-w-5xl cursor-default shadow-2xl"
@@ -448,10 +457,11 @@ const Works = () => {
               <div className="relative bg-black/70 md:w-3/5">
                 {selectedProject.youtubeId ? (
                   // YouTube Video Embed
-                  <div className="w-full" onClick={(e) => e.stopPropagation()}>
+                  <div className="w-full aspect-video" onClick={(e) => e.stopPropagation()}>
                     <YouTubeEmbed 
                       videoId={selectedProject.youtubeId} 
                       title={selectedProject.title}
+                      autoplay={true}
                     />
                   </div>
                 ) : selectedProject.mediaType === 'video' ? (

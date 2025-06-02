@@ -113,7 +113,7 @@ const About = () => {
         
         {/* Tools - Infinite Scrolling Section */}
         <div id="skills" className="mb-16">
-          <h3 className="text-3xl font-orbitron font-bold text-center mb-8 gaming-gradient-text">Tools I Use</h3>
+          <h3 className="text-4xl font-orbitron font-bold text-center mb-8 gaming-gradient-text">Tools I Use</h3>
           
           {/* Scrolling container */}
           <div className="relative w-full overflow-hidden py-6 bg-gaming-darker/20 rounded-lg border border-gaming-purple/20 shadow-glow animate-glow-pulse">
@@ -149,7 +149,7 @@ const About = () => {
 
         {/* Brands & Collaborations - Infinite Scrolling Section */}
         <div className="mb-16">
-          <h3 className="text-3xl font-orbitron font-bold text-center mb-8 gaming-gradient-text">Brands & Collaborations</h3>
+          <h3 className="text-4xl font-orbitron font-bold text-center mb-8 gaming-gradient-text">Brands & Collaborations</h3>
           
           {/* Scrolling container */}
           <div className="relative w-full overflow-hidden py-6 bg-gaming-darker/20 rounded-lg border border-gaming-purple/20 shadow-glow animate-glow-pulse">
