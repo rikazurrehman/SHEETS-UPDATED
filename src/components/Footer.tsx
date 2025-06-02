@@ -1,9 +1,14 @@
 import { Github, Linkedin, Instagram, Phone, Mail, ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const location = useLocation();
+  
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/' || location.pathname === '/home' || location.pathname === '/index';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,29 +61,53 @@ const Footer = () => {
             <div className="w-full max-w-2xl">
               <ul className="flex flex-wrap justify-center gap-8">
                 <li>
-                  <a href="#home" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
-                    Home
-                  </a>
+                  {isHomePage ? (
+                    <a href="#home" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      Home
+                    </a>
+                  ) : (
+                    <Link to="/" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      Home
+                    </Link>
+                  )}
                 </li>
                 <li>
-                  <a href="#about" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
-                    About
-                  </a>
+                  {isHomePage ? (
+                    <a href="#about" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      About
+                    </a>
+                  ) : (
+                    <Link to="/#about" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      About
+                    </Link>
+                  )}
                 </li>
                 <li>
-                  <a href="#portfolio" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                  <Link to="/works" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
                     Portfolio
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#skills" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
-                    Skills
-                  </a>
+                  {isHomePage ? (
+                    <a href="#skills" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      Skills
+                    </a>
+                  ) : (
+                    <Link to="/#skills" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      Skills
+                    </Link>
+                  )}
                 </li>
                 <li>
-                  <a href="#contact" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
-                    Contact
-                  </a>
+                  {isHomePage ? (
+                    <a href="#contact" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      Contact
+                    </a>
+                  ) : (
+                    <Link to="/#contact" className="text-white/60 hover:text-gaming-purple transition-colors text-sm">
+                      Contact
+                    </Link>
+                  )}
                 </li>
               </ul>
             </div>
