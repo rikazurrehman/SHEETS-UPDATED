@@ -19,9 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ["Geomanist", "sans-serif"],
-				exo: ["Geomanist", "sans-serif"],
-				orbitron: ["Geomanist", "sans-serif"],
+				sans: ["Inter", "sans-serif"],
+				exo: ["Inter", "sans-serif"],
+				orbitron: ["Inter", "sans-serif"],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

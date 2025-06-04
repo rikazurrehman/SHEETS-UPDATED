@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/geomanist');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -61,7 +61,7 @@
 @layer base {
   * {
     @apply border-border;
-    font-family: 'Geomanist', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   html {
@@ -71,12 +71,12 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Geomanist', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Geomanist', sans-serif;
+    font-family: 'Inter', sans-serif;
     @apply tracking-wider;
   }
 
@@ -293,7 +293,7 @@
 
 /* Gaming theme specific styles */
 .font-orbitron {
-  font-family: 'Geomanist', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Glow effects */
