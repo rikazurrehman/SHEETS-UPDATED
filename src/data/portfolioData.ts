@@ -5,7 +5,7 @@ const portfolioData = [
     title: "Dynamic CGI Product Campaign",
     category: "CGI & VFX",
     shortDescription: "Aeroplane Banner Campaign CGI — Naturals Coimbatore Airport Launch",
-    fullDescription: "Created a striking CGI aeroplane banner campaign to promote Naturals Salon’s grand opening at Coimbatore Airport.",
+    fullDescription: "Created a striking CGI aeroplane banner campaign to promote Naturals Salon's grand opening at Coimbatore Airport.",
     imageUrl: "/assets/works thamnail/aeroplane banner.png",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/aeroplane banner.png",
@@ -22,14 +22,54 @@ const portfolioData = [
   },
   {
     id: 2,
-    title: "VFX Integration Series",
+    title: "BOOK STYLE CGI",
     category: "CGI & VFX",
     shortDescription: "Seamless VFX integration for brand campaign",
     fullDescription: "Developed a series of VFX shots combining live footage with CGI elements. The project showcased advanced compositing techniques, realistic lighting integration, and dynamic visual effects that enhanced the storytelling.",
     imageUrl: "/assets/works thamnail/916Aspect.webp",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/916Aspect.webp",
-    youtubeId: "9bZkp7q19f0",
+    youtubeId: "g_agb4f8auk",
+    tags: ["VFX", "Compositing", "CGI Integration"],
+    tools: ["After Effects", "Blender", "DaVinci Resolve"],
+    highlights: [
+      "Seamless CGI integration",
+      "Advanced compositing",
+      "Color grading"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 3,
+    title: "CGI Banner Drop – Nails N Beyond",
+    category: "CGI & VFX",
+    shortDescription: "Realistic CGI of a helicopter unveiling a promotional banner mid-air for Nails N Beyond.",
+    fullDescription: "Crafted a cinematic CGI scene featuring a helicopter flying across a cityscape while carrying a Nails N Beyond banner. The visual blends realistic lighting, shadows, and animation physics to enhance brand elevation with dramatic flair.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "Mh9BL_2dcLc", 
+    tags: ["CGI Inegration", "VFX", "Compositing"],
+    tools: ["After Effects", "Blender", "Premiere Pro"],
+    highlights: [
+      "Seamless CGI integration",
+      "Advanced compositing",
+      "Color grading"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 4,
+    title: "Naturals Signature – Happiness Card Launch CGI",
+    category: "CGI & VFX",
+    shortDescription: "A high-impact CGI campaign revealing the Happiness Card with visual storytelling.",
+    fullDescription: "A cinematic CGI reveal of the Naturals Signature Happiness Card, featuring aerial views, parachute drops, and vibrant visuals that celebrate beauty and joy through motion design. Developed a series of VFX shots combining lie footage with CGI elements.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "TpUEmwownAI",
     tags: ["VFX", "Compositing", "CGI Integration"],
     tools: ["After Effects", "Blender", "DaVinci Resolve"],
     highlights: [
@@ -43,7 +83,7 @@ const portfolioData = [
 
   // Video Production
   {
-    id: 3,
+    id: 5,
     title: "Speed Ramp Showcase",
     category: "Video Production",
     shortDescription: "Dynamic speed manipulation edit",
@@ -51,7 +91,7 @@ const portfolioData = [
     imageUrl: "/assets/works thamnail/916Aspect.webp",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/916Aspect.webp",
-    youtubeId: "dQw4w9WgXcQ",
+    youtubeId: "KsxhUl3yqiM",
     tags: ["Speed Ramping", "Transitions", "Dynamic Editing"],
     tools: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
     highlights: [
@@ -63,7 +103,7 @@ const portfolioData = [
     comingSoon: false
   },
   {
-    id: 4,
+    id: 6,
     title: "Documentary-Style Campaign",
     category: "Video Production",
     shortDescription: "Authentic storytelling through documentary approach",
@@ -72,7 +112,6 @@ const portfolioData = [
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/916Aspect.webp",
     youtubeId: "jNQXAC9IVRw",
-    video: "https://www.youtube.com/embed/jNQXAC9IVRw",
     tags: ["Documentary", "Storytelling", "Cinematography"],
     tools: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
     highlights: [
@@ -86,7 +125,7 @@ const portfolioData = [
 
   // Motion Graphics
   {
-    id: 5,
+    id: 7,
     title: "Kinetic Typography Series",
     category: "Motion Graphics",
     shortDescription: "Dynamic text animations with fluid motion",
@@ -94,7 +133,7 @@ const portfolioData = [
     imageUrl: "/assets/works thamnail/916Aspect.webp",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/916Aspect.webp",
-    youtubeId: "LXb3EKWsInQ",
+    youtubeId: "KsxhUl3yqiM",
     video: "https://www.youtube.com/embed/LXb3EKWsInQ",
     tags: ["Typography", "Animation", "Motion Design"],
     tools: ["After Effects", "Illustrator", "Cinema 4D"],
@@ -107,7 +146,7 @@ const portfolioData = [
     comingSoon: false
   },
   {
-    id: 6,
+    id: 8,
     title: "Brand Motion Package",
     category: "Motion Graphics",
     shortDescription: "Comprehensive motion graphics system for brand",
@@ -130,7 +169,7 @@ const portfolioData = [
 
   // 3D Modelling
   {
-    id: 7,
+    id: 9,
     title: "Character Model Collection",
     category: "3D Modelling",
     shortDescription: "Detailed character models with advanced rigging",
@@ -151,7 +190,7 @@ const portfolioData = [
     comingSoon: false
   },
   {
-    id: 8,
+    id: 10,
     title: "Architectural Visualization",
     category: "3D Modelling",
     shortDescription: "Photorealistic architectural environments",
@@ -167,6 +206,48 @@ const portfolioData = [
       "Detailed modeling",
       "Realistic materials",
       "Environmental lighting"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+
+  // AI Concepts
+  {
+    id: 11,
+    title: "Miniature Masterclass — An AI Concept for Naturals Beauty Academy",
+    category: "AI Concepts",
+    shortDescription: "Creative AI Concept for Naturals Beauty Academy",
+    fullDescription: "An AI-generated miniature world where a beauty trainer mentors tiny students at Naturals Beauty Academy, capturing their journey from enrollment to graduation.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "VuAxriWmHPs",
+    tags: ["AI Art", "Prompt Engineering", "Digital Art"],
+    tools: ["Midjourney", "DALL-E", "Photoshop"],
+    highlights: [
+      "Advanced prompt techniques",
+      "Style consistency",
+      "Creative composition"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 12,
+    title: "AI-Assisted Motion Design",
+    category: "AI Concepts",
+    shortDescription: "Blending traditional animation with AI techniques",
+    fullDescription: "An innovative project combining traditional motion design principles with AI-assisted animation. This work showcases how AI tools can enhance the creative workflow while maintaining artistic control and vision.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "jNQXAC9IVRw",
+    tags: ["AI Animation", "Motion Design", "Hybrid Workflow"],
+    tools: ["After Effects", "RunwayML", "Stable Diffusion"],
+    highlights: [
+      "Seamless AI integration",
+      "Novel visual effects",
+      "Efficient workflow"
     ],
     link: "#",
     comingSoon: false

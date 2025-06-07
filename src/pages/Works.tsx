@@ -180,7 +180,7 @@ const Works = () => {
   const categoriesRef = useRef<HTMLDivElement>(null);
 
   // Define categories manually to ensure correct order and naming
-  const categories = ["all", "CGI & VFX", "Motion Graphics", "3D Modelling", "Video Production"];
+  const categories = ["all", "CGI & VFX", "Motion Graphics", "3D Modelling", "Video Production", "AI Concepts"];
   
   const filteredProjects = activeCategory === "all" 
     ? portfolioData 
