@@ -80,6 +80,66 @@ const portfolioData = [
     link: "#",
     comingSoon: false
   },
+  {
+    id: 13,
+    title: "Dynamic CGI Animation",
+    category: "CGI & VFX",
+    shortDescription: "Captivating CGI animation with dynamic visual elements",
+    fullDescription: "Created a compelling CGI animation that showcases technical mastery and visual storytelling. The project features fluid animation, realistic physics, and attention to detail.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "ai5cGlmesmo",
+    tags: ["CGI", "Animation", "Visual Effects"],
+    tools: ["Blender", "After Effects", "Cinema 4D"],
+    highlights: [
+      "Fluid animation sequences",
+      "Realistic physics simulation",
+      "Dynamic camera work"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 14,
+    title: "Premium CGI Visual Effects",
+    category: "CGI & VFX",
+    shortDescription: "High-end CGI visual effects with cinematic quality",
+    fullDescription: "Developed sophisticated CGI visual effects with a cinematic approach, blending photorealistic elements with artistic direction to create a stunning visual experience.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "haS0u_lFo9A",
+    tags: ["CGI", "Visual Effects", "Cinematic"],
+    tools: ["Blender", "After Effects", "Nuke"],
+    highlights: [
+      "Photorealistic rendering",
+      "Cinematic lighting",
+      "Seamless compositing"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 15,
+    title: "Immersive CGI Environment",
+    category: "CGI & VFX",
+    shortDescription: "Detailed CGI environment with immersive elements",
+    fullDescription: "Created an immersive CGI environment with attention to detail and atmosphere. The project features advanced lighting techniques, detailed texturing, and dynamic camera movements.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "eCitGLNHtMk",
+    tags: ["CGI", "Environment Design", "Atmosphere"],
+    tools: ["Blender", "Substance Painter", "After Effects"],
+    highlights: [
+      "Detailed environment modeling",
+      "Atmospheric lighting",
+      "Cinematic composition"
+    ],
+    link: "#",
+    comingSoon: false
+  },
 
   // Video Production
   {
@@ -118,6 +178,26 @@ const portfolioData = [
       "Natural storytelling",
       "Cinematic visuals",
       "Authentic pacing"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 16,
+    title: "Advanced Speed Ramp Techniques",
+    category: "Video Production",
+    shortDescription: "Masterful speed ramp editing with dynamic transitions",
+    fullDescription: "Showcased advanced speed ramping techniques in video editing, creating a dynamic visual experience with seamless transitions between slow motion and fast-paced sequences.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "mSxOdX3R9Y4",
+    tags: ["Speed Ramping", "Video Editing", "Visual Rhythm"],
+    tools: ["Premiere Pro", "After Effects", "DaVinci Resolve"],
+    highlights: [
+      "Advanced speed manipulation",
+      "Rhythmic visual pacing",
+      "Precise frame timing"
     ],
     link: "#",
     comingSoon: false
@@ -162,6 +242,46 @@ const portfolioData = [
       "Consistent brand animation",
       "Modular design system",
       "Seamless transitions"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 17,
+    title: "Creative Motion Design Showcase",
+    category: "Motion Graphics",
+    shortDescription: "Innovative motion design with creative visual concepts",
+    fullDescription: "Explored creative motion design techniques to produce visually striking animations that combine artistic vision with technical execution, resulting in a unique and memorable visual experience.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "XGnNpcqjJxA",
+    tags: ["Motion Design", "Visual Effects", "Creative Animation"],
+    tools: ["After Effects", "Cinema 4D", "Illustrator"],
+    highlights: [
+      "Innovative animation techniques",
+      "Unique visual style",
+      "Engaging motion dynamics"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 18,
+    title: "Social Media Countdown Animation",
+    category: "Motion Graphics",
+    shortDescription: "Engaging countdown animation for social media campaign",
+    fullDescription: "Designed an eye-catching countdown animation for social media that combines bold typography, dynamic movement, and visual flair to build anticipation for a product or event launch.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "2vOzxFj6L60",
+    tags: ["Social Media", "Countdown", "Motion Graphics"],
+    tools: ["After Effects", "Illustrator", "Photoshop"],
+    highlights: [
+      "Engaging visual rhythm",
+      "Brand-consistent design",
+      "Optimized for social platforms"
     ],
     link: "#",
     comingSoon: false
@@ -248,6 +368,26 @@ const portfolioData = [
       "Seamless AI integration",
       "Novel visual effects",
       "Efficient workflow"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 19,
+    title: "Cutting-Edge AI Video Concept",
+    category: "AI Concepts",
+    shortDescription: "Innovative AI-generated video with creative direction",
+    fullDescription: "Pushed the boundaries of AI-generated video content by combining advanced AI tools with creative direction, resulting in a unique visual narrative that blends artificial intelligence with human creativity.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "yBL7X0yboJo",
+    tags: ["AI Video", "Creative AI", "Digital Art"],
+    tools: ["RunwayML", "After Effects", "Stable Diffusion"],
+    highlights: [
+      "Innovative AI techniques",
+      "Creative storytelling",
+      "Unique visual aesthetic"
     ],
     link: "#",
     comingSoon: false
