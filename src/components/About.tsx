@@ -1,5 +1,5 @@
 import { Camera, Video, Share2, Wand2, MessageSquare } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Helper function to generate a colored data URL based on text
 const generateColoredDataUrl = (text: string) => {
@@ -45,87 +45,142 @@ const brands = [
 const scrollingBrands = [...brands, ...brands, ...brands];
 
 const About = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger animation after mount
+    setIsVisible(true);
+    
+    // Optional: Add intersection observer for scroll animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fadeIn');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    document.querySelectorAll('.scroll-reveal').forEach(el => {
+      observer.observe(el);
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="about" className="py-24 bg-gradient-to-b from-gaming-dark to-gaming-darker relative">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-orbitron font-bold text-center mb-12 gaming-gradient-text">About Me</h2>
+    <section id="about" className="py-20 bg-gradient-to-b from-gaming-dark to-gaming-darker relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-gaming-darker/60 to-transparent pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/5 w-64 h-64 rounded-full bg-gaming-purple/5 blur-3xl"></div>
+      <div className="absolute bottom-1/3 right-1/5 w-80 h-80 rounded-full bg-gaming-blue/5 blur-3xl"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className={`transition-all duration-700 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-3 tracking-tight">About <span className="gaming-gradient-text">Me</span></h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-gaming-purple to-gaming-blue rounded-full mx-auto mb-12 opacity-80"></div>
+        </div>
         
         {/* Bio */}
-        <div className="mb-16 max-w-3xl mx-auto">
+        <div className="mb-16 max-w-3xl mx-auto scroll-reveal">
           <div className="space-y-6 text-center">
-            <p className="text-xl text-white/95 leading-relaxed">
+            <p className="text-xl text-white/90 leading-relaxed">
               I create visual content from storyboard to final delivery—directing 
               <span className="gaming-gradient-text font-medium"> CGI videos</span>, crafting 
               <span className="gaming-gradient-text font-medium"> 3D renders</span>, and bringing scenes to life with 
               <span className="gaming-gradient-text font-medium"> VFX</span> and dynamic 3D camera work.
             </p>
             
-            <p className="text-lg text-white/85 leading-relaxed">
+            <p className="text-base text-white/80 leading-relaxed">
               Alongside that, I focus on growth-driven social media marketing, Meta Ads, 
               WhatsApp campaigns, and DM automation across WhatsApp and Instagram.
             </p>
 
             <div className="pt-2">
-              <p className="text-lg text-white/85 leading-relaxed">
+              <p className="text-base text-white/80 leading-relaxed">
                 My toolkit spans short- and long-form editing, speed ramps, documentary-style cuts, 
                 motion graphics, SFX, color grading, and compositing.
               </p>
               
-              <p className="text-lg text-white/85 leading-relaxed mt-2 italic">
+              <p className="text-base text-white/70 leading-relaxed mt-4 italic border-l-2 border-gaming-purple/30 pl-4 max-w-lg mx-auto">
                 Always evolving, always hands-on — just aiming to build content that connects and performs.
               </p>
             </div>
           </div>
         </div>
         
-        {/* What I do - Quick icons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-24">
-          <div className="bg-gaming-darker/50 backdrop-blur-sm border border-gaming-purple/20 p-6 rounded-lg shadow-glow transition-all hover:shadow-glow-strong">
-            <Camera className="text-gaming-purple h-10 w-10 mb-4" />
-            <h3 className="text-xl font-orbitron font-semibold mb-2">3D & CGI</h3>
-            <p className="text-white/70">Creating immersive 3D renders and dynamic camera work for stunning visuals</p>
-          </div>
+        {/* What I do - Services */}
+        <div className="mb-20 scroll-reveal">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 tracking-tight">What I <span className="gaming-gradient-text">Do</span></h3>
           
-          <div className="bg-gaming-darker/50 backdrop-blur-sm border border-gaming-blue/20 p-6 rounded-lg shadow-glow-blue transition-all hover:shadow-glow-blue">
-            <Video className="text-gaming-blue h-10 w-10 mb-4" />
-            <h3 className="text-xl font-orbitron font-semibold mb-2">Video Production</h3>
-            <p className="text-white/70">Expert editing with speed ramps, cuts, and documentary-style storytelling</p>
-          </div>
-          
-          <div className="bg-gaming-darker/50 backdrop-blur-sm border border-gaming-green/20 p-6 rounded-lg shadow-glow-green transition-all hover:shadow-glow-green">
-            <Wand2 className="text-gaming-green h-10 w-10 mb-4" />
-            <h3 className="text-xl font-orbitron font-semibold mb-2">VFX & Motion</h3>
-            <p className="text-white/70">Crafting stunning visual effects, motion graphics, and color grading</p>
-          </div>
-          
-          <div className="bg-gaming-darker/50 backdrop-blur-sm border border-gaming-purple/20 p-6 rounded-lg shadow-glow transition-all hover:shadow-glow-strong">
-            <Share2 className="text-gaming-purple h-10 w-10 mb-4" />
-            <h3 className="text-xl font-orbitron font-semibold mb-2">Social Media</h3>
-            <p className="text-white/70">Growth-driven marketing strategies across Meta platforms</p>
-          </div>
-
-          <div className="bg-gaming-darker/50 backdrop-blur-sm border border-gaming-blue/20 p-6 rounded-lg shadow-glow-blue transition-all hover:shadow-glow-blue">
-            <MessageSquare className="text-gaming-blue h-10 w-10 mb-4" />
-            <h3 className="text-xl font-orbitron font-semibold mb-2">Automation</h3>
-            <p className="text-white/70">WhatsApp and Instagram DM automation for efficient engagement</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { 
+                icon: <Camera className="h-6 w-6" />, 
+                title: "3D & CGI", 
+                desc: "Creating immersive 3D renders and dynamic camera work for stunning visuals",
+                gradient: "from-gaming-purple/60 to-gaming-blue/60" 
+              },
+              { 
+                icon: <Video className="h-6 w-6" />, 
+                title: "Video Production", 
+                desc: "Expert editing with speed ramps, cuts, and documentary-style storytelling",
+                gradient: "from-gaming-blue/60 to-gaming-purple/60" 
+              },
+              { 
+                icon: <Wand2 className="h-6 w-6" />, 
+                title: "VFX & Motion", 
+                desc: "Crafting stunning visual effects, motion graphics, and color grading",
+                gradient: "from-gaming-purple/60 to-gaming-blue/60" 
+              },
+              { 
+                icon: <Share2 className="h-6 w-6" />, 
+                title: "Social Media", 
+                desc: "Growth-driven marketing strategies across Meta platforms",
+                gradient: "from-gaming-blue/60 to-gaming-purple/60" 
+              },
+              { 
+                icon: <MessageSquare className="h-6 w-6" />, 
+                title: "Automation", 
+                desc: "WhatsApp and Instagram DM automation for efficient engagement",
+                gradient: "from-gaming-purple/60 to-gaming-blue/60" 
+              }
+            ].map((service, i) => (
+              <div 
+                key={i} 
+                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden transition-all hover:border-white/20 hover:bg-white/8"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                <div className="p-6">
+                  <div className="inline-flex items-center justify-center p-2 rounded-lg bg-gradient-to-br border border-white/10 mb-4">
+                    {service.icon}
+                  </div>
+                  <h4 className="text-lg font-medium mb-2">{service.title}</h4>
+                  <p className="text-sm text-white/70">{service.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         
         {/* Tools - Infinite Scrolling Section */}
-        <div id="skills" className="mb-16">
-          <h3 className="text-4xl font-orbitron font-bold text-center mb-8 gaming-gradient-text">Tools I Use</h3>
+        <div id="skills" className="mb-16 scroll-reveal">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 tracking-tight">Tools I <span className="gaming-gradient-text">Use</span></h3>
           
           {/* Scrolling container */}
-          <div className="relative w-full overflow-hidden py-6 bg-gaming-darker/20 rounded-lg border border-gaming-purple/20 shadow-glow animate-glow-pulse">
+          <div className="relative w-full overflow-hidden py-12 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
             {/* Smooth infinite scroll track */}
             <div className="marquee-container">
               <div className="marquee-track">
                 {scrollingTools.map((tool, index) => (
                   <div 
                     key={`${tool.name}-${index}`}
-                    className="marquee-item mx-4 flex flex-col items-center justify-center px-8 py-4 min-w-[120px] bg-gaming-darker/50 rounded-lg border border-white/5 hover:border-gaming-purple/30 transition-all shadow-glow hover:shadow-glow-strong animate-pulse"
+                    className="marquee-item mx-4 flex flex-col items-center justify-center p-4"
                   >
-                    <div className="w-16 h-16 mb-2 flex items-center justify-center">
+                    {/* Fixed square container for all logos - moderately larger */}
+                    <div className="w-24 h-24 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center mb-3 p-3 overflow-hidden shadow-md">
                       <img 
                         src={tool.logo}
                         alt={tool.name}
@@ -142,50 +197,51 @@ const About = () => {
             </div>
 
             {/* Add gradient overlays for smooth fade effect */}
-            <div className="absolute top-0 left-0 h-full w-16 bg-gradient-to-r from-gaming-darker to-transparent z-10"></div>
-            <div className="absolute top-0 right-0 h-full w-16 bg-gradient-to-l from-gaming-darker to-transparent z-10"></div>
+            <div className="absolute top-0 left-0 h-full w-28 bg-gradient-to-r from-gaming-darker to-transparent z-10"></div>
+            <div className="absolute top-0 right-0 h-full w-28 bg-gradient-to-l from-gaming-darker to-transparent z-10"></div>
           </div>
         </div>
 
         {/* Brands & Collaborations - Infinite Scrolling Section */}
-        <div className="mb-16">
-          <h3 className="text-4xl font-orbitron font-bold text-center mb-8 gaming-gradient-text">Brands & Collaborations</h3>
+        <div className="mb-12 scroll-reveal">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 tracking-tight">Brands & <span className="gaming-gradient-text">Collaborations</span></h3>
           
           {/* Scrolling container */}
-          <div className="relative w-full overflow-hidden py-6 bg-gaming-darker/20 rounded-lg border border-gaming-purple/20 shadow-glow animate-glow-pulse">
+          <div className="relative w-full overflow-hidden py-20 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10">
             {/* Smooth infinite scroll track */}
             <div className="marquee-container">
               <div className="marquee-track">
                 {scrollingBrands.map((brand, index) => (
                   <div 
                     key={`${brand.name}-${index}`}
-                    className="marquee-item mx-4 flex flex-col items-center justify-center px-8 py-4 min-w-[160px] bg-gaming-darker/50 rounded-lg border border-white/5 hover:border-gaming-purple/30 transition-all shadow-glow hover:shadow-glow-strong animate-pulse"
+                    className="marquee-item mx-8 flex flex-col items-center justify-center p-3"
                   >
-                    <div className="w-16 h-16 mb-2 flex items-center justify-center">
+                    {/* Square container for 1080×1080 brand images */}
+                    <div className="w-80 h-80 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center mb-4 overflow-hidden shadow-lg">
                       <img 
                         src={brand.logo}
                         alt={brand.name}
-                        className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                        className="w-full h-full object-cover transition-transform hover:scale-105"
                         onError={(e) => {
                           e.currentTarget.src = generateColoredDataUrl(brand.name);
                         }}
                       />
                     </div>
-                    <span className="text-sm text-white/80 text-center">{brand.name}</span>
+                    <span className="text-base text-white/90 text-center font-medium">{brand.name}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Add gradient overlays for smooth fade effect */}
-            <div className="absolute top-0 left-0 h-full w-16 bg-gradient-to-r from-gaming-darker to-transparent z-10"></div>
-            <div className="absolute top-0 right-0 h-full w-16 bg-gradient-to-l from-gaming-darker to-transparent z-10"></div>
+            <div className="absolute top-0 left-0 h-full w-40 bg-gradient-to-r from-gaming-darker to-transparent z-10"></div>
+            <div className="absolute top-0 right-0 h-full w-40 bg-gradient-to-l from-gaming-darker to-transparent z-10"></div>
           </div>
         </div>
       </div>
       
-      {/* Decorative elements */}
-      <div className="absolute -bottom-5 left-0 w-full h-20 bg-gradient-to-r from-gaming-purple/20 via-gaming-blue/10 to-gaming-purple/20 blur-3xl opacity-30"></div>
+      {/* Bottom decorative element */}
+      <div className="absolute -bottom-10 left-0 w-full h-20 bg-gradient-to-r from-gaming-purple/10 via-gaming-blue/10 to-gaming-purple/10 blur-3xl"></div>
     </section>
   );
 };

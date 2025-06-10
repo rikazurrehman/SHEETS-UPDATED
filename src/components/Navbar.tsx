@@ -44,11 +44,11 @@ const Navbar = () => {
       
       if (navbarRef.current) {
         if (currentScrollY > 50) {
-          navbarRef.current.classList.add('bg-gaming-darker/80', 'backdrop-blur-sm', 'py-3');
-          navbarRef.current.classList.remove('bg-transparent', 'py-4');
+          navbarRef.current.classList.add('bg-gaming-darker/70', 'backdrop-blur-md', 'py-2');
+          navbarRef.current.classList.remove('bg-transparent', 'py-3');
         } else {
-          navbarRef.current.classList.remove('bg-gaming-darker/80', 'backdrop-blur-sm', 'py-3');
-          navbarRef.current.classList.add('bg-transparent', 'py-4');
+          navbarRef.current.classList.remove('bg-gaming-darker/70', 'backdrop-blur-md', 'py-2');
+          navbarRef.current.classList.add('bg-transparent', 'py-3');
         }
       }
     };
@@ -110,22 +110,21 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
-          className="font-medium text-lg tracking-wide hover:text-gaming-purple transition-colors"
+          className="font-medium text-base tracking-wide text-white hover:text-white/90 transition-colors"
           onClick={(e) => handleLinkClick('/', e)}
         >
           Rikazur Rehman M
         </Link>
         
         {/* Desktop menu */}
-        <ul className="hidden md:flex items-center space-x-8">
+        <ul className="hidden md:flex items-center space-x-6">
           {navItems.map((item) => (
             <li key={item.name}>
               <Link
                 to={item.href}
-                className="text-sm text-white/70 hover:text-white transition-colors flex items-center gap-1.5 py-1"
+                className="text-sm text-white/80 hover:text-white transition-colors flex items-center gap-1 py-1 hover:underline hover:underline-offset-4"
                 onClick={(e) => handleLinkClick(item.href, e)}
               > 
-                <item.icon size={14} className="opacity-70 group-hover:opacity-100" />
                 {item.name}
               </Link>
             </li>
@@ -134,27 +133,27 @@ const Navbar = () => {
         
         {/* Mobile menu button */}
         <button
-          className="md:hidden text-white/80 hover:text-white p-1.5 focus:outline-none"
+          className="md:hidden text-white/90 hover:text-white p-1 rounded-md transition-colors"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
       
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gaming-darker/95 backdrop-blur-md border-t border-white/5">
-          <div className="container mx-auto px-4 py-4">
-            <ul className="flex flex-col space-y-2">
+        <div className="md:hidden bg-gaming-darker/90 backdrop-blur-md border-t border-white/10">
+          <div className="container mx-auto px-4 py-3">
+            <ul className="flex flex-col">
               {navItems.map((item) => (
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className="flex items-center gap-2 py-2 px-3 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                    className="flex items-center gap-2 py-2 text-white/80 hover:text-white transition-colors"
                     onClick={(e) => handleLinkClick(item.href, e)}
                   >
-                    <item.icon size={16} />
+                    <item.icon size={15} />
                     {item.name}
                   </Link>
                 </li>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, memo, useRef } from 'react';
-import { Eye, X, Play, Pause, Volume2, VolumeX, Youtube, ArrowRight, Filter } from 'lucide-react';
+import { Eye, X, Play, Pause, Volume2, VolumeX, Youtube, ArrowRight, Filter, ExternalLink } from 'lucide-react';
 import portfolioData from '../data/portfolioData';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -53,7 +53,7 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
   return (
     <div 
       ref={cardRef}
-      className={`project-card group relative overflow-hidden rounded-xl bg-gaming-darker/40 backdrop-blur-sm border border-white/5 transition-all duration-300 hover:border-gaming-purple/30 hover:shadow-glow cursor-pointer h-full flex flex-col z-10`}
+      className={`project-card group relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-md cursor-pointer h-full flex flex-col z-10`}
       style={{ 
         animationDelay: `${index * 0.1}s`, 
         animationFillMode: 'both' 
@@ -80,13 +80,13 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
         )}
         
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker via-gaming-darker/70 to-transparent opacity-60 group-hover:opacity-80 transition-opacity pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-60 group-hover:opacity-70 transition-opacity pointer-events-none"></div>
         
         {/* Content - Always visible */}
         <div className="absolute inset-0 p-5 flex flex-col justify-end z-10">
           <div className="transform transition-all duration-300 group-hover:translate-y-[-5px]">
-            <span className="inline-block text-gaming-purple text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-gaming-purple/10 backdrop-blur-sm">{project.category}</span>
-            <h3 className="text-xl font-orbitron font-bold text-white mb-2 line-clamp-2">{project.title}</h3>
+            <span className="inline-block text-white text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">{project.category}</span>
+            <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">{project.title}</h3>
             <p className="text-white/70 text-sm mb-3 line-clamp-2">{project.shortDescription}</p>
             
             <div className="flex items-center justify-between">
@@ -94,14 +94,14 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
                 {project.tags.slice(0, 2).map((tag) => (
                   <span 
                     key={tag} 
-                    className="text-xs px-2 py-0.5 rounded-full bg-gaming-blue/10 text-gaming-blue/90"
+                    className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/90 border border-white/10"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
               
-              <span className="text-gaming-purple opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-xs">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 text-xs text-white/90">
                 View <ArrowRight size={12} />
               </span>
             </div>
@@ -144,24 +144,13 @@ const CategoryButton = memo(({
       <button
         ref={buttonRef}
         onClick={handleClick}
-        className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-gaming-purple/50 ${
+        className={`px-5 py-2 rounded-full text-sm transition-all ${
           isActive
-            ? 'bg-black text-white font-bold shadow-glow-strong border-2 border-gaming-purple active:bg-black active:text-white'
-            : 'bg-gaming-darker text-white hover:text-white hover:bg-gaming-darker/90 border-2 border-white/30 hover:border-gaming-purple/70 active:bg-black active:text-white'
+            ? 'bg-white/10 backdrop-blur-sm text-white border border-white/20 shadow-sm'
+            : 'bg-transparent text-white/70 border border-transparent hover:bg-white/5 hover:border-white/10'
         }`}
-        style={{
-          textShadow: isActive ? '0 0 2px #fff, 0 0 4px #fff, 0 0 6px rgba(255, 255, 255, 0.5)' : ''
-        }}
       >
-        <span className={`${isActive 
-          ? 'text-shadow-lg text-white' 
-          : 'text-shadow'} relative z-10 px-1`}
-        >
-          {category === "all" ? "All Works" : category}
-        </span>
-        {!isActive && (
-          <span className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-30 rounded-xl"></span>
-        )}
+        {category === "all" ? "All Works" : category}
       </button>
     </div>
   );
@@ -289,9 +278,10 @@ const Works = () => {
       <div className="pt-28 pb-20 flex-grow relative z-20" ref={contentRef} onClick={handleContainerClick}>
         <div className="container mx-auto px-6">
           {/* Header Section */}
-          <div className="max-w-4xl mx-auto mb-16 text-center">
-            <h1 className="text-5xl sm:text-6xl font-orbitron font-bold mb-6 gaming-gradient-text">Portfolio</h1>
-            <p className="text-white/70 max-w-2xl mx-auto text-lg">
+          <div className="max-w-4xl mx-auto mb-14 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight">My <span className="gaming-gradient-text">Portfolio</span></h1>
+            <div className="w-20 h-1 bg-gradient-to-r from-gaming-purple to-gaming-blue rounded-full mx-auto mb-6 opacity-80"></div>
+            <p className="text-white/80 max-w-2xl mx-auto text-base">
               Explore my creative work across different visual disciplines
             </p>
           </div>
@@ -300,20 +290,17 @@ const Works = () => {
           <div className="md:hidden mb-8" ref={categoryContainerRef}>
             <button 
               onClick={toggleFilters}
-              className="w-full flex items-center justify-between px-5 py-3 bg-gaming-darker backdrop-blur-sm rounded-xl border-2 border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-gaming-purple/50"
-              style={{
-                textShadow: '0 0 2px rgba(255, 255, 255, 0.8)'
-              }}
+              className="w-full flex items-center justify-between px-5 py-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 text-white focus:outline-none"
             >
               <div className="flex items-center gap-2">
-                <Filter size={18} className="text-gaming-purple" />
-                <span className="font-medium text-shadow">{activeCategory === 'all' ? 'All Categories' : activeCategory}</span>
+                <Filter size={18} className="text-white/70" />
+                <span className="font-medium">{activeCategory === 'all' ? 'All Categories' : activeCategory}</span>
               </div>
-              <span className="text-gaming-purple">{showFilters ? '−' : '+'}</span>
+              <span className="text-white/70">{showFilters ? '−' : '+'}</span>
             </button>
             
             {showFilters && (
-              <div className="mt-2 p-2 bg-gaming-darker backdrop-blur-md rounded-xl border-2 border-white/20 flex flex-col space-y-1">
+              <div className="mt-2 p-2 bg-white/5 backdrop-blur-md rounded-lg border border-white/10 flex flex-col space-y-1">
                 {categories.map((category) => (
                   <button
                     key={category}
@@ -327,16 +314,13 @@ const Works = () => {
                         document.activeElement.blur();
                       }
                     }}
-                    className={`px-4 py-2.5 rounded-lg text-left text-sm transition-all focus:outline-none focus:ring-2 focus:ring-gaming-purple/50 ${
+                    className={`px-4 py-2 rounded-lg text-left text-sm transition-all focus:outline-none ${
                       activeCategory === category
-                        ? 'bg-black text-white font-bold shadow-inner border border-gaming-purple'
-                        : 'text-white hover:bg-gaming-darker/60 hover:text-white active:bg-black'
+                        ? 'bg-white/10 text-white font-medium'
+                        : 'text-white/70 hover:bg-white/5 hover:text-white'
                     }`}
-                    style={{
-                      textShadow: activeCategory === category ? '0 0 2px #fff, 0 0 4px #fff' : ''
-                    }}
                   >
-                    <span className="text-shadow-lg">{category === "all" ? "All Works" : category}</span>
+                    {category === "all" ? "All Works" : category}
                   </button>
                 ))}
               </div>
@@ -383,19 +367,19 @@ const Works = () => {
       {/* Project Modal */}
       {selectedProject && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl cursor-pointer"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl cursor-pointer"
           onClick={(e) => {
             e.preventDefault();
             closeProjectModal();
           }}
         >
           <div 
-            className="bg-gaming-darker/90 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden w-full max-w-5xl cursor-default shadow-2xl"
+            className="bg-gaming-darker/80 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden w-full max-w-5xl cursor-default shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col md:flex-row md:items-start">
               {/* Media Content */}
-              <div className="relative bg-black/70 md:w-2/5">
+              <div className="relative bg-black/50 md:w-2/5">
                 {selectedProject.youtubeId ? (
                   // YouTube Video Embed - Ensure this works correctly
                   <div className="w-full aspect-[9/16]" onClick={(e) => e.stopPropagation()}>
@@ -429,20 +413,20 @@ const Works = () => {
                           e.stopPropagation();
                           togglePlayPause();
                         }}
-                        className="bg-gaming-purple/40 hover:bg-gaming-purple/70 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-md focus:outline-none focus:ring-2 focus:ring-white/50"
+                        className="bg-white/10 hover:bg-white/20 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-sm"
                         aria-label={isPlaying ? "Pause video" : "Play video"}
                       >
-                        {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                        {isPlaying ? <Pause size={18} /> : <Play size={18} />}
                       </button>
                       <button 
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleMute();
                         }}
-                        className="bg-gaming-purple/40 hover:bg-gaming-purple/70 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-md focus:outline-none focus:ring-2 focus:ring-white/50"
+                        className="bg-white/10 hover:bg-white/20 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-sm"
                         aria-label={isMuted ? "Unmute video" : "Mute video"}
                       >
-                        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                       </button>
                     </div>
                   </div>
@@ -463,32 +447,32 @@ const Works = () => {
                     e.stopPropagation();
                     closeProjectModal();
                   }}
-                  className="absolute top-4 right-4 bg-gaming-purple/40 hover:bg-gaming-purple/70 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-md focus:outline-none focus:ring-2 focus:ring-white/50 z-30"
+                  className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-sm z-30"
                   aria-label="Close modal"
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
               </div>
               
               {/* Content */}
               <div className="p-6 md:p-8 md:w-3/5 max-h-[70vh] md:overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="flex flex-col mb-8">
-                  <span className="inline-block text-gaming-purple text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-gaming-purple/10 backdrop-blur-sm">{selectedProject.category}</span>
-                  <h3 className="text-2xl font-orbitron font-bold mb-4">{selectedProject.title}</h3>
+                  <span className="inline-block text-white/90 text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">{selectedProject.category}</span>
+                  <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
                   <p className="text-white/80 text-sm leading-relaxed">{selectedProject.fullDescription}</p>
                 </div>
                 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-base font-orbitron font-semibold mb-3 text-white/90 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gaming-purple"></span>
+                    <h4 className="text-base font-medium mb-3 text-white/90 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
                       Technologies
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.tools.map((tool) => (
                         <span 
                           key={tool}
-                          className="px-3 py-1 rounded-full bg-gaming-darker border border-white/5 text-white/80 text-xs"
+                          className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs"
                         >
                           {tool}
                         </span>
@@ -497,14 +481,14 @@ const Works = () => {
                   </div>
                   
                   <div>
-                    <h4 className="text-base font-orbitron font-semibold mb-3 text-white/90 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gaming-blue"></span>
+                    <h4 className="text-base font-medium mb-3 text-white/90 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
                       Key Features
                     </h4>
                     <ul className="space-y-2 text-white/70 text-sm">
                       {selectedProject.highlights.map((highlight) => (
-                        <li key={highlight} className="flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-gaming-blue/70"></span>
+                        <li key={highlight} className="flex items-start gap-2">
+                          <span className="w-1 h-1 rounded-full bg-white/70 mt-2"></span>
                           {highlight}
                         </li>
                       ))}
@@ -518,11 +502,11 @@ const Works = () => {
                         href={`https://www.youtube.com/watch?v=${selectedProject.youtubeId}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors text-sm font-medium border border-white/10"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Youtube size={16} />
-                        Watch on YouTube
+                        <ExternalLink size={14} />
+                        View on YouTube
                       </a>
                     </div>
                   )}
