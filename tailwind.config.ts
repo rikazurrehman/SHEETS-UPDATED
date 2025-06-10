@@ -122,6 +122,26 @@ export default {
 						transform: "translateY(0)",
 					},
 				},
+				"scale-in": {
+					"0%": {
+						opacity: "0",
+						transform: "scale(0.95)",
+					},
+					"100%": {
+						opacity: "1",
+						transform: "scale(1)",
+					},
+				},
+				"stagger-fade-in": {
+					"0%": {
+						opacity: "0",
+						transform: "translateY(10px)",
+					},
+					"100%": {
+						opacity: "1",
+						transform: "translateY(0)",
+					},
+				},
 				"scroll-left": {
 					"0%": {
 						transform: "translateX(0)",
@@ -148,7 +168,9 @@ export default {
 				"glow-pulse": 'glow-pulse 2s ease-in-out infinite',
 				gradient: 'gradient 6s linear infinite alternate',
 				"text-shimmer": "text-shimmer 2.5s ease-out infinite alternate",
-				"fadeIn": "fade-in 0.6s ease-out forwards",
+				"fadeIn": "fade-in 0.5s ease-out forwards",
+				"scaleIn": "scale-in 0.4s ease-out forwards",
+				"staggerFadeIn": "stagger-fade-in 0.5s ease-out forwards",
 				"scroll-left": "scroll-left 40s linear infinite",
 				"marquee": "marquee 40s linear infinite",
 				"scan": "scan 1.5s ease-in-out infinite",

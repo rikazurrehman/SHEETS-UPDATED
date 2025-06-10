@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import { Download, Eye, EyeOff, Lock, Shield, Sparkles } from 'lucide-react';
 import GamingAnimation from '../components/GamingAnimation';
 import { useState } from 'react';
+import Tools from '../sections/Tools';
 
 const Resume = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -117,6 +118,11 @@ const Resume = () => {
             )}
           </div>
         </div>
+      </div>
+      
+      {/* Tools I Use Section with top margin */}
+      <div className="mt-16">
+        <Tools />
       </div>
       
       <Footer />

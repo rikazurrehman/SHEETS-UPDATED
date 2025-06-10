@@ -187,7 +187,7 @@ const Navbar = () => {
         
         {/* Mobile menu button */}
         <button
-          className="md:hidden relative flex items-center justify-center w-8 h-8 text-white/90 hover:text-white transition-colors bg-black/20 rounded-lg border border-white/5 overflow-hidden group"
+          className="mobile-menu-button group"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -195,43 +195,43 @@ const Navbar = () => {
           <div className="absolute -z-10 inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_center,rgba(147,51,234,0.2),transparent_70%)]"></div>
           
           {isMenuOpen ? (
-            <X size={16} className="text-gaming-purple" />
+            <X size={18} className="text-gaming-purple" />
           ) : (
-            <Menu size={16} className="text-gaming-purple" />
+            <Menu size={18} className="text-gaming-purple" />
           )}
         </button>
       </div>
       
-      {/* Mobile menu */}
+      {/* Mobile menu - improved for better mobile UX */}
       <div 
-        className={`md:hidden bg-black/90 backdrop-blur-lg border-t border-white/5 overflow-hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        className={`mobile-menu ${
+          isMenuOpen ? 'max-h-[calc(100vh-60px)] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
         }`}
       >
-        <div className="container mx-auto px-4 py-3">
+        <div className="container mx-auto px-4 py-4">
           {/* Decorative element */}
           <div className="absolute right-4 top-4 opacity-30 pointer-events-none">
             <Command size={40} className="text-gaming-purple/20" />
           </div>
           
-          <ul className="flex flex-col space-y-1 relative">
+          <ul className="flex flex-col space-y-2 relative">
             {navItems.map((item) => {
               const active = isActive(item.href);
               return (
                 <li key={item.name}>
                   <Link
                     to={item.href}
-                    className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-all ${
+                    className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all ${
                       active 
                         ? 'bg-black/40 text-white border border-gaming-purple/20 shadow-inner' 
                         : 'text-white/70 hover:text-white hover:bg-black/30 border border-transparent hover:border-white/10'
                     }`}
                     onClick={(e) => handleLinkClick(item.href, e)}
                   >
-                    <div className={`w-6 h-6 rounded-lg ${active ? 'bg-gaming-purple/10' : 'bg-black/20'} flex items-center justify-center`}>
-                      <item.icon size={15} className={active ? 'text-gaming-purple' : 'text-white/60'} />
+                    <div className={`w-8 h-8 rounded-lg ${active ? 'bg-gaming-purple/10' : 'bg-black/20'} flex items-center justify-center`}>
+                      <item.icon size={16} className={active ? 'text-gaming-purple' : 'text-white/60'} />
                     </div>
-                    <span>{item.name}</span>
+                    <span className="text-base">{item.name}</span>
                     {active && (
                       <div className="ml-auto">
                         <Sparkles size={12} className="text-gaming-purple/70" />

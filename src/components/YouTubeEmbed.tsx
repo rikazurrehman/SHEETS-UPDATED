@@ -55,13 +55,12 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
   };
 
   // Create YouTube embed URL with proper parameters
-  // Add parameters to force 9:16 aspect ratio
   const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&rel=0&showinfo=0&modestbranding=1&enablejsapi=1`;
   
   return (
     <div 
       ref={containerRef}
-      className="relative w-full aspect-[9/16] bg-black/40 rounded-md overflow-hidden z-20 flex items-center justify-center" 
+      className="relative w-full h-full bg-black/40 rounded-md overflow-hidden z-20 flex items-center justify-center" 
       onClick={handleContainerClick}
     >
       {!isLoaded && (
@@ -97,7 +96,6 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
           className="absolute inset-0 w-full h-full z-10"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
-          style={{ aspectRatio: '9/16' }}
         />
       </div>
     </div>
