@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, memo } from 'react';
 
-const Particles: React.FC = () => {
+interface ParticlesProps {
+  className?: string;
+}
+
+const Particles: React.FC<ParticlesProps> = ({ className }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -191,7 +195,7 @@ const Particles: React.FC = () => {
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 bg-gradient-to-b from-gaming-darker to-gaming-dark pointer-events-none z-0"
+      className={`absolute inset-0 bg-gradient-to-b from-gaming-darker to-gaming-dark pointer-events-none z-0 ${className || ''}`}
     />
   );
 };

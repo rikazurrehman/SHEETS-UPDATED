@@ -86,16 +86,13 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
             Soon
           </div>
         )}
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gaming-darker to-transparent opacity-70 pointer-events-none"></div>
       </div>
       
-      {/* Content */}
-      <div className="absolute bottom-0 left-0 w-full p-4 z-10">
-        <span className="inline-block text-white text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/10">{project.category}</span>
+      {/* Content Box Below Thumbnail */}
+      <div className="p-3 sm:p-4 flex-grow flex flex-col bg-black/60 border-t border-white/10">
+        <span className="inline-block text-white text-xs font-medium mb-1.5 sm:mb-2 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/10">{project.category}</span>
         <h3 className="text-base font-medium mb-1 text-white line-clamp-1">{project.title}</h3>
-        <p className="text-white/60 text-xs mb-3 line-clamp-2">{project.shortDescription}</p>
+        <p className="text-white/60 text-xs mb-2 sm:mb-3 line-clamp-2">{project.shortDescription}</p>
         
         <div className="flex flex-wrap gap-1.5 mb-2">
           {project.tags.slice(0, 2).map((tag) => (
@@ -117,7 +114,7 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
               openProjectModal(project);
             }
           }}
-          className="group relative overflow-hidden flex items-center text-xs text-white/80 hover:text-white bg-black/40 px-3 py-1.5 rounded-sm transition-all duration-300 hover:border-gaming-purple/30 border border-white/10"
+          className="group relative overflow-hidden flex items-center text-xs text-white/80 hover:text-white bg-black/40 px-3 py-1.5 rounded-sm transition-all duration-300 hover:border-gaming-purple/30 border border-white/10 mt-auto"
           disabled={project.comingSoon}
         >
           {/* Button background effects */}

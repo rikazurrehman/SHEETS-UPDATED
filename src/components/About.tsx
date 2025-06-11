@@ -205,6 +205,30 @@ const About = () => {
           </div>
         </div>
         
+        {/* Tools I Use Button - positioned between What I Do and Brands sections */}
+        <div className="flex justify-center mb-20 scroll-reveal">
+          <a 
+            href="/resume#tools-i-use" 
+            className="group relative overflow-hidden flex items-center gap-3 bg-black/30 backdrop-blur-sm border border-white/10 text-white py-4 px-8 rounded-xl hover:border-gaming-purple/30 transition-all duration-300 shadow-lg"
+          >
+            {/* Button background effects */}
+            <div className="absolute inset-0 w-full h-full">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,white_0%,transparent_50%)]"></div>
+              <div className="absolute -inset-x-1/4 top-0 h-px w-[150%] bg-gradient-to-r from-transparent via-gaming-purple/50 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-scan transition-opacity"></div>
+            </div>
+            
+            {/* Icon container */}
+            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gaming-darker border border-gaming-purple/20 flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform">
+              <Layers className="h-5 w-5 text-gaming-purple" />
+            </div>
+            
+            <span className="font-medium text-lg relative z-10">Tools I Use</span>
+            
+            {/* Arrow icon - animates right on hover */}
+            <ChevronRight size={22} className="ml-1 text-gaming-purple transform group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+        
         {/* Brands & Collaborations - Infinite Scrolling Section */}
         <div className="mb-12 scroll-reveal">
           <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 tracking-tight">Brands & <span className="gaming-gradient-text">Collaborations</span></h3>

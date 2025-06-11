@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Particles from './Particles';
-import { ArrowRight, Github, Linkedin, Instagram, Twitter, Sparkles, ExternalLink, Award, Code } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Instagram, Sparkles, ExternalLink, Award, Code } from 'lucide-react';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,12 +52,6 @@ const Hero = () => {
             {/* Animated rings - reduced for mobile */}
             <div className="absolute -inset-2 sm:-inset-3 rounded-full border border-white/10 animate-pulse-slow animation-delay-1000"></div>
             <div className="absolute -inset-4 sm:-inset-6 rounded-full border border-white/5 animate-pulse-slow animation-delay-2000"></div>
-            
-            {/* Corner decorations */}
-            <div className="absolute -top-2 -left-2 w-4 sm:w-6 h-4 sm:h-6 border-t border-l border-gaming-purple/30 rounded-tl-lg"></div>
-            <div className="absolute -top-2 -right-2 w-4 sm:w-6 h-4 sm:h-6 border-t border-r border-gaming-blue/30 rounded-tr-lg"></div>
-            <div className="absolute -bottom-2 -left-2 w-4 sm:w-6 h-4 sm:h-6 border-b border-l border-gaming-blue/30 rounded-bl-lg"></div>
-            <div className="absolute -bottom-2 -right-2 w-4 sm:w-6 h-4 sm:h-6 border-b border-r border-gaming-purple/30 rounded-br-lg"></div>
             
             {/* Profile image */}
             <img 
@@ -147,18 +141,6 @@ const Hero = () => {
               <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-xl bg-gaming-purple/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-glow animate-pulse-slow animation-delay-2000 relative">
                 <Instagram className="h-4 sm:h-5 w-4 sm:w-5 text-gaming-purple relative z-10" />
                 <div className="absolute inset-0 bg-gradient-to-br from-gaming-purple/20 to-transparent rounded-xl"></div>
-              </div>
-            </a>
-            
-            <a 
-              href="https://twitter.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="group flex flex-col items-center p-2 sm:p-3 rounded-xl bg-black/30 hover:bg-gaming-darker/60 transition-all border border-white/5 hover:border-gaming-blue/20 hover:scale-105 transform"
-            >
-              <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-xl bg-gaming-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-glow animate-pulse-slow animation-delay-3000 relative">
-                <Twitter className="h-4 sm:h-5 w-4 sm:w-5 text-gaming-blue relative z-10" />
-                <div className="absolute inset-0 bg-gradient-to-br from-gaming-blue/20 to-transparent rounded-xl"></div>
               </div>
             </a>
           </div>
