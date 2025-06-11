@@ -17,13 +17,14 @@ const generateColoredDataUrl = (text: string) => {
 
 // Define brands array at the top with other constants
 const brands = [
-  { name: "Naturals", logo: "/assets/brands/placeholder.png" },
-  { name: "Naturals Signature", logo: "/assets/brands/placeholder.png" },
-  { name: "Nails n' Beyond", logo: "/assets/brands/placeholder.png" },
-  { name: "Page 3", logo: "/assets/brands/placeholder.png" },
-  { name: "Bespoke", logo: "/assets/brands/placeholder.png" },
-  { name: "NXTFACE", logo: "/assets/brands/placeholder.png" },
-  { name: "Tuckin Menswear", logo: "/assets/brands/placeholder.png" }
+  { name: "Naturals", logo: "/assets/brands/naturals.png" },
+  { name: "Naturals Signature", logo: "/assets/brands/singature.png" },
+  { name: "Nails n' Beyond", logo: "/assets/brands/nnb.png" },
+  { name: "Page 3", logo: "/assets/brands/Page3.png" },
+  { name: "Bespoke", logo: "/assets/brands/Bespoke.png" },
+  { name: "NXTFACE", logo: "/assets/brands/nxtface.png" },
+  { name: "Tuckin Menswear", logo: "/assets/brands/tuckin.png" },
+  { name: "Naturals Beauty Academy", logo: "/assets/brands/nba.png" }
 ];
 
 // Duplicate brands for smoother infinite scroll
