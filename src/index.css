@@ -66,7 +66,7 @@
 
   html {
     @apply scroll-smooth;
-    cursor: none;
+    cursor: auto;
   }
 
   body {
@@ -83,7 +83,7 @@
   /* Hide default cursor for desktop */
   @media (min-width: 768px) {
     * {
-      cursor: none !important;
+      cursor: auto !important;
     }
   }
 }
@@ -158,50 +158,10 @@
   }
 
   /* Custom cursor */
-  .custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: rgba(139, 92, 246, 0.5);
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: screen;
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
-  }
-
-  .cursor-trail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: rgba(56, 189, 248, 0.8);
-    box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: top 0.3s ease-out, left 0.3s ease-out;
-  }
-
-  .cursor-clicked {
-    width: 28px;
-    height: 28px;
-    background-color: rgba(16, 185, 129, 0.7);
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
-  }
-
-  .cursor-hover {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(139, 92, 246, 0.3);
-    backdrop-filter: blur(2px);
-  }
+  /* .custom-cursor { ... } */
+  /* .cursor-trail { ... } */
+  /* .cursor-clicked { ... } */
+  /* .cursor-hover { ... } */
 
   .scroll-reveal {
     opacity: 0;
@@ -296,9 +256,7 @@
     }
     
     /* Hide custom cursor on mobile */
-    .custom-cursor, .cursor-trail {
-      display: none !important;
-    }
+    /* .custom-cursor, .cursor-trail { ... } */
 
     /* Optimize font sizes for mobile */
     body {
