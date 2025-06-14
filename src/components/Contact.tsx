@@ -350,7 +350,7 @@ const Contact = () => {
                 
                 <div className="space-y-4">
                   <a 
-                    href="tel:+919840000000" 
+                    href="tel:+917010956992" 
                     className="flex items-start group"
                   >
                     <div className="inline-flex items-center justify-center p-3 rounded-xl bg-gaming-blue/10 mr-3 border border-white/5 shadow-lg group-hover:scale-110 transition-transform">
@@ -358,7 +358,7 @@ const Contact = () => {
                     </div>
                     <div className="flex-1">
                       <p className="text-white/60 text-xs">Phone</p>
-                      <p className="text-white group-hover:text-gaming-blue transition-colors">+91 98400 00000</p>
+                      <p className="text-white group-hover:text-gaming-blue transition-colors">+91 7010956992</p>
                     </div>
                   </a>
                   
