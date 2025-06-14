@@ -266,10 +266,6 @@ const About = () => {
                 ))}
               </div>
             </div>
-
-            {/* Add gradient overlays for smooth fade effect */}
-            <div className="absolute top-0 left-0 h-full w-40 bg-gradient-to-r from-gaming-darker to-transparent z-10"></div>
-            <div className="absolute top-0 right-0 h-full w-40 bg-gradient-to-l from-gaming-darker to-transparent z-10"></div>
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
+/* eslint-disable */
+/* This file uses Tailwind CSS directives which may trigger linter warnings */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -547,13 +549,6 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 10%,
-      black 90%,
-      transparent
-    );
   }
 
   .marquee-track {
