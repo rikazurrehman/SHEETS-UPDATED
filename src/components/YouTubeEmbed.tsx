@@ -55,22 +55,24 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
   };
 
   // Create YouTube embed URL with proper parameters
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&rel=0&showinfo=0&modestbranding=1&enablejsapi=1`;
+  // Added necessary parameters to ensure video loads
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&rel=0&showinfo=0&modestbranding=1&mute=0&controls=1&enablejsapi=0`;
   
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-full bg-black/40 rounded-md overflow-hidden z-20 flex items-center justify-center" 
+      className="w-full h-full bg-black/90 rounded-md z-20 flex items-center justify-center"
       onClick={handleContainerClick}
+      style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}
     >
       {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-gaming-purple/30 border-t-gaming-purple rounded-full animate-spin"></div>
+        <div className="absolute inset-0 flex items-center justify-center z-30">
+          <div className="w-12 h-12 border-4 border-gaming-purple/30 border-t-gaming-purple rounded-full animate-spin"></div>
         </div>
       )}
       
       {error && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 text-white">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 text-white z-30">
           <span className="text-red-400 mb-2">Video loading error</span>
           <p className="text-sm text-white/70 text-center max-w-xs">
             Unable to load the YouTube video. Please try again or view directly on YouTube.
@@ -86,18 +88,17 @@ const YouTubeEmbed = ({ videoId, title = 'YouTube video player', autoplay = true
         </div>
       )}
       
-      <div className={`relative w-full h-full transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <iframe
-          ref={iframeRef}
-          src={embedUrl}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="absolute inset-0 w-full h-full z-10"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-        />
-      </div>
+      <iframe
+        ref={iframeRef}
+        src={embedUrl}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowFullScreen
+        className={`w-full h-full z-10 transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ border: 'none' }}
+        onLoad={handleIframeLoad}
+        onError={handleIframeError}
+      />
     </div>
   );
 };

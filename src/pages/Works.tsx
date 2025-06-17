@@ -75,8 +75,8 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
         
         {/* YouTube Indicator */}
         {project.youtubeId && (
-          <div className="absolute top-3 right-3 bg-red-600 text-white rounded-full p-1.5 z-10 shadow-glow">
-            <Youtube size={16} />
+          <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-red-600 text-white rounded-full p-1 sm:p-1.5 z-10 shadow-glow">
+            <Youtube size={14} className="sm:w-4 sm:h-4" />
           </div>
         )}
         
@@ -89,10 +89,10 @@ const ProjectCard = memo(({ project, openProjectModal, index }: ProjectCardProps
       </div>
       
       {/* Content Box Below Thumbnail */}
-      <div className="p-3 sm:p-4 flex-grow flex flex-col bg-black/60 border-t border-white/10">
-        <span className="inline-block text-white text-xs font-medium mb-1.5 sm:mb-2 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/10">{project.category}</span>
-        <h3 className="text-base font-medium mb-1 text-white line-clamp-1">{project.title}</h3>
-        <p className="text-white/60 text-xs mb-2 sm:mb-3 line-clamp-2">{project.shortDescription}</p>
+      <div className="p-2.5 sm:p-3 md:p-4 flex-grow flex flex-col bg-black/60 border-t border-white/10">
+        <span className="inline-block text-white text-xs font-medium mb-1.5 px-2 py-0.5 rounded-full bg-black/30 backdrop-blur-sm border border-white/10">{project.category}</span>
+        <h3 className="text-sm sm:text-base font-medium mb-1 text-white line-clamp-1">{project.title}</h3>
+        <p className="text-white/60 text-xs mb-2 line-clamp-2">{project.shortDescription}</p>
         
         <div className="flex flex-wrap gap-1.5 mb-2">
           {project.tags.slice(0, 2).map((tag) => (
@@ -236,13 +236,22 @@ const Works = () => {
     // Set the selected project which triggers modal to open
     setSelectedProject(project);
     setIsPlaying(false);
-    document.body.style.overflow = 'hidden';
+    
+    // Lock scroll and save scroll position
+    const scrollY = window.scrollY;
+    document.body.classList.add('modal-open');
+    document.body.style.top = `-${scrollY}px`;
   }, []);
 
   const closeProjectModal = useCallback(() => {
+    // Restore scroll position
+    const scrollY = document.body.style.top;
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    
     setSelectedProject(null);
     setIsPlaying(false);
-    document.body.style.overflow = 'auto';
   }, []);
 
   const togglePlayPause = useCallback(() => {
@@ -330,26 +339,26 @@ const Works = () => {
       <div className="absolute bottom-32 left-1/3 w-20 h-20 border border-white/10 rounded-sm blur-sm animate-float opacity-20 pointer-events-none" style={{ animationDuration: '12s', animationDelay: '2s' }}></div>
       
       {/* Content area */}
-      <div className="pt-28 pb-20 flex-grow relative z-20" ref={contentRef} onClick={handleContainerClick}>
-        <div className="container mx-auto px-6">
+      <div className="pt-20 sm:pt-28 pb-20 flex-grow relative z-20" ref={contentRef} onClick={handleContainerClick}>
+        <div className="container mx-auto px-4 sm:px-6">
           {/* Header Section - Styled like Hero */}
           <div 
-            className={`max-w-4xl mx-auto mb-14 text-center transition-all duration-700 transform ${
+            className={`max-w-4xl mx-auto mb-8 sm:mb-14 text-center transition-all duration-700 transform ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div className="relative mb-6">
+            <div className="relative mb-4 sm:mb-6">
               <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-20 h-px bg-gradient-to-r from-transparent via-gaming-purple/50 to-transparent"></div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight relative">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight relative">
                 My <span className="gaming-gradient-text relative">
                   Portfolio
                   <Sparkles className="absolute -top-5 -right-5 w-4 h-4 text-gaming-purple opacity-70 animate-pulse" />
                 </span>
               </h1>
-              <div className="w-20 h-1 bg-gradient-to-r from-gaming-purple to-gaming-blue rounded-full mx-auto mt-3 mb-6 opacity-80"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-gaming-purple to-gaming-blue rounded-full mx-auto mt-3 mb-4 sm:mb-6 opacity-80"></div>
             </div>
             
-            <p className="text-white/80 max-w-2xl mx-auto text-lg leading-relaxed">
+            <p className="text-white/80 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
               Explore my creative work across 
               <span className="gaming-gradient-text font-medium relative ml-2">
                 different visual disciplines
@@ -422,7 +431,7 @@ const Works = () => {
           </div>
           
           {/* Projects Grid */}
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-fr pointer-events-auto animate-staggerFadeIn transition-all duration-700 delay-200 transform ${
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 auto-rows-fr pointer-events-auto animate-staggerFadeIn transition-all duration-700 delay-200 transform ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
             {filteredProjects.map((project, index) => (
@@ -450,14 +459,14 @@ const Works = () => {
       {/* Project Modal */}
       {selectedProject && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/90 backdrop-blur-xl cursor-pointer animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/90 backdrop-blur-xl cursor-pointer animate-fadeIn overscroll-none"
           onClick={(e) => {
             e.preventDefault();
             closeProjectModal();
           }}
         >
           <div 
-            className="bg-black/70 backdrop-blur-md border border-white/10 hover:border-gaming-purple/20 rounded-none sm:rounded-xl overflow-hidden w-full h-full sm:h-auto sm:max-w-5xl sm:max-h-[90vh] cursor-default shadow-glow animate-scaleIn overflow-y-auto"
+            className="bg-black/70 backdrop-blur-md border border-white/10 hover:border-gaming-purple/20 rounded-none sm:rounded-xl overflow-hidden w-full h-full sm:h-auto sm:max-w-6xl sm:max-h-[90vh] cursor-default shadow-glow animate-scaleIn sm:my-4"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Digital circuit pattern */}
@@ -466,21 +475,23 @@ const Works = () => {
               <div className="absolute top-0 left-1/2 w-px h-full bg-gaming-blue/30"></div>
             </div>
             
-            <div className="flex flex-col md:flex-row md:items-start h-full">
-              {/* Media Content */}
-              <div className="relative bg-black/80 md:w-2/5 h-auto max-h-[30vh] sm:max-h-[40vh] md:max-h-full">
+            <div className="flex flex-col h-full overflow-y-auto">
+              {/* Media Content - Full width */}
+              <div className="relative bg-black/80 w-full h-auto">
                 {selectedProject.youtubeId ? (
-                  // YouTube Video Embed - Ensure this works correctly
-                  <div className="w-full aspect-video sm:aspect-[9/16]" onClick={(e) => e.stopPropagation()}>
-                    <YouTubeEmbed 
-                      videoId={selectedProject.youtubeId} 
-                      title={selectedProject.title}
-                      autoplay={true}
-                    />
+                  // YouTube Video Embed - Larger for desktop
+                  <div className="w-full flex items-center justify-center bg-black" onClick={(e) => e.stopPropagation()}>
+                    <div className="w-full h-[30vh] sm:h-[50vh] md:h-[60vh]" style={{ minHeight: '250px' }}>
+                      <YouTubeEmbed 
+                        videoId={selectedProject.youtubeId} 
+                        title={selectedProject.title}
+                        autoplay={true}
+                      />
+                    </div>
                   </div>
                 ) : selectedProject.mediaType === 'video' ? (
                   // Regular Video
-                  <div className="relative aspect-video w-full" onClick={(e) => e.stopPropagation()}>
+                  <div className="relative w-full h-[30vh] sm:h-[50vh] md:h-[60vh] aspect-video" onClick={(e) => e.stopPropagation()}>
                     <video
                       ref={videoRef}
                       src={selectedProject.mediaUrl}
@@ -521,81 +532,54 @@ const Works = () => {
                   </div>
                 ) : (
                   // Image
-                  <div className="w-full" onClick={(e) => e.stopPropagation()}>
+                  <div className="w-full h-[30vh] sm:h-[50vh] md:h-[60vh]" onClick={(e) => e.stopPropagation()}>
                     <img 
                       src={selectedProject.mediaUrl} 
                       alt={selectedProject.title} 
-                      className="w-full h-auto max-h-[30vh] sm:max-h-[40vh] md:max-h-[70vh] object-contain mx-auto"
+                      className="w-full h-full object-contain mx-auto"
                     />
                   </div>
                 )}
-              </div>
-              
-              {/* Content */}
-              <div className="p-4 md:p-6 lg:p-8 md:w-3/5 overflow-y-auto flex-grow relative" onClick={(e) => e.stopPropagation()}>
-                {/* Close button - moved from media content to top-right of info panel */}
+                
+                {/* Mobile close button for better accessibility */}
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
                     closeProjectModal();
                   }}
-                  className="absolute top-4 right-4 bg-black/30 hover:bg-black/50 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-glow z-30"
+                  className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-glow z-30 md:hidden"
+                  aria-label="Close modal"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              
+              {/* Content - Below video */}
+              <div className="p-4 sm:p-6 md:p-8 w-full overflow-y-auto relative" onClick={(e) => e.stopPropagation()}>
+                {/* Close button - desktop only */}
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    closeProjectModal();
+                  }}
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/30 hover:bg-black/50 p-2 rounded-full backdrop-blur-md transition-all cursor-pointer text-white shadow-glow z-30 hidden md:block"
                   aria-label="Close modal"
                 >
                   <X size={18} />
                 </button>
                 
-                <div className="relative mb-6 md:mb-8 mt-2 md:mt-0">
+                <div className="relative mb-4 md:mb-6 mt-2 md:mt-0">
                   <div className="absolute -top-5 left-0 w-20 h-px bg-gradient-to-r from-gaming-purple/50 to-transparent"></div>
-                  <span className="inline-block text-white/90 text-xs font-medium mb-2 px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/10">{selectedProject.category}</span>
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 gaming-gradient-text relative">
-                    {selectedProject.title}
-                    <Sparkles className="absolute -top-5 -right-5 w-4 h-4 text-gaming-purple opacity-70 animate-pulse" />
-                  </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">{selectedProject.fullDescription}</p>
-                </div>
-                
-                <div className="space-y-4 md:space-y-6">
-                  <div>
-                    <h4 className="text-base font-medium mb-2 md:mb-3 text-white/90 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gaming-purple shadow-glow"></span>
-                      Technologies
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tools.map((tool) => (
-                        <span 
-                          key={tool}
-                          className="px-2 sm:px-3 py-1 rounded-full bg-black/30 border border-white/10 text-white/80 text-xs hover:bg-black/40 hover:border-white/20 transition-all"
-                        >
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-base font-medium mb-2 md:mb-3 text-white/90 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gaming-blue shadow-glow"></span>
-                      Key Features
-                    </h4>
-                    <ul className="space-y-2 text-white/70 text-sm">
-                      {selectedProject.highlights.map((highlight) => (
-                        <li key={highlight} className="flex items-start gap-2">
-                          <span className="w-1 h-1 rounded-full bg-white/70 mt-2 shadow-glow flex-shrink-0"></span>
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  {/* YouTube Link */}
-                  {selectedProject.youtubeId && (
-                    <div className="mt-4 md:mt-6">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <span className="inline-block text-white/90 text-xs font-medium px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/10">{selectedProject.category}</span>
+                    
+                    {/* YouTube Link */}
+                    {selectedProject.youtubeId && (
                       <a 
                         href={`https://www.youtube.com/watch?v=${selectedProject.youtubeId}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative overflow-hidden inline-flex items-center gap-2 px-4 py-2 bg-black/40 hover:bg-black/50 text-white rounded-lg transition-all text-sm font-medium border border-white/10 hover:border-gaming-purple/30 shadow-glow"
+                        className="group relative overflow-hidden inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-black/40 hover:bg-black/50 text-white rounded-lg transition-all text-xs sm:text-sm font-medium border border-white/10 hover:border-gaming-purple/30 shadow-glow"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {/* Button background effects */}
@@ -606,8 +590,14 @@ const Works = () => {
                         <ExternalLink size={14} className="relative z-10" />
                         <span className="relative z-10">View on YouTube</span>
                       </a>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold mb-2 md:mb-3 gaming-gradient-text relative">
+                    {selectedProject.title}
+                    <Sparkles className="absolute -top-5 -right-5 w-4 h-4 text-gaming-purple opacity-70 animate-pulse" />
+                  </h3>
+                  <p className="text-white/80 text-sm leading-relaxed max-w-3xl">{selectedProject.fullDescription}</p>
                 </div>
               </div>
             </div>
