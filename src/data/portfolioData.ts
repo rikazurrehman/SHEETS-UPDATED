@@ -305,6 +305,26 @@ const portfolioData = [
     ],
     link: "#",
     comingSoon: false
+  },
+  {
+    id: 21,
+    title: "Cat Facial - Naturals Salon",
+    category: "AI Concepts",
+    shortDescription: "Visualizing a cat facial at Naturals Salon",
+    fullDescription: "A short video showcasing a cat facial at Naturals Salon, created using AI tools and edited in Premiere Pro.",
+    imageUrl: "/assets/works thamnail/meowmeow.png",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/meowmeow.png",
+    youtubeId: "JVLpLtaZzmU",
+    tags: ["AI Art", "Prompt Engineering", "Digital Art"],
+    tools: ["Midjourney", "DALL-E", "Photoshop"],
+    highlights: [
+      "Advanced prompt techniques",
+      "Style consistency",
+      "Creative composition"
+    ],
+    link: "#",
+    comingSoon: false
   }
 ];
 
