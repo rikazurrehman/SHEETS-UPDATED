@@ -325,7 +325,7 @@ const portfolioData = [
     ],
     link: "#",
     comingSoon: false
-  }
+  },
   {
     id: 22,
     title: "Onam Offer - Naturals Salon",
