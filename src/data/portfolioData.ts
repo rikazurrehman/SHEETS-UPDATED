@@ -326,6 +326,26 @@ const portfolioData = [
     link: "#",
     comingSoon: false
   }
+  {
+    id: 22,
+    title: "Onam Offer - Naturals Salon",
+    category: "AI Concepts",
+    shortDescription: "AI Generated clips blended together with raw editing using my flow stack of editing softwares to make a short - form Ad reel.",
+    fullDescription: "A short video showcasing AI Generated clips blended together with raw editing for Naturals Salon, created using AI tools and edited with my personal tech stack.",
+    imageUrl: "/assets/works thamnail/meowmeow.png",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/meowmeow.png",
+    youtubeId: "qyGn3kgvSo0",
+    tags: ["AI Art", "Prompt Engineering", "Digital Art"],
+    tools: ["Midjourney", "DALL-E", "Photoshop"],
+    highlights: [
+      "Advanced prompt techniques",
+      "Style consistency",
+      "Creative composition"
+    ],
+    link: "#",
+    comingSoon: false
+  }
 ];
 
 export default portfolioData;
