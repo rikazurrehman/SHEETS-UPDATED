@@ -288,7 +288,7 @@ const portfolioData = [
   },
   {
     id: 20,
-    title: "BIRTHDAY PARTY INVITATION - MOTION GRAPHICS",
+    title: "Birthday Party - Motion Graphics Invitation",
     category: "Motion Graphics",
     shortDescription: "A dynamic motion graphics video showcasing creative visual of jungle themed birthday party invitation",
     fullDescription: "Created an engaging motion graphics video that shows a jungle themed birthday party invitation. The video features seamless transitions and creative design elements that enhance the viewing experience and effectively communicate the message of the birthday party. The video was crafted using After Effects and Premiere Pro, delivering a seamless blend of cinematic visuals and dynamic pacing.",
