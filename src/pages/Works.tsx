@@ -7,6 +7,7 @@ import GamingAnimation from '../components/GamingAnimation';
 import useMediaOptimization from '../hooks/useMediaOptimization';
 import YouTubeEmbed from '../components/YouTubeEmbed';
 import Particles from '../components/Particles';
+import ThreeDViewerModal from '../components/ThreeDViewerModal';
 
 // Define interfaces for our types
 interface Project {
@@ -19,6 +20,8 @@ interface Project {
   mediaType: string;
   mediaUrl: string;
   youtubeId?: string;
+  sketchfabId?: string;
+  glbUrl?: string;
   tags: string[];
   tools: string[];
   highlights: string[];
@@ -456,8 +459,14 @@ const Works = () => {
       {/* Bottom gradient */}
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-gaming-darker/60 to-transparent pointer-events-none"></div>
       
-      {/* Project Modal */}
-      {selectedProject && (
+      {/* Project Modal - Use specialized 3D modal for 3D Modelling projects */}
+      {selectedProject && selectedProject.category === "3D Modelling" ? (
+        <ThreeDViewerModal
+          project={selectedProject}
+          isOpen={!!selectedProject}
+          onClose={closeProjectModal}
+        />
+      ) : selectedProject && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/90 backdrop-blur-xl cursor-pointer animate-fadeIn overscroll-none"
           onClick={(e) => {
