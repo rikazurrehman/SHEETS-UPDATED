@@ -222,28 +222,67 @@ const portfolioData = [
     link: "#",
     comingSoon: false
   },
-  //3d gaming assets
-  // {
-  //   id: 10,
-  //   title: "Architectural Visualization",
-  //   category: "3D Modelling",
-  //   shortDescription: "Photorealistic architectural environments",
-  //   fullDescription: "Developed photorealistic 3D environments for architectural visualization, featuring detailed modeling, realistic materials, and atmospheric lighting. The project demonstrates mastery of environmental modeling and rendering.",
-  //   imageUrl: "/assets/works thamnail/916Aspect.webp",
-  //   mediaType: "video",
-  //   mediaUrl: "/assets/works thamnail/916Aspect.webp",
-  //   youtubeId: "lYBUbBu4W08",
-  //   video: "https://www.youtube.com/embed/lYBUbBu4W08",
-  //   tags: ["Architecture", "Visualization", "Lighting"],
-  //   tools: ["Blender", "Corona Renderer", "Substance Designer"],
-  //   highlights: [
-  //     "Detailed modeling",
-  //     "Realistic materials",
-  //     "Environmental lighting"
-  //   ],
-  //   link: "#",
-  //   comingSoon: false
-  // },
+  // 3D Modelling
+  {
+    id: 10,
+    title: "Architectural Visualization",
+    category: "3D Modelling",
+    shortDescription: "Photorealistic architectural environments",
+    fullDescription: "Developed photorealistic 3D environments for architectural visualization, featuring detailed modeling, realistic materials, and atmospheric lighting. The project demonstrates mastery of environmental modeling and rendering.",
+    imageUrl: "/assets/works thamnail/916Aspect.webp",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/916Aspect.webp",
+    youtubeId: "lYBUbBu4W08",
+    tags: ["Architecture", "Visualization", "Lighting"],
+    tools: ["Blender", "Corona Renderer", "Substance Designer"],
+    highlights: [
+      "Detailed modeling",
+      "Realistic materials",
+      "Environmental lighting"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 23,
+    title: "3D Product Visualization - Salon Equipment",
+    category: "3D Modelling",
+    shortDescription: "High-quality 3D models of salon equipment and furniture",
+    fullDescription: "Created detailed 3D models of salon equipment including chairs, mirrors, and styling stations. The project showcases realistic materials, proper lighting setup, and professional rendering techniques for product visualization.",
+    imageUrl: "/assets/works thamnail/interiorsalon.png",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/interiorsalon.png",
+    youtubeId: "mSxOdX3R9Y4",
+    tags: ["Product Design", "3D Modeling", "Rendering"],
+    tools: ["Blender", "Substance Painter", "Cycles"],
+    highlights: [
+      "Detailed product modeling",
+      "Realistic material creation",
+      "Professional lighting setup"
+    ],
+    link: "#",
+    comingSoon: false
+  },
+  {
+    id: 24,
+    title: "Character Modeling - Beauty Professional",
+    category: "3D Modelling",
+    shortDescription: "Realistic 3D character model of a beauty professional",
+    fullDescription: "Developed a detailed 3D character model representing a beauty professional, featuring realistic facial features, hair modeling, and professional attire. The model demonstrates advanced character modeling techniques and attention to detail.",
+    imageUrl: "/assets/works thamnail/beauty.png",
+    mediaType: "video",
+    mediaUrl: "/assets/works thamnail/beauty.png",
+    youtubeId: "XGnNpcqjJxA",
+    tags: ["Character Design", "3D Modeling", "Texturing"],
+    tools: ["Blender", "ZBrush", "Substance Painter"],
+    highlights: [
+      "Realistic character modeling",
+      "Detailed facial features",
+      "Professional texturing"
+    ],
+    link: "#",
+    comingSoon: false
+  },
 
   // AI Concepts
   {
