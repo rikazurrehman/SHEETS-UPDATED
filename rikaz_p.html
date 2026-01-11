@@ -1,0 +1,355 @@
+<html lang="en" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rikaz | Visual Artisan</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0D0D0D;
+            color: #E6E6E6;
+        }
+        
+        /* Noise Texture */
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D0D0D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        /* Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 116, 65, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 116, 65, 0.3);
+        }
+
+        /* Image Hover Zoom */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom-container img, .img-zoom-container video {
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .group:hover .img-zoom-container img, .group:hover .img-zoom-container video {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#FF7441] selection:text-[#0D0D0D]">
+
+    <!-- Noise Overlay -->
+    <div class="bg-noise"></div>
+
+    <div class="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
+
+            <!-- LEFT COLUMN: Sticky Info & Nav -->
+            <aside class="lg:col-span-5 xl:col-span-4 relative z-20">
+                <div class="lg:sticky lg:top-8 flex flex-col justify-between lg:h-[calc(100vh-4rem)] space-y-8">
+                    
+                    <!-- Profile Header -->
+                    <div class="space-y-8">
+                        <!-- Abstract Avatar -->
+                        <div class="relative w-20 h-20 rounded-2xl overflow-hidden glass-card flex items-center justify-center group cursor-pointer">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-[#FF7441]/20 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <span class="text-3xl font-bold text-[#E6E6E6]">R</span>
+                        </div>
+
+                        <div>
+                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter text-[#E6E6E6] leading-[0.9]">
+                                Rikaz<span class="text-[#FF7441]">.</span>
+                            </h1>
+                            <p class="mt-4 text-lg text-[#E6E6E6]/50 font-light max-w-sm leading-relaxed">
+                                CGI Artist &amp; Social Media Specialist crafting digital realities that stop the scroll.
+                            </p>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-card border border-[#E6E6E6]/5 w-fit">
+                            <div class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF7441] opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#FF7441]"></span>
+                            </div>
+                            <span class="text-xs font-medium uppercase tracking-wider text-[#E6E6E6]/80">Available for work</span>
+                        </div>
+                    </div>
+
+                    <!-- Navigation (Hidden on mobile, block on Desktop) -->
+                    <nav class="hidden lg:flex flex-col gap-2">
+                        <a href="#featured" class="group flex items-center gap-4 text-[#E6E6E6]/40 hover:text-[#E6E6E6] transition-colors py-2">
+                            <span class="text-xs font-mono">01</span>
+                            <span class="text-xl tracking-tight font-medium group-hover:translate-x-2 transition-transform duration-300">Selected Work</span>
+                        </a>
+                        <a href="#services" class="group flex items-center gap-4 text-[#E6E6E6]/40 hover:text-[#E6E6E6] transition-colors py-2">
+                            <span class="text-xs font-mono">02</span>
+                            <span class="text-xl tracking-tight font-medium group-hover:translate-x-2 transition-transform duration-300">Expertise</span>
+                        </a>
+                        <a href="#about" class="group flex items-center gap-4 text-[#E6E6E6]/40 hover:text-[#E6E6E6] transition-colors py-2">
+                            <span class="text-xs font-mono">03</span>
+                            <span class="text-xl tracking-tight font-medium group-hover:translate-x-2 transition-transform duration-300">About</span>
+                        </a>
+                        <a href="#contact" class="group flex items-center gap-4 text-[#E6E6E6]/40 hover:text-[#FF7441] transition-colors py-2">
+                            <span class="text-xs font-mono">04</span>
+                            <span class="text-xl tracking-tight font-medium group-hover:translate-x-2 transition-transform duration-300">Contact</span>
+                        </a>
+                    </nav>
+
+                    <!-- Socials / Footer -->
+                    <div class="flex items-center gap-6 text-[#E6E6E6]/30">
+                        <a href="#" class="hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:instagram" width="20"></iconify-icon></a>
+                        <a href="#" class="hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:twitter" width="20"></iconify-icon></a>
+                        <a href="#" class="hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:linkedin" width="20"></iconify-icon></a>
+                        <a href="mailto:hello@rikaz.com" class="hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:mail" width="20"></iconify-icon></a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT COLUMN: Scrollable Content (Bento Grid) -->
+            <main class="lg:col-span-7 xl:col-span-8 space-y-6 relative z-10 pb-20">
+
+                <!-- Hero Reel / Intro Card -->
+                <div class="glass-card rounded-3xl p-1 overflow-hidden group card-hover relative aspect-video">
+                     <div class="absolute inset-0 bg-[#161616] flex items-center justify-center z-0 img-zoom-container">
+                        <!-- Simulated Video Placeholder -->
+                        <div class="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center">
+                            <iconify-icon icon="lucide:play-circle" width="48" class="text-[#E6E6E6]/10 group-hover:text-[#FF7441] transition-colors duration-500"></iconify-icon>
+                        </div>
+                     </div>
+                     <div class="absolute bottom-6 left-6 z-10">
+                        <span class="inline-block px-3 py-1 bg-[#FF7441] text-[#0D0D0D] text-[10px] font-bold uppercase tracking-widest rounded-full mb-2">Showreel 2024</span>
+                        <h2 class="text-2xl font-medium text-white tracking-tight">Visual Synthesis</h2>
+                     </div>
+                </div>
+
+                <!-- Stats / Quick Info Row -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="glass-card rounded-3xl p-6 flex flex-col justify-between min-h-[140px] card-hover">
+                        <iconify-icon icon="lucide:video" width="24" class="text-[#FF7441]"></iconify-icon>
+                        <div>
+                            <div class="text-2xl font-semibold text-[#E6E6E6]">50+</div>
+                            <div class="text-xs text-[#E6E6E6]/40 uppercase tracking-wide mt-1">Projects</div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-3xl p-6 flex flex-col justify-between min-h-[140px] card-hover">
+                        <iconify-icon icon="lucide:users" width="24" class="text-[#FF7441]"></iconify-icon>
+                        <div>
+                            <div class="text-2xl font-semibold text-[#E6E6E6]">12</div>
+                            <div class="text-xs text-[#E6E6E6]/40 uppercase tracking-wide mt-1">Global Clients</div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-3xl p-6 flex flex-col justify-between min-h-[140px] card-hover col-span-2 md:col-span-2 bg-gradient-to-r from-[#FF7441]/10 to-transparent">
+                        <div class="flex justify-between items-start">
+                            <iconify-icon icon="lucide:zap" width="24" class="text-[#FF7441]"></iconify-icon>
+                            <iconify-icon icon="lucide:arrow-up-right" width="20" class="text-[#E6E6E6]/20"></iconify-icon>
+                        </div>
+                        <div>
+                            <div class="text-lg font-medium text-[#E6E6E6]">Let's collaborate</div>
+                            <div class="text-xs text-[#E6E6E6]/40 mt-1">Book a discovery call today</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Work Section -->
+                <section id="featured" class="pt-12">
+                    <div class="flex items-end justify-between mb-8 px-2">
+                        <h3 class="text-2xl font-medium tracking-tight text-[#E6E6E6]">Featured Work</h3>
+                        <a href="#" class="text-xs font-medium text-[#E6E6E6]/40 hover:text-[#FF7441] flex items-center gap-1 transition-colors">
+                            View Archive <iconify-icon icon="lucide:arrow-right" width="12"></iconify-icon>
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Project 1 (Large) -->
+                        <div class="md:col-span-2 glass-card rounded-3xl overflow-hidden group relative card-hover">
+                            <div class="aspect-[2/1] bg-[#111] img-zoom-container relative">
+                                <!-- Abstract visual for placeholder -->
+                                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#2a2a2a] via-[#111] to-[#000]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center opacity-30">
+                                    <svg viewBox="0 0 100 100" class="w-full h-full fill-[#FF7441]">
+                                        <circle cx="50" cy="50" r="20" filter="blur(40px)"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#0D0D0D] to-transparent">
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <div class="text-[#FF7441] text-[10px] font-bold uppercase tracking-widest mb-2">CGI Advertisement</div>
+                                        <h4 class="text-xl md:text-2xl font-medium text-[#E6E6E6]">Neon Energy Drink</h4>
+                                    </div>
+                                    <div class="h-10 w-10 rounded-full bg-[#E6E6E6]/10 backdrop-blur-md flex items-center justify-center text-[#E6E6E6] group-hover:bg-[#FF7441] group-hover:text-[#0D0D0D] transition-all">
+                                        <iconify-icon icon="lucide:arrow-up-right" width="20"></iconify-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="glass-card rounded-3xl overflow-hidden group relative card-hover aspect-square">
+                            <div class="w-full h-full bg-[#161616] img-zoom-container relative">
+                                <div class="absolute inset-0 bg-gradient-to-bl from-[#222] to-[#111]"></div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-[#0D0D0D] to-transparent">
+                                <div class="text-[#FF7441] text-[10px] font-bold uppercase tracking-widest mb-1">Editing</div>
+                                <h4 class="text-lg font-medium text-[#E6E6E6]">Luxury Real Estate</h4>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="glass-card rounded-3xl overflow-hidden group relative card-hover aspect-square">
+                            <div class="w-full h-full bg-[#161616] img-zoom-container relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-[#1F1F1F] to-[#0F0F0F]"></div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-[#0D0D0D] to-transparent">
+                                <div class="text-[#FF7441] text-[10px] font-bold uppercase tracking-widest mb-1">Social Strategy</div>
+                                <h4 class="text-lg font-medium text-[#E6E6E6]">Tech Startup Launch</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Expertise / Services -->
+                <section id="services" class="pt-12">
+                    <h3 class="text-2xl font-medium tracking-tight text-[#E6E6E6] mb-8 px-2">Expertise</h3>
+                    <div class="space-y-4">
+                        <!-- Service Item -->
+                        <div class="glass-card rounded-2xl p-6 group hover:bg-[#E6E6E6]/5 transition-colors cursor-default">
+                            <div class="flex items-start gap-5">
+                                <div class="mt-1 text-[#FF7441]/60 group-hover:text-[#FF7441] transition-colors">
+                                    <iconify-icon icon="lucide:box" width="24"></iconify-icon>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-[#E6E6E6] mb-2">3D &amp; CGI Advertising</h4>
+                                    <p class="text-sm text-[#E6E6E6]/50 font-light leading-relaxed max-w-lg">
+                                        Hyper-realistic product rendering and VFX integration. I create impossible environments to showcase your product in ways traditional photography cannot.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Item -->
+                        <div class="glass-card rounded-2xl p-6 group hover:bg-[#E6E6E6]/5 transition-colors cursor-default">
+                            <div class="flex items-start gap-5">
+                                <div class="mt-1 text-[#FF7441]/60 group-hover:text-[#FF7441] transition-colors">
+                                    <iconify-icon icon="lucide:film" width="24"></iconify-icon>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-[#E6E6E6] mb-2">Short-Form Video Editing</h4>
+                                    <p class="text-sm text-[#E6E6E6]/50 font-light leading-relaxed max-w-lg">
+                                        High-retention editing for TikTok, Reels, and Shorts. Focusing on pacing, sound design, and motion graphics that maintain viewer attention.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Item -->
+                        <div class="glass-card rounded-2xl p-6 group hover:bg-[#E6E6E6]/5 transition-colors cursor-default">
+                            <div class="flex items-start gap-5">
+                                <div class="mt-1 text-[#FF7441]/60 group-hover:text-[#FF7441] transition-colors">
+                                    <iconify-icon icon="lucide:layers" width="24"></iconify-icon>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-[#E6E6E6] mb-2">Content Strategy</h4>
+                                    <p class="text-sm text-[#E6E6E6]/50 font-light leading-relaxed max-w-lg">
+                                        From ideation to distribution. I help map out a visual language that aligns with your brand identity and marketing goals.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tech Stack Marquee -->
+                <div class="pt-12 overflow-hidden">
+                    <div class="glass-card rounded-2xl p-4 md:p-6 overflow-hidden relative">
+                         <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#121212] via-[#121212]/80 to-transparent z-10"></div>
+                         <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#121212] via-[#121212]/80 to-transparent z-10"></div>
+                         
+                         <div class="flex gap-12 opacity-40 items-center justify-center">
+                            <iconify-icon icon="lucide:monitor" width="24"></iconify-icon>
+                            <iconify-icon icon="simple-icons:blender" width="24"></iconify-icon>
+                            <iconify-icon icon="simple-icons:adobeaftereffects" width="24"></iconify-icon>
+                            <iconify-icon icon="simple-icons:adobepremierepro" width="24"></iconify-icon>
+                            <iconify-icon icon="simple-icons:davinciresolve" width="24"></iconify-icon>
+                            <iconify-icon icon="simple-icons:cinema4d" width="24"></iconify-icon>
+                            <iconify-icon icon="simple-icons:unrealengine" width="24"></iconify-icon>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Contact CTA -->
+                <section id="contact" class="pt-12 pb-8">
+                    <div class="glass-card rounded-3xl p-8 md:p-12 text-center relative overflow-hidden group">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#FF7441] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-700"></div>
+                        
+                        <div class="relative z-10">
+                            <h2 class="text-3xl md:text-4xl font-semibold tracking-tighter text-[#E6E6E6] mb-4">Have an idea?</h2>
+                            <p class="text-[#E6E6E6]/60 font-light mb-8 max-w-md mx-auto">
+                                I'm currently accepting new projects for Q4. Let's create something extraordinary together.
+                            </p>
+                            <a href="mailto:hello@rikaz.com" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#E6E6E6] text-[#0D0D0D] rounded-full text-sm font-semibold hover:scale-105 transition-transform duration-300">
+                                <iconify-icon icon="lucide:mail" width="18"></iconify-icon>
+                                Start a Project
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <footer class="mt-12 flex flex-col md:flex-row justify-between items-center text-xs text-[#E6E6E6]/20 gap-4">
+                        <span>© 2024 Rikaz. All Rights Reserved.</span>
+                        <div class="flex gap-4">
+                            <a href="#" class="hover:text-[#E6E6E6]/60 transition-colors">Imprint</a>
+                            <a href="#" class="hover:text-[#E6E6E6]/60 transition-colors">Privacy</a>
+                        </div>
+                    </footer>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation (Bottom Bar) -->
+    <div class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <div class="glass-card rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl">
+            <a href="#" class="text-[#E6E6E6]/60 hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:home" width="20"></iconify-icon></a>
+            <a href="#featured" class="text-[#E6E6E6]/60 hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:grid" width="20"></iconify-icon></a>
+            <a href="#services" class="text-[#E6E6E6]/60 hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:layers" width="20"></iconify-icon></a>
+            <a href="#contact" class="text-[#E6E6E6]/60 hover:text-[#FF7441] transition-colors"><iconify-icon icon="lucide:mail" width="20"></iconify-icon></a>
+        </div>
+    </div>
+
+</body></html>

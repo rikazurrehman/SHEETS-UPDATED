@@ -8,9 +8,10 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { startPerformanceMonitoring, applyPerformanceOptimizations } from "@/utils/performanceMonitor";
 
-// Lazy load non-critical pages
+// Works page
 const Works = lazy(() => import("./pages/Works"));
-const Resume = lazy(() => import("./pages/Resume"));
+// Resume page removed
+// const Resume = lazy(() => import("./pages/Resume"));
 
 // Loading component
 const PageLoader = () => (
@@ -43,15 +44,15 @@ const App = () => {
       // In development, enable debug logging
       startPerformanceMonitoring(true);
     }
-    
+
     // Apply performance optimizations based on device capabilities
     const isLowEndDevice = applyPerformanceOptimizations();
-    
+
     if (isLowEndDevice) {
       console.log('Low-end device detected. Performance optimizations applied.');
     }
   }, []);
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -62,16 +63,14 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/index" element={<Navigate to="/" replace />} />
+            {/* Works route restored */}
             <Route path="/works" element={
               <Suspense fallback={<PageLoader />}>
                 <Works />
               </Suspense>
             } />
-            <Route path="/resume" element={
-              <Suspense fallback={<PageLoader />}>
-                <Resume />
-              </Suspense>
-            } />
+            {/* Resume route removed as part of theme migration */}
+            <Route path="/resume" element={<Navigate to="/" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

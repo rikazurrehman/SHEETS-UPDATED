@@ -49,7 +49,7 @@ const portfolioData = [
     imageUrl: "/assets/works thamnail/heli.png",
     mediaType: "video",
     mediaUrl: "/assets/works thamnail/heli.png",
-    youtubeId: "Mh9BL_2dcLc", 
+    youtubeId: "Mh9BL_2dcLc",
     tags: ["CGI Inegration", "VFX", "Compositing"],
     tools: ["After Effects", "Blender", "Premiere Pro"],
     highlights: [
@@ -222,29 +222,28 @@ const portfolioData = [
     link: "#",
     comingSoon: false
   },
-  // 3D Modelling
   {
-    id: 10,
-    title: "Architectural Visualization",
-    category: "3D Modelling",
-    shortDescription: "Photorealistic architectural environments",
-    fullDescription: "Developed photorealistic 3D environments for architectural visualization, featuring detailed modeling, realistic materials, and atmospheric lighting. The project demonstrates mastery of environmental modeling and rendering. Experience the interactive 3D model with full 360° rotation, zoom, and pan controls.",
-    imageUrl: "/assets/works thamnail/916Aspect.webp",
-    mediaType: "3d",
-    mediaUrl: "/assets/works thamnail/916Aspect.webp",
-    youtubeId: "lYBUbBu4W08",
-    sketchfabId: "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
-    glbUrl: "/assets/3d-models/helldivers2sg-225-breaker_shotgun.glb",
-    tags: ["Architecture", "Visualization", "Lighting"],
-    tools: ["Blender", "Corona Renderer", "Substance Designer"],
+    id: 25,
+    title: "AIWO Final Diamond Universal Card",
+    category: "Video Production",
+    shortDescription: "A premium video showcase for the AIWO Final Diamond Universal Card.",
+    fullDescription: "Produced a high-quality video presentation for the AIWO Final Diamond Universal Card, featuring elegant visuals and sophisticated motion design to highlight the premium nature of the product.",
+    imageUrl: "https://img.youtube.com/vi/ZpcznpzcJ9k/maxresdefault.jpg",
+    mediaType: "video",
+    mediaUrl: "https://img.youtube.com/vi/ZpcznpzcJ9k/maxresdefault.jpg",
+    youtubeId: "ZpcznpzcJ9k",
+    tags: ["Video Production", "Product Showcase", "Premium"],
+    tools: ["Premiere Pro", "After Effects"],
     highlights: [
-      "Detailed modeling",
-      "Realistic materials",
-      "Environmental lighting"
+      "Premium visual style",
+      "Product focus",
+      "Elegant transitions"
     ],
     link: "#",
     comingSoon: false
   },
+  // 3D Modelling
+
   {
     id: 23,
     title: "3D Product Visualization - Salon Equipment",

@@ -1,20 +1,22 @@
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import Contact from '../components/Contact';
-import Footer from '../components/Footer';
-import GamingAnimation from '../components/GamingAnimation';
+import MainLayout from "@/components/layout/MainLayout";
+import AboutSection from "@/components/sections/AboutSection";
+import Expertise from "@/components/sections/Expertise";
+import ContactSection from "@/components/sections/ContactSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gaming-dark text-white relative">
-      <GamingAnimation />
-      <Navbar />
-      <Hero />
-      <About />
-      <Contact />
-      <Footer />
-    </div>
+    <MainLayout>
+      {/* About Section - Using the consistent layout structure */}
+      <AboutSection />
+
+      {/* Expertise Section */}
+      <div className="pt-20">
+        <Expertise />
+      </div>
+
+      {/* Contact Section */}
+      <ContactSection />
+    </MainLayout>
   );
 };
 
