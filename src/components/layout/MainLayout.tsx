@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import MobileNav from '@/components/sections/MobileNav';
 import ProfileSidebar from '@/components/sections/ProfileSidebar';
+import Footer from './Footer';
 
 interface MainLayoutProps {
     children: ReactNode;
@@ -25,6 +26,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                     {/* RIGHT COLUMN: Scrollable Content */}
                     <main className="lg:col-span-7 xl:col-span-8 space-y-6 relative z-10 pb-20">
                         {children}
+                        <Footer />
                     </main>
 
                 </div>

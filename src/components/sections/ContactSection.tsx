@@ -137,14 +137,6 @@ const ContactSection = () => {
                     )}
                 </div>
             </div>
-
-            <footer className="mt-20 flex flex-col md:flex-row justify-between items-center text-xs text-[#E6E6E6]/20 gap-4 border-t border-[#E6E6E6]/5 pt-8">
-                <span>© 2026 Rikaz. All Rights Reserved.</span>
-                <div className="flex gap-6">
-                    <a href="#" className="hover:text-[#E6E6E6]/60 transition-colors">Imprint</a>
-                    <a href="#" className="hover:text-[#E6E6E6]/60 transition-colors">Privacy</a>
-                </div>
-            </footer>
         </section>
     );
 };

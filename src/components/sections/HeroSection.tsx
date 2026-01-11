@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import { RevealOnScroll } from '../ui/RevealOnScroll';
 
 const HeroSection = () => {
     // Defines brands for the footer strip
@@ -20,39 +21,50 @@ const HeroSection = () => {
             <div className="container mx-auto max-w-[1400px] w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10 px-6 mb-20">
                 {/* Text Content */}
                 <div className="flex flex-col gap-8 text-left order-2 lg:order-1">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E6E6E6]/10 bg-[#E6E6E6]/5 w-fit backdrop-blur-sm">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span className="text-xs font-medium text-[#E6E6E6]/80 tracking-wide uppercase">Available for Q4 Projects</span>
-                    </div>
+                    <RevealOnScroll delay={0.1}>
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#E6E6E6]/10 bg-[#E6E6E6]/5 w-fit backdrop-blur-sm">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span className="text-xs font-medium text-[#E6E6E6]/80 tracking-wide uppercase">Available for Q4 Projects</span>
+                        </div>
+                    </RevealOnScroll>
 
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter text-[#E6E6E6] leading-[1.05]">
-                        Crafting <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7441] to-[#FF9D7E]">Digital Reality</span>
-                    </h1>
+                    <RevealOnScroll delay={0.2}>
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter text-[#E6E6E6] leading-[1.05]">
+                            Crafting <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7441] to-[#FF9D7E]">Digital Reality</span>
+                        </h1>
+                    </RevealOnScroll>
 
-                    <p className="text-lg md:text-xl text-[#E6E6E6]/70 max-w-xl font-light leading-relaxed">
-                        I'm Rikaz, a CGI Artist & Social Media Specialist. I create scroll-stopping visual experiences for brands that demand attention.
-                    </p>
+                    <RevealOnScroll delay={0.3}>
+                        <p className="text-lg md:text-xl text-[#E6E6E6]/70 max-w-xl font-light leading-relaxed">
+                            I'm Rikaz, a CGI Artist & Social Media Specialist. I create scroll-stopping visual experiences for brands that demand attention.
+                        </p>
+                    </RevealOnScroll>
 
-                    <div className="flex flex-wrap items-center gap-4 mt-2">
-                        <a href="#contact" className="px-8 py-4 bg-[#FF7441] hover:bg-[#FF7441]/90 text-[#0D0D0D] rounded-full text-sm font-bold flex items-center gap-2 transition-all hover:scale-105 group shadow-[0_0_20px_rgba(255,116,65,0.2)]">
-                            GET A STRATEGY CALL <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </a>
-                        <a href="/works" className="px-8 py-4 bg-transparent border border-[#E6E6E6]/20 text-[#E6E6E6] hover:bg-[#E6E6E6]/5 rounded-full text-sm font-semibold transition-all hover:border-[#E6E6E6]/40">
-                            VIEW SHOWREEL
-                        </a>
-                    </div>
+                    <RevealOnScroll delay={0.4}>
+                        <div className="flex flex-wrap items-center gap-4 mt-2">
+                            <a href="#contact" className="px-8 py-4 bg-[#FF7441] hover:bg-[#FF7441]/90 text-[#0D0D0D] rounded-full text-sm font-bold flex items-center gap-2 transition-all hover:scale-105 group shadow-[0_0_20px_rgba(255,116,65,0.2)]">
+                                GET A STRATEGY CALL <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </a>
+                            <a href="/works" className="px-8 py-4 bg-transparent border border-[#E6E6E6]/20 text-[#E6E6E6] hover:bg-[#E6E6E6]/5 rounded-full text-sm font-semibold transition-all hover:border-[#E6E6E6]/40">
+                                VIEW SHOWREEL
+                            </a>
+                        </div>
+                    </RevealOnScroll>
                 </div>
 
                 {/* Hero Reel / Visual */}
+                {/* Hero Reel / Visual */}
                 <div className="relative order-1 lg:order-2 flex justify-center lg:justify-end">
-                    {/* Image UI Only - Removed Video UI/Overlays as requested */}
-                    <div className="relative w-full max-w-[600px] aspect-[4/3] md:aspect-video lg:aspect-[4/3] rounded-[2rem] overflow-hidden glass-card border-none shadow-2xl group transition-transform duration-500 bg-[#0D0D0D]">
-                        {/* Video Background/Image */}
-                        <div className="absolute inset-0 bg-[#1A1A1A]">
-                            <img src="/assets/DSC09562 (3).png" alt="Profile" className="w-full h-full object-cover opacity-90 transition-opacity duration-500" />
+                    <RevealOnScroll delay={0.5} direction="left">
+                        {/* Image UI Only - Removed Video UI/Overlays as requested */}
+                        <div className="relative w-full max-w-[600px] aspect-[4/3] md:aspect-video lg:aspect-[4/3] rounded-[2rem] overflow-hidden glass-card border-none shadow-2xl group transition-transform duration-500 bg-[#0D0D0D]">
+                            {/* Video Background/Image */}
+                            <div className="absolute inset-0 bg-[#1A1A1A]">
+                                <img src="/assets/DSC09562 (3).png" alt="Profile" className="w-full h-full object-cover opacity-90 transition-opacity duration-500" />
+                            </div>
                         </div>
-                    </div>
+                    </RevealOnScroll>
                 </div>
             </div>
 

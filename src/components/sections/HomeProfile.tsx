@@ -44,7 +44,7 @@ const HomeProfile = () => {
             {/* Navigation - Centered for Home */}
             <nav className="flex items-center gap-6 pt-4">
                 <Link to="/" className="text-[#E6E6E6] font-medium border-b border-[#FF7441]">About</Link>
-                <Link to="/works" className="text-[#E6E6E6]/60 hover:text-[#E6E6E6] transition-colors">Selected Work</Link>
+                <Link to="/works" className="text-[#E6E6E6]/60 hover:text-[#E6E6E6] transition-colors">Works</Link>
                 <a href="#contact" className="text-[#E6E6E6]/60 hover:text-[#E6E6E6] transition-colors">Contact</a>
             </nav>
 

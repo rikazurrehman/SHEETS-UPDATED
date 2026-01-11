@@ -41,7 +41,7 @@ const ProfileSidebar = () => {
                 </Link>
                 <Link to="/works" className="group flex items-center space-x-3 text-[#E6E6E6]/60 hover:text-[#E6E6E6] transition-colors">
                     <span className="w-8 h-[1px] bg-[#E6E6E6]/20 group-hover:bg-[#FF7441] transition-colors"></span>
-                    <span className="text-sm font-medium uppercase tracking-widest">Selected Work</span>
+                    <span className="text-sm font-medium uppercase tracking-widest">Works</span>
                 </Link>
                 <a href="/#contact" className="group flex items-center space-x-3 text-[#E6E6E6]/60 hover:text-[#E6E6E6] transition-colors">
                     <span className="w-8 h-[1px] bg-[#E6E6E6]/20 group-hover:bg-[#FF7441] transition-colors"></span>
