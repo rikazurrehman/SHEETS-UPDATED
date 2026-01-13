@@ -272,7 +272,7 @@ const portfolioData = [
    category: "AI Video / Digital Campaign",
    shortDescription: "AI-generated festive reel created for an Onam Reels Contest campaign",
    fullDescription: "Created a high-impact Onam Reels Contest video using an AI-driven creative workflow combined with the Adobe Suite. The project involved concept ideation, AI-assisted visuals, motion design, and professional post-production to deliver a festive, engaging reel optimized for social media performance. This work showcases the integration of AI tools with traditional editing pipelines for modern digital campaigns.",
-   imageUrl: "/assets/works thamnail/onam.png",
+   imageUrl: "/assets/works thamnail/aivideo.png",
    mediaType: "video",
    mediaUrl: "https://youtu.be/OGpqdCqqxqg",
    youtubeId: "OGpqdCqqxqg",
