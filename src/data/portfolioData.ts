@@ -224,10 +224,10 @@ const portfolioData = [
   },
   {
     id: 25,
-    title: "AIWO Final Diamond Universal Card",
+    title: "Diamond Universal Card - Reveal",
     category: "Video Production",
-    shortDescription: "A premium video showcase for the AIWO Final Diamond Universal Card.",
-    fullDescription: "Produced a high-quality video presentation for the AIWO Final Diamond Universal Card, featuring elegant visuals and sophisticated motion design to highlight the premium nature of the product.",
+    shortDescription: "A premium video showcase for the AIWO Diamond Universal Card made for the AIWO event reveal.",
+    fullDescription: "Produced a high-quality video presentation for the Diamond Universal Card, featuring elegant visuals and sophisticated motion design to highlight the premium nature of the product.",
     imageUrl: "https://img.youtube.com/vi/ZpcznpzcJ9k/maxresdefault.jpg",
     mediaType: "video",
     mediaUrl: "https://img.youtube.com/vi/ZpcznpzcJ9k/maxresdefault.jpg",
