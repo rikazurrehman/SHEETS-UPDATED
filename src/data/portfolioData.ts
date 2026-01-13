@@ -268,23 +268,23 @@ const portfolioData = [
   },
   {
    id: 24,
-  title: "Onam Reels Contest – AI Powered Campaign",
-  category: "AI Video / Digital Campaign",
-  shortDescription: "AI-generated festive reel created for an Onam Reels Contest campaign",
-  fullDescription: "Created a high-impact Onam Reels Contest video using an AI-driven creative workflow combined with the Adobe Suite. The project involved concept ideation, AI-assisted visuals, motion design, and professional post-production to deliver a festive, engaging reel optimized for social media performance. This work showcases the integration of AI tools with traditional editing pipelines for modern digital campaigns.",
-  imageUrl: "/assets/works thamnail/onam.png",
-  mediaType: "video",
-  mediaUrl: "https://youtu.be/OGpqdCqqxqg",
-  youtubeId: "OGpqdCqqxqg",
-  tags: ["AI Video", "Reels Campaign", "Festive Marketing", "Onam", "Social Media"],
-  tools: ["Adobe After Effects", "Adobe Premiere Pro", "AI Generative Tools"],
-  highlights: [
-    "AI-assisted creative workflow",
-    "Festive Onam-themed storytelling",
-    "Optimized for Instagram Reels & Shorts"
-  ],
-  link: "https://youtu.be/OGpqdCqqxqg",
-  comingSoon: false
+   title: "Onam Reels Contest – AI Powered Campaign",
+   category: "AI Video / Digital Campaign",
+   shortDescription: "AI-generated festive reel created for an Onam Reels Contest campaign",
+   fullDescription: "Created a high-impact Onam Reels Contest video using an AI-driven creative workflow combined with the Adobe Suite. The project involved concept ideation, AI-assisted visuals, motion design, and professional post-production to deliver a festive, engaging reel optimized for social media performance. This work showcases the integration of AI tools with traditional editing pipelines for modern digital campaigns.",
+   imageUrl: "/assets/works thamnail/onam.png",
+   mediaType: "video",
+   mediaUrl: "https://youtu.be/OGpqdCqqxqg",
+   youtubeId: "OGpqdCqqxqg",
+   tags: ["AI Video", "Reels Campaign", "Festive Marketing", "Onam", "Social Media"],
+   tools: ["Adobe After Effects", "Adobe Premiere Pro", "AI Generative Tools"],
+   highlights: [
+     "AI-assisted creative workflow",
+     "Festive Onam-themed storytelling",
+     "Optimized for Instagram Reels & Shorts"
+   ],
+   link: "https://youtu.be/OGpqdCqqxqg",
+   comingSoon: false
   },
 
   // AI Concepts
